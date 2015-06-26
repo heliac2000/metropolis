@@ -1,0 +1,15 @@
+main
+*~
+\#*
+\.\#*
+TAGS
+*.gob
+data/*
+metropolis*
+*.log
+*.dat
+*.pdf
+*.csv
+log*
+output_data
+functions.test
