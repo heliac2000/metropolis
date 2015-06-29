@@ -47,7 +47,7 @@ const (
 	Npower int = 7
 
 	// Radius to get rid of duplicated points
-	epsilon float64 = 0.5
+	Epsilon float64 = 0.5
 )
 
 // Global variables
