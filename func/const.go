@@ -14,6 +14,9 @@ const (
 	// Temperature in kelvin.
 	Temp float64 = 275
 
+	// For parallel tempering
+	Nparallel int = len(TempS)
+
 	// Boltzmann ant in eV K-1
 	KB float64 = 1.38e-23 / 1.60e-19
 
@@ -41,12 +44,18 @@ const (
 	// Parameters for binomial random variable generation
 
 	// How far to extend the occupied cells when computing extension set
-	Npower int = 15
+	Npower int = 7
+
+	// Radius to get rid of duplicated points
+	epsilon float64 = 0.5
 )
 
 // Global variables
 //
 var (
 	// Number of Concurrency
-	NumConcurrency = runtime.NumCPU()
+	NumConcurrency int = runtime.NumCPU()
+
+	// For parallel tempering
+	TempS []int = []int{170, 169, 168, 167, 166, 165, 164, 163, 162, 161, 160}
 )
