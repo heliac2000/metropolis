@@ -14,9 +14,6 @@ const (
 	// Temperature in kelvin.
 	Temp float64 = 275
 
-	// For parallel tempering
-	Nparallel int = len(TempS)
-
 	// Boltzmann ant in eV K-1
 	KB float64 = 1.38e-23 / 1.60e-19
 
@@ -58,4 +55,7 @@ var (
 
 	// For parallel tempering
 	TempS []int = []int{170, 169, 168, 167, 166, 165, 164, 163, 162, 161, 160}
+
+	// For parallel tempering
+	Nparallel int = len(TempS)
 )
