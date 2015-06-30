@@ -13,12 +13,13 @@ func Create2DimArray(r, c int) [][]int {
 }
 
 func Create2DimArrayFloat(r, c int, cap ...int) [][]float64 {
-	if len(cap) > 0 {
-		arr := make([][]float64, r, cap[0])
-	} else {
-		arr := make([][]float64, r)
-	}
+	var arr [][]float64
 
+	if len(cap) > 0 {
+		arr = make([][]float64, r, cap[0])
+	} else {
+		arr = make([][]float64, r)
+	}
 	for i := 0; i < r; i++ {
 		arr[i] = make([]float64, c)
 	}
