@@ -13,7 +13,7 @@ import (
 
 // Load data from a CSV file
 //
-func LoadFromCsvFileFloat(fname string) []float64 {
+func LoadFromCsvFileFloat(fname string, sep rune) []float64 {
 	csvfile, err := os.Open(fname)
 	if err != nil {
 		fmt.Println(err)
@@ -22,6 +22,7 @@ func LoadFromCsvFileFloat(fname string) []float64 {
 	defer csvfile.Close()
 
 	reader := csv.NewReader(csvfile)
+	reader.Comma = sep
 	reader.FieldsPerRecord = -1
 	rawCSVdata, err := reader.ReadAll()
 	if err != nil {
@@ -44,7 +45,7 @@ func LoadFromCsvFileFloat(fname string) []float64 {
 
 // Load data from a CSV file, return 2-dim array
 //
-func LoadFromCsvFile2DimFloat(fname string) [][]float64 {
+func LoadFromCsvFile2DimFloat(fname string, sep rune) [][]float64 {
 	csvfile, err := os.Open(fname)
 	if err != nil {
 		fmt.Println(err)
@@ -53,6 +54,8 @@ func LoadFromCsvFile2DimFloat(fname string) [][]float64 {
 	defer csvfile.Close()
 
 	reader := csv.NewReader(csvfile)
+	reader.Comma = sep
+	reader.FieldsPerRecord = -1
 
 	ret := make([][]float64, 0, 1000)
 	var rr []float64
