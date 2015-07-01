@@ -17,6 +17,21 @@ func Create2DimArray(r, c int, cap ...int) [][]float64 {
 	return arr
 }
 
+func Create2DimArrayInt(r, c int, cap ...int) [][]int {
+	var arr [][]int
+
+	if len(cap) > 0 {
+		arr = make([][]int, r, cap[0])
+	} else {
+		arr = make([][]int, r)
+	}
+	for i := 0; i < r; i++ {
+		arr[i] = make([]int, c)
+	}
+
+	return arr
+}
+
 // Copy 2-dim array
 //
 func Copy2DimArray(src [][]float64) [][]float64 {
@@ -26,17 +41,5 @@ func Copy2DimArray(src [][]float64) [][]float64 {
 		dst[i] = make([]float64, c, cap(src[i]))
 		copy(dst[i], src[i])
 	}
-	return dst
-}
-
-// Copy list(3-dim array)
-//
-func CopyList(src [][][]int) [][][]int {
-	l := len(src)
-	dst := make([][][]int, l, cap(src))
-	for i := 0; i < l; i++ {
-		dst[i] = Copy2DimArray(src[i])
-	}
-
 	return dst
 }
