@@ -72,33 +72,3 @@ func LoadFromCsvFile2Dim(fname string, sep rune) [][]float64 {
 
 	return ret
 }
-
-// Load data from a CSV file, return list
-//
-func LoadFromCsvFileList(fname string) [][][]int {
-	csvfile, err := os.Open(fname)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-	defer csvfile.Close()
-
-	reader := csv.NewReader(csvfile)
-	reader.FieldsPerRecord = -1
-
-	ret := make([][][]int, 0, 1000)
-	for f, err := reader.Read(); err == nil; f, err = reader.Read() {
-		nrow, _ := strconv.Atoi(f[0])
-		ncol, _ := strconv.Atoi(f[1])
-		mat := Create2DimArrayInt(nrow, ncol)
-		for c, n := 0, 2; c < ncol; c++ {
-			for r := 0; r < nrow; r++ {
-				v, _ := strconv.Atoi(f[n])
-				mat[r][c], n = v, n+1
-			}
-		}
-		ret = append(ret, mat)
-	}
-
-	return ret
-}
