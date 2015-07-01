@@ -46,7 +46,7 @@ func LatticeGen(UnitCell, LatticeVectors [][]float64) ([][]float64, []int) {
 	}
 
 	// Matrix of lattice coordinates
-	Out, Remv := MatrixTidy(LatticeCoords)
+	Lattice, Remv := MatrixTidy(LatticeCoords)
 	char := make([]int, 0, len(Character))
 	for i := 0; i < len(Character); i++ {
 		if Remv[i] == 0 {
@@ -54,5 +54,5 @@ func LatticeGen(UnitCell, LatticeVectors [][]float64) ([][]float64, []int) {
 		}
 	}
 
-	return Out, char
+	return Lattice, char
 }
