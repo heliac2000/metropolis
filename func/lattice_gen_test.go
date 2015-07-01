@@ -17,11 +17,11 @@ type testCasesLatticeGen struct {
 func TestLatticeGen(t *testing.T) {
 	testCases := []testCasesLatticeGen{
 		{
-			UC: LoadFromCsvFile2DimFloat("./data/PrecursorUnitCell.csv", ' '),
-			LV: LoadFromCsvFile2DimFloat("./data/PrecursorUnitCellAxes.csv", ','),
+			UC: LoadFromCsvFile2Dim("./data/PrecursorUnitCell.csv", ' '),
+			LV: LoadFromCsvFile2Dim("./data/PrecursorUnitCellAxes.csv", ','),
 			//
 			// [R] write.table(Lattice, file="lattice.csv", sep=",", row.names=FALSE, col.names=FALSE)
-			Lattice:   LoadFromCsvFile2DimFloat("./data/lattice.csv", ','),
+			Lattice:   LoadFromCsvFile2Dim("./data/lattice.csv", ','),
 			Character: []int{0, 0, 1},
 		},
 	}

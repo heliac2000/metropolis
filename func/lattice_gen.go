@@ -13,7 +13,7 @@ func LatticeGen(UnitCell, LatticeVectors [][]float64) ([][]float64, []int) {
 	nlp := len(UnitCell)
 
 	// Generate the coordinates of the lattice from the unit cell
-	LatticeCoords := Create2DimArrayFloat(nlp, 2, (nlp+1)*Nrepeat*Nrepeat/4)
+	LatticeCoords := Create2DimArray(nlp, 2, (nlp+1)*Nrepeat*Nrepeat/4)
 
 	// horizontal/vertical coordinate
 	for k := 0; k < nlp; k++ {
@@ -27,10 +27,10 @@ func LatticeGen(UnitCell, LatticeVectors [][]float64) ([][]float64, []int) {
 	}
 
 	avec, bvec := LatticeVectors[0], LatticeVectors[1]
-	UnitCellC := Copy2DimArrayFloat(LatticeCoords)
+	UnitCellC := Copy2DimArray(LatticeCoords)
 	for k := 0; k < Nrepeat/2; k++ {
 		for j := 0; j < Nrepeat/2; j++ {
-			LatticeTemp := Copy2DimArrayFloat(UnitCellC)
+			LatticeTemp := Copy2DimArray(UnitCellC)
 			for h := 0; h < nlp; h++ {
 				LatticeTemp[h][0] += float64(k)*avec[0] + float64(j)*bvec[0]
 				LatticeTemp[h][1] += float64(k)*avec[1] + float64(j)*bvec[1]
