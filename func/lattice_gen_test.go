@@ -2,6 +2,7 @@ package functions_test
 
 import (
 	"math"
+	"reflect"
 	"testing"
 
 	. "../util"
@@ -21,8 +22,11 @@ func TestLatticeGen(t *testing.T) {
 			LV: LoadFromCsvFile2Dim("./data/PrecursorUnitCellAxes.csv", ','),
 			//
 			// [R] write.table(Lattice, file="lattice.csv", sep=",", row.names=FALSE, col.names=FALSE)
-			Lattice:   LoadFromCsvFile2Dim("./data/lattice.csv", ','),
-			Character: []int{0, 0, 1},
+			Lattice: LoadFromCsvFile2Dim("./data/lattice.csv", ','),
+			//
+			// [R] cc = LatticeGen(UnitCell, LatticeVectors)[[2]]
+			//     write.table(Lattice, file="character.dat", row.names=FALSE, col.names=FALSE)
+			Character: LoadFromCsvFileInt("./data/character.dat"),
 		},
 	}
 
@@ -39,6 +43,11 @@ func TestLatticeGen(t *testing.T) {
 					return
 				}
 			}
+		}
+
+		if !reflect.DeepEqual(char, l.Character) {
+			t.Errorf("\ngot  %v\nwant %v", char, l.Character)
+			return
 		}
 	}
 }

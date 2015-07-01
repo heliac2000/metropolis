@@ -21,10 +21,15 @@ func LatticeGen(UnitCell, LatticeVectors [][]float64) ([][]float64, []int) {
 	}
 
 	// Specify which unit cell point the lattice point corresponds to
-	Character := make([]int, nlp, (nlp+1)*Nrepeat*Nrepeat/4)
-	for i := 0; i < nlp; i++ {
-		Character[i] = i + 1
-	}
+	Character := make([]int, 0, (nlp+1)*Nrepeat*Nrepeat/4)
+	seq := func(n int) []int {
+		seq := make([]int, n)
+		for i := 0; i < n; i++ {
+			seq[i] = i + 1
+		}
+		return seq
+	}(nlp)
+	Character = append(Character, seq...)
 
 	avec, bvec := LatticeVectors[0], LatticeVectors[1]
 	UnitCellC := Copy2DimArray(LatticeCoords)
@@ -36,14 +41,18 @@ func LatticeGen(UnitCell, LatticeVectors [][]float64) ([][]float64, []int) {
 				LatticeTemp[h][1] += float64(k)*avec[1] + float64(j)*bvec[1]
 			}
 			LatticeCoords = append(LatticeCoords, LatticeTemp...)
-			for i := 0; i < nlp; i++ {
-				Character = append(Character, i+1)
-			}
+			Character = append(Character, seq...)
 		}
 	}
 
 	// Matrix of lattice coordinates
 	Out, Remv := MatrixTidy(LatticeCoords)
+	char := make([]int, 0, len(Character))
+	for i := 0; i < len(Character); i++ {
+		if Remv[i] == 0 {
+			char = append(char, Character[i])
+		}
+	}
 
-	return Out, Remv
+	return Out, char
 }
