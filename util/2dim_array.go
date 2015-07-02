@@ -24,12 +24,17 @@ func Create2DimArray(t interface{}, r, c int, cap ...int) interface{} {
 
 // Copy 2-dim array
 //
-func Copy2DimArray(src [][]float64) [][]float64 {
-	r, c := len(src), len(src[0])
-	dst := make([][]float64, r, cap(src))
+func Copy2DimArray(src interface{}) interface{} {
+	v := reflect.ValueOf(src)
+	r, c := v.Len(), v.Index(0).Len()
+	ts := reflect.SliceOf(v.Index(0).Index(0).Type())
+	ts2 := reflect.SliceOf(ts)
+
+	dst := reflect.MakeSlice(ts2, r, r)
 	for i := 0; i < r; i++ {
-		dst[i] = make([]float64, c, cap(src[i]))
-		copy(dst[i], src[i])
+		dst.Index(i).Set(reflect.MakeSlice(ts, c, c))
+		reflect.Copy(dst.Index(i), v.Index(i))
 	}
-	return dst
+
+	return dst.Interface()
 }
