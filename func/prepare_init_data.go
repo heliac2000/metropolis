@@ -13,13 +13,8 @@ func PrepareInitData(ucFile, lvFile string) {
 	Lattice, Character := LatticeGen(UnitCell, LatticeVectors)
 
 	for i := 0; i < len(Character); i++ {
-		switch Character[i] {
-		case 1:
-			Character[i] = 7
-		case 2:
-			Character[i] = 6
-		case 3:
-			Character[i] = 5
+		if Character[i] >= 1 && Character[i] <= 3 {
+			Character[i] = 8 - Character[i]
 		}
 	}
 
@@ -33,15 +28,14 @@ func PrepareInitData(ucFile, lvFile string) {
 
 	// Label the unit cell points
 	nUC := len(wh4)
-	UnitCellCoords := Create2DimArray(nUC, 2)
+	UnitCellCoords := Create2DimArray(float64(0), nUC, 2).([][]float64)
 	for k := 0; k < nUC; k++ {
 		copy(UnitCellCoords[k], Lattice[wh4[k]])
 	}
 
 	//Adj := Create2DimArray(nUC, nUC)
 	avec, bvec := LatticeVectors[0], LatticeVectors[1]
-	Moves := Create2DimArray(4, 2)
-
+	Moves := Create2DimArray(float64(0), 4, 2).([][]float64)
 	for j := 0; j < nUC; j++ {
 		for i := 0; i < 4; i++ {
 			copy(Moves[i], UnitCellCoords[j])

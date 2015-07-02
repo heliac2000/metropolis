@@ -1,20 +1,25 @@
 package util
 
+import "reflect"
+
 // Create 2-dim array
 //
-func Create2DimArray(r, c int, cap ...int) [][]float64 {
-	var arr [][]float64
+func Create2DimArray(t interface{}, r, c int, cap ...int) interface{} {
+	var arr reflect.Value
 
+	ts := reflect.SliceOf(reflect.ValueOf(t).Type())
+	ts2 := reflect.SliceOf(ts)
 	if len(cap) > 0 {
-		arr = make([][]float64, r, cap[0])
+		arr = reflect.MakeSlice(ts2, r, cap[0])
 	} else {
-		arr = make([][]float64, r)
-	}
-	for i := 0; i < r; i++ {
-		arr[i] = make([]float64, c)
+		arr = reflect.MakeSlice(ts2, r, r)
 	}
 
-	return arr
+	for i := 0; i < r; i++ {
+		arr.Index(i).Set(reflect.MakeSlice(ts, c, c))
+	}
+
+	return arr.Interface()
 }
 
 // Copy 2-dim array
