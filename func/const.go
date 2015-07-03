@@ -12,7 +12,7 @@ const (
 	Nuc int = 25
 
 	// Temperature in kelvin.
-	Temp float64 = 275
+	Temp float64 = 150
 
 	// Boltzmann ant in eV K-1
 	KB float64 = 1.38e-23 / 1.60e-19
@@ -41,7 +41,15 @@ const (
 	// Parameters for binomial random variable generation
 
 	// How far to extend the occupied cells when computing extension set
-	Npower int = 7
+	Npower int = 5
+
+	// How much unit cell radius to exclude about each occupied point
+	Nexclude int = 3
+
+	// Parameters for repulsive part of interaction
+
+	// Minimum distance that two atoms by be in before touching repulsive wall
+	Mcut float64 = 1.5
 
 	// Radius to get rid of duplicated points
 	Epsilon float64 = 0.5
@@ -54,7 +62,7 @@ var (
 	NumConcurrency int = runtime.NumCPU()
 
 	// For parallel tempering
-	TempS []int = []int{170, 169, 168, 167, 166, 165, 164, 163, 162, 161, 160}
+	TempS []int = []int{100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200}
 
 	// For parallel tempering
 	Nparallel int = len(TempS)
