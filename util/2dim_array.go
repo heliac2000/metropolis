@@ -38,3 +38,14 @@ func Copy2DimArray(src interface{}) interface{} {
 
 	return dst.Interface()
 }
+
+// Copy vector
+//
+func CopyVector(src interface{}) interface{} {
+	v := reflect.ValueOf(src)
+	dst := reflect.MakeSlice(v.Type(), v.Len(), v.Len())
+
+	reflect.Copy(dst, v)
+
+	return dst.Interface()
+}
