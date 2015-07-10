@@ -390,6 +390,23 @@ func (node *annkdLeaf) AnnSearch(boxDist float64) {
 }
 
 //
+// FNN/src/kd_util.cpp: ANNdist annBoxDistance()
+//
+func annBoxDistance(q, lo, hi []float64, dim int) float64 {
+	dist := 0.0
+	for d, t := 0, 0.0; d < dim; d++ {
+		if q[d] < lo[d] {
+			t = lo[d] - q[d]
+		} else if q[d] > hi[d] {
+			t = q[d] - hi[d]
+		}
+		dist += t * t
+	}
+
+	return dist
+}
+
+//
 // FNN/src/pr_queue_k.h: ANNmin_k::ANNmin_k()
 //
 func newAnnMinK(max int) *annMinK {
@@ -435,21 +452,4 @@ func (mink *annMinK) insert(kv float64, inf int) {
 	}
 
 	return
-}
-
-//
-// FNN/src/kd_util.cpp: ANNdist annBoxDistance()
-//
-func annBoxDistance(q, lo, hi []float64, dim int) float64 {
-	dist := 0.0
-	for d, t := 0, 0.0; d < dim; d++ {
-		if q[d] < lo[d] {
-			t = lo[d] - q[d]
-		} else if q[d] > hi[d] {
-			t = q[d] - hi[d]
-		}
-		dist += t * t
-	}
-
-	return dist
 }
