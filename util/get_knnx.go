@@ -302,11 +302,10 @@ type annMinK struct {
 // FNN/src/kd_search.cpp: global variables
 //
 var (
-	annKdDim      int
-	annKdQ        []float64
-	annKdPts      [][]float64
-	annKdPointMK  *annMinK
-	annPtsVisited int
+	annKdDim     int
+	annKdQ       []float64
+	annKdPts     [][]float64
+	annKdPointMK *annMinK
 )
 
 //
@@ -316,7 +315,6 @@ func annkSearch(tree *annkdTree, q []float64, k int) ([]float64, []int) {
 	annKdDim = tree.dim
 	annKdQ = q
 	annKdPts = tree.pts
-	annPtsVisited = 0
 
 	if k > tree.nPts {
 		log.Fatalln("Requesting more near neighbors than data points")
@@ -387,8 +385,6 @@ func (node *annkdLeaf) AnnSearch(boxDist float64) {
 			minDist = annKdPointMK.maxKey()
 		}
 	}
-
-	annPtsVisited += node.nPts
 
 	return
 }
