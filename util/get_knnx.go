@@ -264,8 +264,7 @@ func annPlaneSplit(pa [][]float64, pidx []int, n, d int, cv float64) (int, int) 
 			break
 		}
 		pidx[l], pidx[r] = pidx[r], pidx[l]
-		l++
-		r--
+		l, r = l+1, r-1
 	}
 
 	br1, r := l, n-1
@@ -280,8 +279,7 @@ func annPlaneSplit(pa [][]float64, pidx []int, n, d int, cv float64) (int, int) 
 			break
 		}
 		pidx[l], pidx[r] = pidx[r], pidx[l]
-		l++
-		r--
+		l, r = l+1, r-1
 	}
 
 	return br1, l
