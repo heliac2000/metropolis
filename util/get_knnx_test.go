@@ -27,7 +27,9 @@ func TestGetKnnx(t *testing.T) {
 			data:  LoadFromCsvFile2Dim("./data/UnitCellCoords.csv", ','),
 			query: LoadFromCsvFile2Dim("./data/Moves.csv", ','),
 			k:     1,
-			index: [][]int{{625}, {600}, {600}, {624}},
+			//
+			// R では [625, 600, 600, 624] となる(R は 1-base であるため)
+			index: [][]int{{624}, {599}, {599}, {623}},
 			dist: [][]float64{
 				{2.518109000000002595243e+00}, {3.552713678800500929356e-15},
 				{2.519199334913579502171e+00}, {7.105427357601001858711e-15},

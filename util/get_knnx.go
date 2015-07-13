@@ -12,7 +12,6 @@
 package util
 
 import (
-	"fmt"
 	"log"
 	"math"
 	"reflect"
@@ -70,12 +69,11 @@ func getKNNXkd(data, query [][]float64, K int) ([][]float64, [][]int) {
 	m := len(query)
 	nn_dist := Create2DimArray(float64(0), m, K).([][]float64)
 	nn_idx := Create2DimArray(int(0), m, K).([][]int)
-	fmt.Println()
 	for i := 0; i < m; i++ {
 		dist, index := annkSearch(tree, query[i], K)
 		for j := 0; j < K; j++ {
 			nn_dist[i][j] = math.Sqrt(dist[j])
-			nn_idx[i][j] = index[j] + 1
+			nn_idx[i][j] = index[j]
 		}
 	}
 
