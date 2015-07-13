@@ -44,3 +44,17 @@ func MatrixMultiply(A, B [][]int) [][]int {
 
 	return C
 }
+
+// Add B to A
+//
+func MatrixAdd(A, B [][]int) [][]int {
+	r, c := len(A), len(A[0])
+
+	for i := 0; i < r; i++ {
+		for j := 0; j < c; j++ {
+			A[i][j] += B[i][j]
+		}
+	}
+
+	return A
+}
