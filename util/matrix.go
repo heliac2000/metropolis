@@ -1,5 +1,7 @@
 package util
 
+import "sync"
+
 // Transpose
 //
 func Transpose(m [][]float64) [][]float64 {
@@ -17,4 +19,28 @@ func Transpose(m [][]float64) [][]float64 {
 	}
 
 	return t
+}
+
+// Multiply matrix A and B
+//
+func MatrixMultiply(A, B [][]int) [][]int {
+	r_A, c_A, c_B := len(A), len(A[0]), len(B[0])
+
+	C := Create2DimArray(int(0), r_A, c_B).([][]int)
+
+	var wg sync.WaitGroup
+	wg.Add(r_A)
+	for i := 0; i < r_A; i++ {
+		go func(i int) {
+			defer wg.Done()
+			for j := 0; j < c_A; j++ {
+				for k := 0; k < c_A; k++ {
+					C[i][j] += A[i][k] * B[k][j]
+				}
+			}
+		}(i)
+	}
+	wg.Wait()
+
+	return C
 }
