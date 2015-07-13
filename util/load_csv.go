@@ -73,6 +73,34 @@ func LoadFromCsvFile2Dim(fname string, sep rune) [][]float64 {
 	return ret
 }
 
+func LoadFromCsvFile2DimInt(fname string, sep rune) [][]int {
+	csvfile, err := os.Open(fname)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	defer csvfile.Close()
+
+	reader := csv.NewReader(csvfile)
+	reader.Comma = sep
+	reader.FieldsPerRecord = -1
+
+	ret := make([][]int, 0, 1000)
+	var rr []int
+	for r, err := reader.Read(); err == nil; r, err = reader.Read() {
+		rr = make([]int, 0, len(r))
+		for _, v := range r {
+			n, err := strconv.Atoi(v)
+			if err == nil {
+				rr = append(rr, n)
+			}
+		}
+		ret = append(ret, rr)
+	}
+
+	return ret
+}
+
 // Load data from a CSV file
 //
 func LoadFromCsvFileInt(fname string) []int {
