@@ -14,6 +14,8 @@ type testCasesSurrAdj struct {
 	expected []int
 }
 
+var AdjCuml [][][]int = LoadFromCsvFileList("./data/AdjCuml.csv")
+
 func TestSurrAdj(t *testing.T) {
 	testCases := []testCasesSurrAdj{
 		{
@@ -40,9 +42,45 @@ func TestSurrAdj(t *testing.T) {
 		},
 	}
 
-	AdjCuml := LoadFromCsvFileList("./data/AdjCuml.csv")
 	for _, tc := range testCases {
 		adj := SurrAdj(tc.k, tc.j, AdjCuml)
+		if !reflect.DeepEqual(adj, tc.expected) {
+			t.Errorf("\ngot  %v\nwant %v", adj, tc.expected)
+			return
+		}
+	}
+}
+
+type testCasesSurrAdjEx struct {
+	k        []int
+	j, q     int
+	expected []int
+}
+
+func TestSurrAdjEx(t *testing.T) {
+	testCases := []testCasesSurrAdjEx{
+		// R> SurrAdjEx(c(5, 21, 124), 4, 3)
+		//    [1]   1   9  17  25  27  33  43  50  53  57  69  79  81  95 105 120 146 172 198
+		//   [20] 200 224
+		//
+		// R は 1-base, golang は 0-base
+		{
+			k: []int{4, 20, 123}, j: 3, q: 2,
+			expected: []int{
+				0, 8, 16, 24, 26, 32, 42, 49, 52, 56, 68, 78,
+				80, 94, 104, 119, 145, 171, 197, 199, 223,
+			},
+		},
+		{
+			// R> SurrAdjEx(2, 3, 1)
+			//   [1] 4 5 26 28 29 51 52 53 77
+			k: []int{1}, j: 2, q: 0,
+			expected: []int{3, 4, 25, 27, 28, 50, 51, 52, 76},
+		},
+	}
+
+	for _, tc := range testCases {
+		adj := SurrAdjEx(tc.k, tc.j, tc.q, AdjCuml)
 		if !reflect.DeepEqual(adj, tc.expected) {
 			t.Errorf("\ngot  %v\nwant %v", adj, tc.expected)
 			return
