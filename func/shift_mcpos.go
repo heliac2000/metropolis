@@ -6,6 +6,8 @@ package functions
 
 import . "../util"
 
+// Put COM of molecule at coordinate X (1 x 2 vector)
+//
 func ShiftMCpos(MoleculeCoords *MoleculeCoordinates, X []float64) [][]float64 {
 	MoleculeCoordsShift := Copy2DimArray(MoleculeCoords.All).([][]float64)
 	r := len(MoleculeCoords.All)
