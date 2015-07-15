@@ -8,6 +8,7 @@ import . "../util"
 
 type MoleculeCoordinates struct {
 	C, H, Br [][]float64
+	All      [][]float64
 }
 
 func LoadMoleculeCoordinates(ccarts, hcarts, brcarts string) *MoleculeCoordinates {
@@ -15,5 +16,8 @@ func LoadMoleculeCoordinates(ccarts, hcarts, brcarts string) *MoleculeCoordinate
 	H := LoadFromCsvFile2Dim(hcarts, ' ')
 	Br := LoadFromCsvFile2Dim(brcarts, ' ')
 
-	return &MoleculeCoordinates{C, H, Br}
+	all := make([][]float64, 0, len(C)+len(H)+len(Br))
+	all = append(append(append(all, C...), H...), Br...)
+
+	return &MoleculeCoordinates{C, H, Br, all}
 }

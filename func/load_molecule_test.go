@@ -24,7 +24,9 @@ func TestLoadMoleculeCoordinates(t *testing.T) {
 		Br: LoadFromCsvFile2Dim("./data/Br.csv", ','),
 	}
 
-	if !reflect.DeepEqual(*mc, expected) {
+	if !reflect.DeepEqual(mc.C, expected.C) ||
+		!reflect.DeepEqual(mc.H, expected.H) ||
+		!reflect.DeepEqual(mc.Br, expected.Br) {
 		t.Errorf("\ngot  %v\nwant %v", *mc, expected)
 		return
 	}
