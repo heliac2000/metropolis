@@ -7,11 +7,8 @@ package functions
 import . "../util"
 
 func ShiftMCpos(MoleculeCoords *MoleculeCoordinates, X []float64) [][]float64 {
-	r := len(MoleculeCoords.C) + len(MoleculeCoords.H) + len(MoleculeCoords.Br)
-	MoleculeCoordsShift := make([][]float64, 0, r)
-	MoleculeCoordsShift = append(append(append(
-		MoleculeCoordsShift, MoleculeCoords.C...), MoleculeCoords.H...), MoleculeCoords.Br...)
-
+	MoleculeCoordsShift := Copy2DimArray(MoleculeCoords.All).([][]float64)
+	r := len(MoleculeCoords.All)
 	c1, c2 := make([]float64, r), make([]float64, r)
 	for i := 0; i < r; i++ {
 		c1[i], c2[i] = MoleculeCoordsShift[i][0], MoleculeCoordsShift[i][1]
