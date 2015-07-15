@@ -38,7 +38,7 @@ func TestLatticeGen(t *testing.T) {
 		}
 		for i := 0; i < len(lat); i++ {
 			for j := 0; j < len(lat[0]); j++ {
-				if math.Abs(lat[i][j]-l.Lattice[i][j]) > 1.0E-06 {
+				if math.Abs(lat[i][j]-l.Lattice[i][j]) > 1.0E-10 {
 					t.Errorf("\ngot  [%d][%d] %v\nwant %v", i, j, lat[i][j], l.Lattice[i][j])
 					return
 				}
