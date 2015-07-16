@@ -12,8 +12,8 @@ import (
 
 // Rotate molecule about z axis
 //
-func RotateZ(MoleculeCoords *MoleculeCoordinates, theta float64) [][]float64 {
-	rot := Copy2DimArray(MoleculeCoords.All).([][]float64)
+func RotateZ(MoleculeCoords [][]float64, theta float64) [][]float64 {
+	rot := Copy2DimArray(MoleculeCoords).([][]float64)
 	r := len(rot)
 	c1, c2, c3 := make([]float64, r), make([]float64, r), make([]float64, r)
 	for i := 0; i < r; i++ {

@@ -25,7 +25,7 @@ func TestRotateZ(t *testing.T) {
 
 	mc := LoadMoleculeCoordinates("./data/Ccarts", "./data/Hcarts", "./data/Brcarts")
 	for _, tc := range testCases {
-		actual := RotateZ(mc, tc.theta)
+		actual := RotateZ(mc.All, tc.theta)
 		if len(actual) != len(tc.expected) {
 			t.Errorf("\ngot  %v\nwant %v", actual, tc.expected)
 			return
