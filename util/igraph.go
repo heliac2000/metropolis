@@ -4,6 +4,8 @@
 
 package util
 
+import "log"
+
 // Creates a graph object from an adjacency matrix
 //
 func GraphAdjacency(adj [][]int, mode int) *IGraph {
@@ -118,14 +120,14 @@ func graphAdjacencyDense(adj [][]int, mode int) []int {
 func igraphCreate(edges []int, no_of_nodes int, directed bool) *IGraph {
 	// Check edges
 	if no_of_nodes < 0 {
-		ErrMsg("cannot create empty graph with negative number of vertices.")
+		log.Fatalln("cannot create empty graph with negative number of vertices.")
 	} else if (len(edges) % 2) != 0 {
-		ErrMsg("igraphCreate: Invalid (odd) edges vector")
+		log.Fatalln("igraphCreate: Invalid (odd) edges vector")
 	}
 
 	for _, v := range edges {
 		if v < 0 {
-			ErrMsg("igraphCreate: Invalid (negative) vertex id")
+			log.Fatalln("igraphCreate: Invalid (negative) vertex id")
 		}
 	}
 
@@ -248,7 +250,7 @@ func igraphICreateStart(el, iindex []int, nodes int) []int {
 //
 func igraphNeighbors(graph *IGraph, pnode int) []int {
 	if pnode < 0 || pnode > graph.N-1 {
-		ErrMsg("igraphNeighbors: cannot get neighbors")
+		log.Fatalln("igraphNeighbors: cannot get neighbors")
 	}
 
 	// Calculate needed space first & allocate it

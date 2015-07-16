@@ -4,6 +4,8 @@
 
 package util
 
+import "log"
+
 // Mode for GraphAdjacency
 //
 // NOTICE: Only ADJ_UNDIRECTED is valid.
@@ -60,7 +62,7 @@ func newIGraph(directed bool, cap int) *IGraph {
 //
 func (ig *IGraph) igraphAddVertices(nv int) {
 	if nv < 0 {
-		ErrMsg("igraphAddVertices: cannot add negative number of vertices")
+		log.Fatalln("igraphAddVertices: cannot add negative number of vertices")
 	}
 
 	add := make([]int, nv+1)
@@ -85,11 +87,11 @@ func (ig *IGraph) igraphAddVertices(nv int) {
 //
 func (ig *IGraph) igraphAddEdges(edges []int) {
 	if len(edges)%2 != 0 {
-		ErrMsg("igraphAddEdges: invalid (odd) length of edges vector")
+		log.Fatalln("igraphAddEdges: invalid (odd) length of edges vector")
 	}
 	for i := 0; i < len(edges); i++ {
 		if edges[i] < 0 || edges[i] >= ig.N {
-			ErrMsg("igraphAddEdges: cannot add edges")
+			log.Fatalln("igraphAddEdges: cannot add edges")
 		}
 	}
 
