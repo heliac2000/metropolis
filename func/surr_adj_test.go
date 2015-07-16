@@ -43,7 +43,7 @@ func TestSurrAdj(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		adj := SurrAdj(tc.k, tc.j, AdjCuml)
+		adj := SurrAdj(tc.k, AdjCuml[tc.j])
 		if !reflect.DeepEqual(adj, tc.expected) {
 			t.Errorf("\ngot  %v\nwant %v", adj, tc.expected)
 			return
@@ -80,7 +80,7 @@ func TestSurrAdjEx(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		adj := SurrAdjEx(tc.k, tc.j, tc.q, AdjCuml)
+		adj := SurrAdjEx(tc.k, AdjCuml[tc.j], AdjCuml[tc.q])
 		if !reflect.DeepEqual(adj, tc.expected) {
 			t.Errorf("\ngot  %v\nwant %v", adj, tc.expected)
 			return
