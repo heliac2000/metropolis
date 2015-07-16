@@ -66,4 +66,7 @@ var (
 
 	// For parallel tempering
 	Nparallel int = len(TempS)
+
+	// Genereate island from UC center
+	UCcenter = 313
 )
