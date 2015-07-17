@@ -14,7 +14,7 @@ func PrepareInitData(ucFile, lvFile string) ([][]float64, [][]float64, [][][]int
 
 	for i := 0; i < len(Character); i++ {
 		if Character[i] >= 0 && Character[i] <= 2 {
-			Character[i] = 7 - Character[i]
+			Character[i] = 6 - Character[i]
 		}
 	}
 
