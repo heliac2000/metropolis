@@ -10,7 +10,7 @@ import (
 )
 
 func TestPrepareInitData(t *testing.T) {
-	adjCuml, unitCellCoords, _ := PrepareInitData("./data/PrecursorUnitCell.csv", "./data/PrecursorUnitCellAxes.csv")
+	_, unitCellCoords, adjCuml, _ := PrepareInitData("./data/PrecursorUnitCell.csv", "./data/PrecursorUnitCellAxes.csv")
 	// [R] writeListData(AdjCuml, "AdjCuml.csv")
 	adjCumlR := LoadFromCsvFileList("./data/AdjCuml.csv")
 	// [R] write.table(format(UnitCellCoords, digits=22, trim=T),
