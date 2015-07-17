@@ -13,15 +13,15 @@ func PrepareInitData(ucFile, lvFile string) ([][]float64, [][]float64, [][][]int
 	Lattice, Character := LatticeGen(UnitCell, LatticeVectors)
 
 	for i := 0; i < len(Character); i++ {
-		if Character[i] >= 1 && Character[i] <= 3 {
-			Character[i] = 8 - Character[i]
+		if Character[i] >= 0 && Character[i] <= 2 {
+			Character[i] = 7 - Character[i]
 		}
 	}
 
 	// Identify the unit cells by those which have character == 4
 	wh4 := make([]int, 0, len(Character))
 	for i := 0; i < len(Character); i++ {
-		if Character[i] == 4 {
+		if Character[i] == 3 {
 			wh4 = append(wh4, i)
 		}
 	}
