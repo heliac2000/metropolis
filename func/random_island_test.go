@@ -1,7 +1,6 @@
 package functions_test
 
 import (
-	"fmt"
 	"testing"
 
 	. "./"
@@ -11,11 +10,8 @@ func TestRandomIslandUnitCell(t *testing.T) {
 	unitCell, _, adjCuml, chUnique :=
 		PrepareInitData("./data/PrecursorUnitCell.csv", "./data/PrecursorUnitCellAxes.csv")
 
-	islandP, islandC, islandO := RandomIslandUnitCell(2, adjCuml[Npower-1], unitCell, chUnique)
-
-	fmt.Println(islandP)
-	fmt.Println(islandC)
-	fmt.Println(islandO)
+	islandP, islandC, islandO := RandomIslandUnitCell(4, adjCuml[Npower-1], unitCell, chUnique)
+	t.Logf("\nIslandP: %v\nIslandC: %v\nIslandO: %v\n", islandP, islandC, islandO)
 
 	return
 }

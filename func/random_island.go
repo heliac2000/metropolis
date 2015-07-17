@@ -24,7 +24,7 @@ func RandomIslandUnitCell(n int, adjCj [][]int,
 	islandC, islandO := make([]int, 0, n), make([]float64, 0, n)
 	for k := 0; k < n; k++ {
 		islandC = append(islandC, chUnique[Rnd.Intn(len(chUnique))])
-		islandO = append(islandO, unitCell[islandC[k]-1][5+Rnd.Intn(2)])
+		islandO = append(islandO, unitCell[islandC[k]][4+Rnd.Intn(2)])
 	}
 
 	return islandP, islandC, islandO
