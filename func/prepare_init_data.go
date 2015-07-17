@@ -6,7 +6,7 @@ package functions
 
 import . "../util"
 
-func PrepareInitData(ucFile, lvFile string) ([][][]int, [][]float64) {
+func PrepareInitData(ucFile, lvFile string) ([][][]int, [][]float64, []int) {
 	UnitCell := LoadFromCsvFile2Dim(ucFile, ' ')
 	LatticeVectors := LoadFromCsvFile2Dim(lvFile, ',')
 
@@ -80,5 +80,5 @@ func PrepareInitData(ucFile, lvFile string) ([][][]int, [][]float64) {
 		}
 	}
 
-	return AdjCuml, UnitCellCoords
+	return AdjCuml, UnitCellCoords, Unique(Character)
 }
