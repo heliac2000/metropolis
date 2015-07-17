@@ -24,8 +24,10 @@ func TestLatticeGen(t *testing.T) {
 			// [R] write.table(Lattice, file="lattice.csv", sep=",", row.names=FALSE, col.names=FALSE)
 			Lattice: LoadFromCsvFile2Dim("./data/lattice.csv", ','),
 			//
-			// [R] cc = LatticeGen(UnitCell, LatticeVectors)[[2]]
-			//     write.table(Lattice, file="character.dat", row.names=FALSE, col.names=FALSE)
+			// NOTICE: R is 1-base index, golang is 0-base.
+			//
+			// [R] cc = LatticeGen(UnitCell, LatticeVectors)[[2]] - 1
+			//     write.table(cc, file="character.dat", row.names=FALSE, col.names=FALSE)
 			Character: LoadFromCsvFileInt("./data/character.dat"),
 		},
 	}

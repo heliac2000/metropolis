@@ -25,7 +25,8 @@ func LatticeGen(UnitCell, LatticeVectors [][]float64) ([][]float64, []int) {
 	seq := func(n int) []int {
 		seq := make([]int, n)
 		for i := 0; i < n; i++ {
-			seq[i] = i + 1
+			//seq[i] = i + 1
+			seq[i] = i
 		}
 		return seq
 	}(nlp)
