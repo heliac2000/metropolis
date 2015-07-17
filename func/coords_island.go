@@ -12,9 +12,9 @@ import (
 
 // Output coordinates of island
 //
-// CoutX: Positions
-// CoutC: Characters
-// CoutO: Orientations
+// CoutX: Positions(index)
+// CoutC: Characters(index)
+// CoutO: Orientations(angle)
 func CoordsIsland(CoutX, CoutC, CoutO []int, UnitCell2, UnitCellCoords [][]float64,
 	MoleculeCoords *MoleculeCoordinates) [][]float64 {
 	l := len(CoutX)
