@@ -4,7 +4,11 @@
 
 package functions
 
-import "runtime"
+import (
+	"math/rand"
+	"runtime"
+	"time"
+)
 
 const (
 	// Number of unit cells projections along a-axis # For degeneracy
@@ -60,6 +64,9 @@ const (
 var (
 	// Number of Concurrency
 	NumConcurrency int = runtime.NumCPU()
+
+	// Random seed
+	Rnd *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	// For parallel tempering
 	TempS []int = []int{100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200}
