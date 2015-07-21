@@ -7,10 +7,10 @@ import (
 )
 
 func TestRandomIslandUnitCell(t *testing.T) {
-	input := SetInitData("./data/PrecursorUnitCell.csv", "./data/PrecursorUnitCellAxes.csv")
+	inp := SetInitData("./data/PrecursorUnitCell.csv", "./data/PrecursorUnitCellAxes.csv")
 
 	islandP, islandC, islandO :=
-		RandomIslandUnitCell(4, input.AdjCuml[Npower-1], input.UnitCell, input.ChUnique)
+		RandomIslandUnitCell(4, inp.AdjCuml[Npower-1], inp.UnitCell, inp.ChUnique)
 	t.Logf("\nIslandP: %v\nIslandC: %v\nIslandO: %v\n", islandP, islandC, islandO)
 
 	return
