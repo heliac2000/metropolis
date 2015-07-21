@@ -68,6 +68,9 @@ var (
 	// Random seed
 	Rnd *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
 
+	// Input data
+	Inp *InitData
+
 	// For parallel tempering
 	TempS []int = []int{100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200}
 

@@ -14,7 +14,7 @@ type InitData struct {
 	ChUnique       []int
 }
 
-func SetInitData(ucFile, lvFile string) *InitData {
+func SetInitData(ucFile, lvFile string) {
 	UnitCell := LoadFromCsvFile2Dim(ucFile, ' ')
 	LatticeVectors := LoadFromCsvFile2Dim(lvFile, ',')
 
@@ -88,7 +88,7 @@ func SetInitData(ucFile, lvFile string) *InitData {
 		}
 	}
 
-	return &InitData{
+	Inp = &InitData{
 		UnitCell:       UnitCell,
 		UnitCellCoords: UnitCellCoords,
 		AdjCuml:        AdjCuml,
