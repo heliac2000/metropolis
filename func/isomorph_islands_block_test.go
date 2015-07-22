@@ -1,7 +1,6 @@
 package functions_test
 
 import (
-	"reflect"
 	"testing"
 
 	. "./"
@@ -46,7 +45,7 @@ func TestIsomorphIslandsBlock(t *testing.T) {
 
 	for _, tc := range testCases {
 		actual := IsomorphIslandsBlock(tc.xtest1, tc.ctest1, tc.otest1, tc.xtest2, tc.ctest2, tc.otest2)
-		if !reflect.DeepEqual(actual, tc.expected) {
+		if actual != tc.expected {
 			t.Errorf("\ngot  %v\nwant %v", actual, tc.expected)
 			return
 		}
