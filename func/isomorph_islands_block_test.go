@@ -19,12 +19,28 @@ func TestIsomorphIslandsBlock(t *testing.T) {
 	// NOTICE: R is 1-base index, golang is 0-base.
 	testCases := []testCasesIsomorphIslands{
 		{
-			// [R] Isomorph.Islands.Block(list(c(2), c(3), c(4)), list(c(2), c(3), c(4)))
+			// [R] Isomorph.Islands.Block(list(c(10), c(3), c(4)), list(c(20), c(3), c(4)))
 			//     => TRUE
 			//
-			xtest1: []int{1}, ctest1: []int{2}, otest1: []int{3},
-			xtest2: []int{1}, ctest2: []int{2}, otest2: []int{3},
+			xtest1: []int{10}, ctest1: []int{2}, otest1: []int{3},
+			xtest2: []int{20}, ctest2: []int{2}, otest2: []int{3},
 			expected: true,
+		},
+		{
+			// [R] Isomorph.Islands.Block(list(c(10,20,30), c(3,4,5), c(6,7,8)), list(c(11,21,31), c(3,4,5), c(6,7,8)))
+			//     => TRUE
+			//
+			xtest1: []int{10, 20, 30}, ctest1: []int{3, 4, 5}, otest1: []int{6, 7, 8},
+			xtest2: []int{11, 21, 31}, ctest2: []int{3, 4, 5}, otest2: []int{6, 7, 8},
+			expected: true,
+		},
+		{
+			// [R] Isomorph.Islands.Block(list(c(10,20,30), c(3,4,5), c(6,7,8)), list(c(11,21,31), c(3,4,5), c(6,7,9)))
+			//     => FALSE
+			//
+			xtest1: []int{10, 20, 30}, ctest1: []int{3, 4, 5}, otest1: []int{6, 7, 8},
+			xtest2: []int{11, 21, 31}, ctest2: []int{3, 4, 5}, otest2: []int{6, 7, 9},
+			expected: false,
 		},
 	}
 
