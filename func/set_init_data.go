@@ -94,6 +94,7 @@ func SetInitData(ucFile, lvFile string) {
 	// Extension.Block
 	//
 	// charactersOrientations[][1] is index(0-base or 1-base)
+	//
 	chUnique := Unique(character)
 	charactersOrientations := Create2DimArray(int(0), len(chUnique)*3, 3).([][]int)
 	for k, cnt := 0, 0; k < len(chUnique); k++ {
