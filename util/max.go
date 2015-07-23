@@ -23,3 +23,15 @@ func Min(slice ...int) int {
 
 	return min
 }
+
+// Return the smallest value in a slice of floats.
+func MinFloat(slice ...float64) float64 {
+	min := slice[0]
+	for i := 1; i < len(slice); i++ {
+		if slice[i] < min {
+			min = slice[i]
+		}
+	}
+
+	return min
+}
