@@ -8,11 +8,13 @@ import . "../util"
 
 type InitData struct {
 	UnitCell               [][]float64
+	UnitCell2              [][]float64
 	UnitCellCoords         [][]float64
 	AdjCuml                [][][]int
 	Character              []int
 	ChUnique               []int
 	CharactersOrientations [][]int
+	MoleculeCoordinates    *MoleculeCoordinates
 }
 
 func SetInitData(ucFile, lvFile string) {
@@ -107,10 +109,12 @@ func SetInitData(ucFile, lvFile string) {
 
 	Inp = &InitData{
 		UnitCell:               unitCell,
+		UnitCell2:              LoadFromCsvFile2Dim("./data/UnitCell2.csv", ','),
 		UnitCellCoords:         unitCellCoords,
 		AdjCuml:                adjCuml,
 		Character:              character,
 		ChUnique:               chUnique,
 		CharactersOrientations: charactersOrientations,
+		MoleculeCoordinates:    LoadMoleculeCoordinates("./data/Ccarts", "./data/Hcarts", "./data/Brcarts"),
 	}
 }
