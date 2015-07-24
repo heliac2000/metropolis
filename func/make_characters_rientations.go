@@ -16,7 +16,7 @@ func MakeCharactersRientations(zcoords [][]float64, xadd []int) [][]int {
 	// the coordinates of the atoms in Island
 	l, addO := len(Inp.CharactersOrientations), Copy2DimArray(Inp.CharactersOrientations).([][]int)
 	for i := 0; i < l; i++ {
-		addO[i][0] = xadd[i]
+		addO[i][0] = xadd[i%len(xadd)]
 	}
 
 	mcut, keep := float64(0), make([]int, 0, l)
