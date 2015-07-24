@@ -13,13 +13,11 @@ type testCasesCoordsIsland struct {
 	expected            [][]float64
 }
 
-// [R] write.table(format(UnitCell2, digits=22, trim=T), file="UnitCell2.csv",
-//                 sep=",", row.names=FALSE, col.names=FALSE, quote=F)
-var unitCell2 [][]float64 = LoadFromCsvFile2Dim("./data/UnitCell2.csv", ',')
-var unitCellCoords [][]float64 = LoadFromCsvFile2Dim("./data/UnitCellCoords.csv", ',')
-var mc *MoleculeCoordinates = LoadMoleculeCoordinates("./data/Ccarts", "./data/Hcarts", "./data/Brcarts")
-
 func TestCoordsIsland(t *testing.T) {
+	// [R] write.table(format(UnitCell2, digits=22, trim=T), file="UnitCell2.csv",
+	//                 sep=",", row.names=FALSE, col.names=FALSE, quote=F)
+	SetInitData("./data/PrecursorUnitCell.csv", "./data/PrecursorUnitCellAxes.csv")
+
 	testCases := []testCasesCoordsIsland{
 		{
 			// pt[[1]]: Positions, pt[[2]]: Characters, pt[[3]]: Orientations
@@ -39,7 +37,7 @@ func TestCoordsIsland(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		actual := CoordsIsland(tc.CoutX, tc.CoutC, tc.CoutO, unitCell2, unitCellCoords, mc)
+		actual := CoordsIsland(tc.CoutX, tc.CoutC, tc.CoutO)
 		if len(actual) != len(tc.expected) {
 			t.Errorf("\ngot  %v\nwant %v", actual, tc.expected)
 			return
