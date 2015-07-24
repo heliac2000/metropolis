@@ -1,24 +1,31 @@
 package util
 
-import "sync"
+import (
+	"reflect"
+	"sync"
+)
 
 // Transpose
 //
-func Transpose(m [][]float64) [][]float64 {
-	r, c := len(m), len(m[0])
+func Transpose(m interface{}) interface{} {
+	v := reflect.ValueOf(m)
+	r, c := v.Len(), v.Index(0).Len()
 	if r == 0 || c == 0 {
 		return m
 	}
 
-	t := make([][]float64, c)
+	ts := reflect.SliceOf(v.Index(0).Index(0).Type())
+	ts2 := reflect.SliceOf(ts)
+
+	t := reflect.MakeSlice(ts2, c, c)
 	for i := 0; i < c; i++ {
-		t[i] = make([]float64, r)
+		t.Index(i).Set(reflect.MakeSlice(ts, r, r))
 		for j := 0; j < r; j++ {
-			t[i][j] = m[j][i]
+			t.Index(i).Index(j).Set(v.Index(j).Index(i))
 		}
 	}
 
-	return t
+	return t.Interface()
 }
 
 // Multiply matrix A and B
