@@ -78,5 +78,5 @@ var (
 	Nparallel int = len(TempS)
 
 	// Genereate island from UC center
-	UCcenter = 313
+	UCcenter int = 313
 )
