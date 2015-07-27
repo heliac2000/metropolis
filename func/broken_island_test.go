@@ -7,26 +7,26 @@ import (
 )
 
 type testCasesBrokenIsland struct {
-	Xtest    [][]int
+	xtest    []int
 	expected bool
 }
 
-func TestSurrAdj(t *testing.T) {
+func TestBrokenIslandUnitCell(t *testing.T) {
 	SetInitData("./data/PrecursorUnitCell.csv", "./data/PrecursorUnitCellAxes.csv")
 
 	testCases := []testCasesBrokenIsland{
 		{
-			Xtest:    [][]int{{1, 10}, {20, 30}, {40, 50}},
+			xtest:    []int{1, 10, 20, 30, 40, 50},
 			expected: true,
 		},
 		{
-			Xtest:    [][]int{{1, 2}, {3, 4}, {5, 6}},
+			xtest:    []int{1, 2, 3, 4, 5, 6},
 			expected: false,
 		},
 	}
 
 	for _, tc := range testCases {
-		broken := BrokenIslandUnitCell(tc.Xtest)
+		broken := BrokenIslandUnitCell(tc.xtest)
 		if broken != tc.expected {
 			t.Errorf("\ngot  %v\nwant %v", broken, tc.expected)
 			return
