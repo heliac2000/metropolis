@@ -3,7 +3,6 @@ package functions_test
 import (
 	"testing"
 
-	. "../util"
 	. "./"
 )
 
@@ -12,9 +11,9 @@ type testCasesBrokenIsland struct {
 	expected bool
 }
 
-var AdjCuml [][][]int = LoadFromCsvFileList("./data/AdjCuml.csv")
-
 func TestSurrAdj(t *testing.T) {
+	SetInitData("./data/PrecursorUnitCell.csv", "./data/PrecursorUnitCellAxes.csv")
+
 	testCases := []testCasesBrokenIsland{
 		{
 			Xtest:    [][]int{{1, 10}, {20, 30}, {40, 50}},
@@ -27,7 +26,7 @@ func TestSurrAdj(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		broken := BrokenIslandUnitCell(tc.Xtest, AdjCuml)
+		broken := BrokenIslandUnitCell(tc.Xtest)
 		if broken != tc.expected {
 			t.Errorf("\ngot  %v\nwant %v", broken, tc.expected)
 			return
