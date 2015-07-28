@@ -1,0 +1,59 @@
+//
+// canonical_order.go
+//
+
+package functions
+
+import "sort"
+
+// Arrange the elements of C1 in order of decreasing size, append one
+// element of size 0. C1 should be in form of a position list,
+// character list, and orientation list.
+//
+func CanonicalOrder(ctemp, chtemp [][]int, otemp [][]float64) ([][]int, [][]int, [][]float64) {
+	l := len(ctemp)
+	clengths := make([]int, l)
+	for k := 0; k < l; k++ {
+		if len(ctemp[k]) == 1 && ctemp[k][0] == 0 {
+			clengths[k] = 0
+		} else {
+			clengths[k] = len(ctemp[k])
+		}
+	}
+
+	csort_map := make(map[int][]int)
+	for i := 0; i < l; i++ {
+		csort_map[clengths[i]] = append(csort_map[clengths[i]], i)
+	}
+	sort.Sort(sort.Reverse(sort.IntSlice(clengths)))
+
+	csortIND, pre := make([]int, 0, l), clengths[0]
+	csortIND = append(csortIND, csort_map[pre]...)
+	for _, v := range clengths {
+		if v != pre {
+			csortIND = append(csortIND, csort_map[v]...)
+			pre = v
+		}
+	}
+
+	csort, chsort, osort, zero :=
+		make([][]int, 0, l+1), make([][]int, 0, l+1), make([][]float64, 0, l+1), false
+
+	for k := 0; k < l; k++ {
+		csort = append(csort, ctemp[csortIND[k]][:])
+		chsort = append(chsort, chtemp[csortIND[k]][:])
+		osort = append(osort, otemp[csortIND[k]][:])
+		if len(csort[k]) == 1 && csort[k][0] == 0 {
+			zero = true
+			break
+		}
+	}
+
+	if !zero {
+		csort = append(csort, []int{0})
+		chsort = append(chsort, []int{0})
+		osort = append(osort, []float64{0})
+	}
+
+	return csort, chsort, osort
+}
