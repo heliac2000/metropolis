@@ -22,8 +22,8 @@ const (
 	KB float64 = 1.38e-23 / 1.60e-19
 
 	// Scaling parameters for extension-reduction transform
-	Alpha1 int = 1
-	Alpha2 int = 1
+	Alpha1 float64 = 1
+	Alpha2 float64 = 1
 
 	// Input the hopping lattice from the unit cell
 
