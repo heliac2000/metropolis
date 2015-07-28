@@ -48,7 +48,7 @@ func CanonicalOrder(ctemp, chtemp [][]int, otemp [][]float64) ([][]int, [][]int,
 		chsort = append(chsort, CopyVector(chtemp[csortIND[k]]).([]int))
 		osort = append(osort, CopyVector(otemp[csortIND[k]]).([]float64))
 		if len(csort[k]) == 1 && csort[k][0] == 0 {
-			goto exit
+			goto end
 		}
 	}
 
@@ -56,6 +56,6 @@ func CanonicalOrder(ctemp, chtemp [][]int, otemp [][]float64) ([][]int, [][]int,
 	chsort = append(chsort, []int{0})
 	osort = append(osort, []float64{0})
 
-exit:
+end:
 	return csort, chsort, osort
 }
