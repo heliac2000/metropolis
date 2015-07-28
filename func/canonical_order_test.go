@@ -19,6 +19,14 @@ func TestCanonicalOrder(t *testing.T) {
 
 	testCases := []testCanonicalOrder{
 		{
+			ctemp:  [][]int{{0}},
+			chtemp: [][]int{{0}},
+			otemp:  [][]float64{{0}},
+			csort:  [][]int{{0}},
+			chsort: [][]int{{0}},
+			osort:  [][]float64{{0}},
+		},
+		{
 			ctemp:  [][]int{{1}},
 			chtemp: [][]int{{2}},
 			otemp:  [][]float64{{3}},

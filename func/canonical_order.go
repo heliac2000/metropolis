@@ -36,24 +36,22 @@ func CanonicalOrder(ctemp, chtemp [][]int, otemp [][]float64) ([][]int, [][]int,
 		}
 	}
 
-	csort, chsort, osort, zero :=
-		make([][]int, 0, l+1), make([][]int, 0, l+1), make([][]float64, 0, l+1), false
+	csort, chsort, osort :=
+		make([][]int, 0, l+1), make([][]int, 0, l+1), make([][]float64, 0, l+1)
 
 	for k := 0; k < l; k++ {
 		csort = append(csort, ctemp[csortIND[k]][:])
 		chsort = append(chsort, chtemp[csortIND[k]][:])
 		osort = append(osort, otemp[csortIND[k]][:])
 		if len(csort[k]) == 1 && csort[k][0] == 0 {
-			zero = true
-			break
+			goto exit
 		}
 	}
 
-	if !zero {
-		csort = append(csort, []int{0})
-		chsort = append(chsort, []int{0})
-		osort = append(osort, []float64{0})
-	}
+	csort = append(csort, []int{0})
+	chsort = append(chsort, []int{0})
+	osort = append(osort, []float64{0})
 
+exit:
 	return csort, chsort, osort
 }
