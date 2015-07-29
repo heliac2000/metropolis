@@ -9,8 +9,9 @@ import (
 )
 
 type testCasesCoordsIsland struct {
-	CoutX, CoutC, CoutO []int
-	expected            [][]float64
+	coutX, coutC []int
+	coutO        []float64
+	expected     [][]float64
 }
 
 func TestCoordsIsland(t *testing.T) {
@@ -29,15 +30,15 @@ func TestCoordsIsland(t *testing.T) {
 			// [R] write.table(format(CoordsIsland(pt), digits=22, trim=T),
 			//     file="CoordsIsland_01.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
 			//
-			CoutX:    []int{2},
-			CoutC:    []int{6},
-			CoutO:    []int{150},
+			coutX:    []int{2},
+			coutC:    []int{6},
+			coutO:    []float64{150},
 			expected: LoadFromCsvFile2Dim("./data/CoordsIsland_01.csv", ','),
 		},
 	}
 
 	for _, tc := range testCases {
-		actual := CoordsIsland(tc.CoutX, tc.CoutC, tc.CoutO)
+		actual := CoordsIsland(tc.coutX, tc.coutC, tc.coutO)
 		if len(actual) != len(tc.expected) {
 			t.Errorf("\ngot  %v\nwant %v", actual, tc.expected)
 			return

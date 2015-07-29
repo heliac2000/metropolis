@@ -14,14 +14,16 @@ import (
 func MakeCharactersRientations(zcoords [][]float64, xadd []int) [][]int {
 	// Make a list of rows in CharactersOrientations to keep. Zcoords is
 	// the coordinates of the atoms in Island
-	l, addO := len(Inp.CharactersOrientations), Copy2DimArray(Inp.CharactersOrientations).([][]int)
+	l := len(Inp.CharactersOrientations)
+	addO := Copy2DimArray(Inp.CharactersOrientations).([][]int)
 	for i := 0; i < l; i++ {
 		addO[i][0] = xadd[i%len(xadd)]
 	}
 
 	mcut, keep := float64(0), make([]int, 0, l)
 	for k := 0; k < l; k++ {
-		distKnnx, _ := GetKnnx(zcoords, CoordsIsland(addO[k][0:1], addO[k][1:2], addO[k][2:3]), 1)
+		distKnnx, _ := GetKnnx(zcoords,
+			CoordsIsland(addO[k][0:1], addO[k][1:2], []float64{float64(addO[k][2])}), 1)
 
 		min := MinFloat(distKnnx[0]...)
 		if len(distKnnx) > 1 {
