@@ -22,8 +22,9 @@ func RotateZ(moleculeCoords [][]float64, theta float64) [][]float64 {
 	rcom := []float64{Average(c1), Average(c2)}
 
 	for i := 0; i < r; i++ {
-		rot[i][0] = rot[i][0]*math.Cos(theta) - rot[i][1]*math.Sin(theta)
-		rot[i][1] = rot[i][0]*math.Sin(theta) + rot[i][1]*math.Cos(theta)
+		rot[i][0], rot[i][1] =
+			rot[i][0]*math.Cos(theta)-rot[i][1]*math.Sin(theta),
+			rot[i][0]*math.Sin(theta)+rot[i][1]*math.Cos(theta)
 	}
 
 	for i := 0; i < r; i++ {
