@@ -4,22 +4,19 @@
 
 package functions
 
-import (
-	. "../util"
-)
-
 // Generate the reduction of Island. Island is in form of (unit cell
 // labels, characters, labels). nlevel is the level of the boundary to
 // consider.
 //
-func ReductionBlock(xtest, ctest, otest []int) [][][]int {
+func ReductionBlock(xtest, ctest []int, otest []float64) (
+	xremOut, cremOut [][]int, oremOut [][]float64) {
 	if len(xtest) == 1 {
-		return [][][]int{{{0, 0, 0}}}
+		return [][]int{{0}}, [][]int{{0}}, [][]float64{{0}}
 	}
 
 	l := len(xtest)
-	xtestReduction := make([][][]int, 0, l)
-
+	xremOut, cremOut, oremOut =
+		make([][]int, 0, l), make([][]int, 0, l), make([][]float64, 0, l)
 	for k := 0; k < l; k++ {
 		xout := make([]int, 0, l)
 		for i := 0; i < l; i++ {
@@ -27,6 +24,7 @@ func ReductionBlock(xtest, ctest, otest []int) [][][]int {
 				xout = append(xout, xtest[i])
 			}
 		}
+
 		if BrokenIslandUnitCell(xout) {
 			continue
 		}
@@ -43,14 +41,17 @@ func ReductionBlock(xtest, ctest, otest []int) [][][]int {
 				oind = append(oind, i)
 			}
 		}
-		xremOut := Create2DimArray(int(0), l-1, 3).([][]int)
+
+		xo, co, oo := make([]int, l-1), make([]int, l-1), make([]float64, l-1)
 		for i := 0; i < l-1; i++ {
-			xremOut[i][0] = xout[i%len(xout)]
-			xremOut[i][1] = ctest[cind[i%len(cind)]]
-			xremOut[i][2] = otest[oind[i%len(oind)]]
+			xo[i] = xout[i%len(xout)]
+			co[i] = ctest[cind[i%len(cind)]]
+			oo[i] = otest[oind[i%len(oind)]]
 		}
-		xtestReduction = append(xtestReduction, xremOut)
+		xremOut = append(xremOut, xo)
+		cremOut = append(cremOut, co)
+		oremOut = append(oremOut, oo)
 	}
 
-	return xtestReduction
+	return
 }
