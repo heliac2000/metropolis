@@ -34,47 +34,44 @@ func TestReductionBlock(t *testing.T) {
 			xtest: []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 			ctest: []int{11, 12, 13, 14, 15, 16, 17, 18, 19, 20},
 			otest: []float64{21, 22, 23, 24, 25, 26, 27, 28, 29, 30},
-			xout:  nthColumn(0, out),
-			cout:  nthColumn(1, out),
-			oout:  nthColumnFloat(2, out),
+			xout:  nthColumn(0, out, int(0)).([][]int),
+			cout:  nthColumn(1, out, int(0)).([][]int),
+			oout:  nthColumn(2, out, float64(0)).([][]float64),
 		},
 	}
 
 	for _, tc := range testCases {
 		xout, cout, oout := ReductionBlock(tc.xtest, tc.ctest, tc.otest)
-		if !reflect.DeepEqual(xout, tc.xout) ||
-			!reflect.DeepEqual(cout, tc.cout) ||
-			!reflect.DeepEqual(oout, tc.oout) {
-			t.Errorf("\ngot  %v\nwant %v", xout, tc.xout)
-			return
+		if !reflect.DeepEqual(xout, tc.xout) {
+			t.Errorf("xtest:\ngot  %v\nwant %v", xout, tc.xout)
+		} else if !reflect.DeepEqual(cout, tc.cout) {
+			t.Errorf("ctest:\ngot  %v\nwant %v", cout, tc.cout)
+		} else if !reflect.DeepEqual(oout, tc.oout) {
+			t.Errorf("otest:\ngot  %v\nwant %v", oout, tc.oout)
 		}
 	}
 }
 
-func nthColumn(n int, data [][][]int) [][]int {
+func nthColumn(n int, data [][][]int, x interface{}) interface{} {
 	r, c := len(data), len(data[0])
-	ret := Create2DimArray(int(0), r, c).([][]int)
+	arr := reflect.ValueOf(Create2DimArray(x, r, c))
 
-	for i := 0; i < r; i++ {
-		for j := 0; j < c; j++ {
-			ret[i][j] = data[i][j][n]
+	switch x.(type) {
+	case float32, float64:
+		for i := 0; i < r; i++ {
+			for j := 0; j < c; j++ {
+				arr.Index(i).Index(j).Set(reflect.ValueOf(float64(data[i][j][n])))
+			}
+		}
+	case int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64:
+		for i := 0; i < r; i++ {
+			for j := 0; j < c; j++ {
+				arr.Index(i).Index(j).Set(reflect.ValueOf(data[i][j][n]))
+			}
 		}
 	}
 
-	return ret
-}
-
-func nthColumnFloat(n int, data [][][]int) [][]float64 {
-	r, c := len(data), len(data[0])
-	ret := Create2DimArray(float64(0), r, c).([][]float64)
-
-	for i := 0; i < r; i++ {
-		for j := 0; j < c; j++ {
-			ret[i][j] = float64(data[i][j][n])
-		}
-	}
-
-	return ret
+	return arr.Interface()
 }
 
 // Local Variables:
