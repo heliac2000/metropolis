@@ -15,26 +15,27 @@ import (
 func RotateZ(moleculeCoords [][]float64, theta float64) [][]float64 {
 	rot := Copy2DimArray(moleculeCoords).([][]float64)
 	r := len(rot)
-	c1, c2 := make([]float64, r), make([]float64, r)
-	for i := 0; i < r; i++ {
-		c1[i], c2[i] = rot[i][0], rot[i][1]
-	}
-	rcom := []float64{Average(c1), Average(c2)}
 
+	sumX, sumY := 0.0, 0.0
+	for i := 0; i < r; i++ {
+		sumX += rot[i][0]
+		sumY += rot[i][1]
+	}
+	rcomX, rcomY := sumX/float64(r), sumY/float64(r)
+
+	sumX, sumY = 0.0, 0.0
 	for i := 0; i < r; i++ {
 		rot[i][0], rot[i][1] =
 			rot[i][0]*math.Cos(theta)-rot[i][1]*math.Sin(theta),
 			rot[i][0]*math.Sin(theta)+rot[i][1]*math.Cos(theta)
+		sumX += rot[i][0]
+		sumY += rot[i][1]
 	}
+	rcomX, rcomY = sumX/float64(r)-rcomX, sumY/float64(r)-rcomY
 
 	for i := 0; i < r; i++ {
-		c1[i], c2[i] = rot[i][0], rot[i][1]
-	}
-	rcom2 := []float64{Average(c1) - rcom[0], Average(c2) - rcom[1]}
-
-	for i := 0; i < r; i++ {
-		rot[i][0] -= rcom2[0]
-		rot[i][1] -= rcom2[1]
+		rot[i][0] -= rcomX
+		rot[i][1] -= rcomY
 	}
 
 	return rot
