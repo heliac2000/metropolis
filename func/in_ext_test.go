@@ -37,6 +37,15 @@ func TestInExt(t *testing.T) {
 			ocbb:     []float64{0},
 			expected: false,
 		},
+		{
+			pcdb:     []int{313, 308, 304, 263, 240, 352, 255, 139, 116},
+			ccdb:     []int{6, 3, 5, 4, 3, 4, 3, 4, 4},
+			ocdb:     []float64{150, 0, 120, 30, 0, 30, 90, 30, 60},
+			pcbb:     []int{313},
+			ccbb:     []int{3},
+			ocbb:     []float64{120},
+			expected: false,
+		},
 	}
 
 	for _, tc := range testCases {
