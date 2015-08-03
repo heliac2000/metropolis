@@ -10,7 +10,8 @@ import (
 
 // Check if islands Xtest1 and Xtest2 are rotational isomorphs
 //
-func IsomorphIslandsBlock(xtest1, ctest1, otest1, xtest2, ctest2, otest2 []int) bool {
+func IsomorphIslandsBlock(xtest1, ctest1 []int, otest1 []float64,
+	xtest2, ctest2 []int, otest2 []float64) bool {
 	isomorph := true
 	l1, l2 := len(xtest1), len(xtest2)
 

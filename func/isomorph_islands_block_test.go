@@ -7,9 +7,11 @@ import (
 )
 
 type testCasesIsomorphIslands struct {
-	xtest1, ctest1, otest1 []int
-	xtest2, ctest2, otest2 []int
-	expected               bool
+	xtest1, ctest1 []int
+	otest1         []float64
+	xtest2, ctest2 []int
+	otest2         []float64
+	expected       bool
 }
 
 func TestIsomorphIslandsBlock(t *testing.T) {
@@ -21,24 +23,24 @@ func TestIsomorphIslandsBlock(t *testing.T) {
 			// [R] Isomorph.Islands.Block(list(c(10), c(3), c(4)), list(c(20), c(3), c(4)))
 			//     => TRUE
 			//
-			xtest1: []int{10}, ctest1: []int{2}, otest1: []int{3},
-			xtest2: []int{20}, ctest2: []int{2}, otest2: []int{3},
+			xtest1: []int{10}, ctest1: []int{2}, otest1: []float64{3},
+			xtest2: []int{20}, ctest2: []int{2}, otest2: []float64{3},
 			expected: true,
 		},
 		{
 			// [R] Isomorph.Islands.Block(list(c(10,20,30), c(3,4,5), c(6,7,8)), list(c(11,21,31), c(3,4,5), c(6,7,8)))
 			//     => TRUE
 			//
-			xtest1: []int{10, 20, 30}, ctest1: []int{3, 4, 5}, otest1: []int{6, 7, 8},
-			xtest2: []int{11, 21, 31}, ctest2: []int{3, 4, 5}, otest2: []int{6, 7, 8},
+			xtest1: []int{10, 20, 30}, ctest1: []int{3, 4, 5}, otest1: []float64{6, 7, 8},
+			xtest2: []int{11, 21, 31}, ctest2: []int{3, 4, 5}, otest2: []float64{6, 7, 8},
 			expected: true,
 		},
 		{
 			// [R] Isomorph.Islands.Block(list(c(10,20,30), c(3,4,5), c(6,7,8)), list(c(11,21,31), c(3,4,5), c(6,7,9)))
 			//     => FALSE
 			//
-			xtest1: []int{10, 20, 30}, ctest1: []int{3, 4, 5}, otest1: []int{6, 7, 8},
-			xtest2: []int{11, 21, 31}, ctest2: []int{3, 4, 5}, otest2: []int{6, 7, 9},
+			xtest1: []int{10, 20, 30}, ctest1: []int{3, 4, 5}, otest1: []float64{6, 7, 8},
+			xtest2: []int{11, 21, 31}, ctest2: []int{3, 4, 5}, otest2: []float64{6, 7, 9},
 			expected: false,
 		},
 	}
