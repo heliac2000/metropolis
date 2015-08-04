@@ -11,7 +11,7 @@ import (
 // Check for overlap in CharactersOrientations when adding unit cell
 // Xadd
 //
-func MakeCharactersRientations(zcoords [][]float64, xadd []int) [][]int {
+func MakeCharactersOrientations(zcoords [][]float64, xadd []int) [][]int {
 	// Make a list of rows in CharactersOrientations to keep. Zcoords is
 	// the coordinates of the atoms in Island
 	l := len(Inp.CharactersOrientations)

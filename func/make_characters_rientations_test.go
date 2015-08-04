@@ -8,16 +8,16 @@ import (
 	. "./"
 )
 
-type testCasesMakeCharactersRientations struct {
+type testCasesMakeCharactersOrientations struct {
 	zcoords  [][]float64
 	xadd     []int
 	expected [][]int
 }
 
-func TestMakeCharactersRientations(t *testing.T) {
+func TestMakeCharactersOrientations(t *testing.T) {
 	SetInitData("./data/PrecursorUnitCell.csv", "./data/PrecursorUnitCellAxes.csv")
 
-	testCases := []testCasesMakeCharactersRientations{
+	testCases := []testCasesMakeCharactersOrientations{
 		{
 			// [R] t1 = makeCharactersOrientations(1, t(array(c(22,33,44,55,66,77),3,2)), t(as.matrix(c(1,2,3))))
 			//     t1[,2] = t1[,2] - 1 ## R is 1-base index, golang is 0-base.
@@ -30,7 +30,7 @@ func TestMakeCharactersRientations(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		actual := MakeCharactersRientations(tc.zcoords, tc.xadd)
+		actual := MakeCharactersOrientations(tc.zcoords, tc.xadd)
 		if !reflect.DeepEqual(actual, tc.expected) {
 			t.Errorf("\ngot  %v\nwant %v", actual, tc.expected)
 			return
