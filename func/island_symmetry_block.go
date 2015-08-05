@@ -10,7 +10,7 @@ import (
 
 // Compute the symmetry of block CaB
 //
-func IslandSymmetryBlock(cab []int) int {
+func IslandSymmetryBlock(cab []int) float64 {
 	if cab[0] == 0 {
 		return 2
 	}

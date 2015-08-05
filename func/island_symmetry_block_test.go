@@ -8,7 +8,7 @@ import (
 
 type testCasesIslandSymmetry struct {
 	cab      []int
-	expected int
+	expected float64
 }
 
 func TestIslandSymmetry(t *testing.T) {
