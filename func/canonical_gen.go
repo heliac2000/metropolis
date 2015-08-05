@@ -18,10 +18,10 @@ func CanonicalGen() ([][]int, [][]int, [][]float64) {
 			sizes[k] = Nmolec - sum
 		} else {
 			sizes[k] = Rnd.Intn(Nmolec - sum + 1)
-			if (sum + sizes[k]) == Nmolec {
+			sum += sizes[k]
+			if sum == Nmolec {
 				break
 			}
-			sum += sizes[k]
 		}
 	}
 
