@@ -32,6 +32,22 @@ func TestQabcdBlock(t *testing.T) {
 			// canon = Canonical.Order(Canonical.Gen())
 			// canon_out = Canonical.Order(ExtensionReductionBlock(canon)[[1]])
 			//
+			// canon = list(
+			//           list(c(313, 361, 364, 408, 317, 264, 340),
+			//                c(313, 263, 387), c(0)),
+			//           list(c(7, 5, 5, 7, 7, 5, 6),
+			//                c(6, 5, 5),  c(0)),
+			//           list(c(0, 30, 120, 150, 150, 30, 120),
+			//                c(0, 120, 60), c(0)))
+			//
+			// canon_out = list(
+			//           list(c(361, 364, 408, 317, 264, 340),
+			//                c(313, 263, 387), c(313), c(0)),
+			//           list(c(5, 5, 7, 7, 5, 6),
+			//                c(6, 5, 5), c(7), c(0)),
+			//           list(c(30, 120, 150, 150, 30, 120),
+			//                c(0, 120, 60), c(60), c(0)))
+			//
 			// ## i1 = 1/i2 = 3/CoutIND = [1, 3]
 			// cab  = list(canon[[1]][[1]], canon[[2]][[1]], canon[[3]][[1]])
 			// cbb  = list(canon[[1]][[3]], canon[[2]][[3]], canon[[3]][[3]])
@@ -42,8 +58,8 @@ func TestQabcdBlock(t *testing.T) {
 			// lb   = extb[[2]]
 			// extb = extb[[1]]
 			//
-			// qabcd.Block(cab, cbb, ccb, cdb, 1, 1, canon, reda, extb, lb)
-			// [1] 0.003888889
+			// format(qabcd.Block(cab, cbb, ccb, cdb, 1, 1,  canon, reda, extb, lb), digits=22, trim=T)
+			// [1] "0.003888888888888888343415"
 			//
 			pcab:     []int{313, 361, 364, 408, 317, 264, 340},
 			ccab:     []int{6, 4, 4, 6, 6, 4, 5},
@@ -59,7 +75,7 @@ func TestQabcdBlock(t *testing.T) {
 			ocdb:     []float64{60},
 			i1:       0,
 			canon:    [][]int{{313, 361, 364, 408, 317, 264, 340}, {313, 263, 387}, {0}},
-			expected: 0.0,
+			expected: 0.003888888888888888343415,
 		},
 	}
 
