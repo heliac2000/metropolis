@@ -31,7 +31,7 @@ func TestQabcdBlock(t *testing.T) {
 			// [R]
 			// canon = Canonical.Order(Canonical.Gen())
 			// canon_out = Canonical.Order(ExtensionReductionBlock(canon)[[1]])
-			//
+			// =>
 			// canon = list(
 			//           list(c(313, 361, 364, 408, 317, 264, 340),
 			//                c(313, 263, 387), c(0)),
@@ -48,7 +48,7 @@ func TestQabcdBlock(t *testing.T) {
 			//           list(c(30, 120, 150, 150, 30, 120),
 			//                c(0, 120, 60), c(60), c(0)))
 			//
-			// ## i1 = 1/i2 = 3/CoutIND = [1, 3]
+			// ## i1 = 1/i2 = 3(not used in qabcd.Block)/CoutIND = [1, 3]
 			// cab  = list(canon[[1]][[1]], canon[[2]][[1]], canon[[3]][[1]])
 			// cbb  = list(canon[[1]][[3]], canon[[2]][[3]], canon[[3]][[3]])
 			// ccb  = list(canon_out[[1]][[1]], canon_out[[2]][[1]], canon_out[[3]][[1]])
