@@ -8,20 +8,20 @@ import . "../util"
 
 // Generate a lattice based on the unit cell
 //
-func LatticeGen(UnitCell, LatticeVectors [][]float64) ([][]float64, []int) {
+func LatticeGen(unitCell, latticeVectors [][]float64) ([][]float64, []int) {
 	// Number of lattice points in the unit cell
-	nlp := len(UnitCell)
+	nlp := len(unitCell)
 
 	// Generate the coordinates of the lattice from the unit cell
-	LatticeCoords := Create2DimArray(float64(0), nlp, 2, (nlp+1)*Nrepeat*Nrepeat/4).([][]float64)
+	latticeCoords := Create2DimArray(float64(0), nlp, 2, (nlp+1)*Nrepeat*Nrepeat/4).([][]float64)
 
 	// horizontal/vertical coordinate
 	for k := 0; k < nlp; k++ {
-		LatticeCoords[k][0], LatticeCoords[k][1] = UnitCell[k][0], UnitCell[k][1]
+		latticeCoords[k][0], latticeCoords[k][1] = unitCell[k][0], unitCell[k][1]
 	}
 
 	// Specify which unit cell point the lattice point corresponds to
-	Character := make([]int, 0, (nlp+1)*Nrepeat*Nrepeat/4)
+	character := make([]int, 0, (nlp+1)*Nrepeat*Nrepeat/4)
 	seq := func(n int) []int {
 		seq := make([]int, n)
 		for i := 0; i < n; i++ {
@@ -30,30 +30,30 @@ func LatticeGen(UnitCell, LatticeVectors [][]float64) ([][]float64, []int) {
 		}
 		return seq
 	}(nlp)
-	Character = append(Character, seq...)
+	character = append(character, seq...)
 
-	avec, bvec := LatticeVectors[0], LatticeVectors[1]
-	UnitCellC := Copy2DimArray(LatticeCoords)
+	avec, bvec := latticeVectors[0], latticeVectors[1]
+	unitCellC := Copy2DimArray(latticeCoords)
 	for k := 0; k < Nrepeat/2; k++ {
 		for j := 0; j < Nrepeat/2; j++ {
-			LatticeTemp := Copy2DimArray(UnitCellC).([][]float64)
+			latticeTemp := Copy2DimArray(unitCellC).([][]float64)
 			for h := 0; h < nlp; h++ {
-				LatticeTemp[h][0] += float64(k)*avec[0] + float64(j)*bvec[0]
-				LatticeTemp[h][1] += float64(k)*avec[1] + float64(j)*bvec[1]
+				latticeTemp[h][0] += float64(k)*avec[0] + float64(j)*bvec[0]
+				latticeTemp[h][1] += float64(k)*avec[1] + float64(j)*bvec[1]
 			}
-			LatticeCoords = append(LatticeCoords, LatticeTemp...)
-			Character = append(Character, seq...)
+			latticeCoords = append(latticeCoords, latticeTemp...)
+			character = append(character, seq...)
 		}
 	}
 
 	// Matrix of lattice coordinates
-	Lattice, Remv := MatrixTidy(LatticeCoords)
-	char := make([]int, 0, len(Character))
-	for i := 0; i < len(Character); i++ {
-		if Remv[i] == 0 {
-			char = append(char, Character[i])
+	lattice, remv := MatrixTidy(latticeCoords)
+	char := make([]int, 0, len(character))
+	for i := 0; i < len(character); i++ {
+		if remv[i] == 0 {
+			char = append(char, character[i])
 		}
 	}
 
-	return Lattice, char
+	return lattice, char
 }
