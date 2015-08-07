@@ -17,16 +17,16 @@ func BrokenIslandUnitCell(xtest []int) bool {
 		return false
 	}
 
-	AdjX := Create2DimArray(int(0), l, l).([][]int)
+	adjX := Create2DimArray(int(0), l, l).([][]int)
 	for k := 0; k < l-1; k++ {
 		for j := k + 1; j < l; j++ {
 			if Member(xtest[k], SurrAdj([]int{xtest[j]}, Inp.AdjCuml[Npower-1])) {
-				AdjX[k][j], AdjX[j][k] = 1, 1
+				adjX[k][j], adjX[j][k] = 1, 1
 			}
 		}
 	}
 
-	_, _, no := GraphClusters(GraphAdjacency(AdjX, ADJ_UNDIRECTED))
+	_, _, no := GraphClusters(GraphAdjacency(adjX, ADJ_UNDIRECTED))
 	if no > 1 {
 		return true
 	}
