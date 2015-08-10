@@ -21,9 +21,6 @@ func QabcdBlock(pcab, ccab []int, ocab []float64,
 	// Turn to true if Cc is in the reduction set of Ca, and Cd is in
 	// the extension set of Cb
 	//
-	// Check if Cc is in the reduction set of Ca
-	// Check if Cd is in the extension set of Cb
-	//
 	// Compute the contribution to the probability
 	//
 	qtot := 0.0
@@ -35,10 +32,8 @@ func QabcdBlock(pcab, ccab []int, ocab []float64,
 	// 2. Compute the probability q_{ab,dc}^{k-->j} that Ca is reduced
 	// to give Cd, and Cb is extended to give Cc.
 	//
-	// Turn to true if Cd is in the reduction set of Ca, and Cc is in the extension set of Cb
-	//
-	// Check if Cc is in the reduction set of Ca
-	// Check if Cc is in the extension set of Cb
+	// Turn to true if Cd is in the reduction set of Ca, and Cc is in
+	// the extension set of Cb
 	//
 	// Compute the contribution to the probability
 	//
@@ -50,7 +45,7 @@ func QabcdBlock(pcab, ccab []int, ocab []float64,
 	return qtot
 }
 
-// Check if Cc is in the reduction set of Ca
+// Return true if blk is in the reduction set of Ca
 //
 func isReductionSet(preda, creda [][]int, oreda [][]float64,
 	pblk, cblk []int, oblk []float64) bool {
