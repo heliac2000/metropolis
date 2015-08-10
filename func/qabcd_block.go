@@ -17,70 +17,54 @@ func QabcdBlock(pcab, ccab []int, ocab []float64,
 
 	// 1. Compute the probability q_{ab,cd}^{k-->j} that CaB is reduced
 	// to give CcB, and CbB is extended to give CdB.
-
+	//
 	// Turn to true if Cc is in the reduction set of Ca, and Cd is in
 	// the extension set of Cb
-	in_reda := false
-
+	//
 	// Check if Cc is in the reduction set of Ca
-	for k := 0; k < len(preda); k++ {
-		if IsomorphIslandsBlock(preda[k], creda[k], oreda[k], pccb, cccb, occb) {
-			in_reda = true
-			break
-		}
-	}
-
 	// Check if Cd is in the extension set of Cb
 	//
 	// Compute the contribution to the probability
 	//
 	qtot := 0.0
-	if in_reda && InExt(pcdb, ccdb, ocdb, pcbb, ccbb, ocbb, extb) {
-		// Compute the denominators of Pa and Qba
-		denPa, denQba := 0.0, 0.0
-		// Deal with the zero parts afterwards. Make sure the canonical
-		// representations are in the correct order with only one zero
-		for k := 0; k < len(canon)-1; k++ {
-			denPa += math.Pow(float64(len(canon[k])), Alpha1)
-			denQba += 1.0 + math.Pow(float64(len(canon[k])), Alpha2)
-		}
-		// Include the zero part
-		denQba -= math.Pow(float64(len(canon[i1])), Alpha2)
-		pa := math.Pow(float64(len(canon[i1])), Alpha1) / denPa
-
-		// Incase a zero is chosen
-		qba := 1.0
-		if len(pcbb) != 1 || pcbb[0] != 0 {
-			qba += math.Pow(float64(len(pcbb)), Alpha2)
-		}
-		qba /= denQba
-
-		qtot = pa * qba /
-			((float64(len(preda)) / IslandSymmetryBlock(pcab)) *
-				(float64(lb) / IslandSymmetryBlock(pcbb)))
+	if isReductionSet(preda, creda, oreda, pccb, cccb, occb) &&
+		InExt(pcdb, ccdb, ocdb, pcbb, ccbb, ocbb, extb) {
+		qtot = computeContribution(pcbb, pcab, canon, i1, lb, len(preda))
 	}
 
 	// 2. Compute the probability q_{ab,dc}^{k-->j} that Ca is reduced
 	// to give Cd, and Cb is extended to give Cc.
-	in_reda = false
-
+	//
 	// Turn to true if Cd is in the reduction set of Ca, and Cc is in the extension set of Cb
+	//
 	// Check if Cc is in the reduction set of Ca
-	for k := 0; k < len(preda); k++ {
-		if IsomorphIslandsBlock(preda[k], creda[k], oreda[k], pcdb, ccdb, ocdb) {
-			in_reda = true
-			break
-		}
-	}
-
 	// Check if Cc is in the extension set of Cb
 	//
 	// Compute the contribution to the probability
 	//
-	if !in_reda || !InExt(pccb, cccb, occb, pcbb, ccbb, ocbb, extb) {
-		return qtot
+	if isReductionSet(preda, creda, oreda, pcdb, ccdb, ocdb) &&
+		InExt(pccb, cccb, occb, pcbb, ccbb, ocbb, extb) {
+		return qtot + computeContribution(pccb, pcab, canon, i1, lb, len(preda))
 	}
 
+	return qtot
+}
+
+// Check if Cc is in the reduction set of Ca
+//
+func isReductionSet(preda, creda [][]int, oreda [][]float64,
+	pblk, cblk []int, oblk []float64) bool {
+	for k := 0; k < len(preda); k++ {
+		if IsomorphIslandsBlock(preda[k], creda[k], oreda[k], pblk, cblk, oblk) {
+			return true
+		}
+	}
+	return false
+}
+
+// Compute the contribution to the probability
+//
+func computeContribution(blk1, blk2 []int, canon [][]int, i1, lb, lreda int) float64 {
 	// Compute the denominators of Pa and Qba
 	denPa, denQba := 0.0, 0.0
 	// Deal with the zero parts afterwards. Make sure the canonical
@@ -95,12 +79,12 @@ func QabcdBlock(pcab, ccab []int, ocab []float64,
 
 	// Incase a zero is chosen
 	qba := 1.0
-	if len(pcbb) != 1 || pcbb[0] != 0 {
-		qba += math.Pow(float64(len(pcbb)), Alpha2)
+	if len(blk1) != 1 || blk1[0] != 0 {
+		qba += math.Pow(float64(len(blk1)), Alpha2)
 	}
 	qba /= denQba
 
-	return qtot + pa*qba/
-		((float64(len(preda))/IslandSymmetryBlock(pcab))*
-			(float64(lb)/IslandSymmetryBlock(pcbb)))
+	return pa * qba /
+		((float64(lreda) / IslandSymmetryBlock(blk2)) *
+			(float64(lb) / IslandSymmetryBlock(blk1)))
 }
