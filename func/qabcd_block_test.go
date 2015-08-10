@@ -83,7 +83,7 @@ func TestQabcdBlock(t *testing.T) {
 		preda, creda, oreda := ReductionBlock(tc.pcab, tc.ccab, tc.ocab)
 		extb, lb := ExtensionBlock(tc.pcbb, CoordsIsland(tc.pcbb, tc.ccbb, tc.ocbb))
 
-		actual := QabcdBlock(tc.pcab, tc.ccab, tc.ocab, tc.pcbb, tc.ccbb, tc.ocbb,
+		actual := QabcdBlock(tc.pcab, tc.pcbb, tc.ccbb, tc.ocbb,
 			tc.pccb, tc.cccb, tc.occb, tc.pcdb, tc.ccdb, tc.ocdb, preda, creda, oreda,
 			tc.canon, extb, lb, tc.i1)
 
@@ -97,5 +97,5 @@ func TestQabcdBlock(t *testing.T) {
 }
 
 // Local Variables:
-// compile-command: (concat "go test -v " (file-name-nondirectory buffer-file-name))
+// compile-command: (concat "go test -gcflags='-B' -v " (file-name-nondirectory buffer-file-name))
 // End:

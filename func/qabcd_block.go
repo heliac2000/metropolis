@@ -10,9 +10,9 @@ import "math"
 // (positions, characters, and orientations). Extb is the extension of
 // b, Lb is the number of elements)
 //
-func QabcdBlock(pcab, ccab []int, ocab []float64,
-	pcbb, ccbb []int, ocbb []float64, pccb, cccb []int, occb []float64,
-	pcdb, ccdb []int, ocdb []float64, preda, creda [][]int, oreda [][]float64,
+func QabcdBlock(pcab []int, pcbb, ccbb []int, ocbb []float64,
+	pccb, cccb []int, occb []float64, pcdb, ccdb []int, ocdb []float64,
+	preda, creda [][]int, oreda [][]float64,
 	canon [][]int, extb [][][]int, lb, i1 int) float64 {
 
 	// 1. Compute the probability q_{ab,cd}^{k-->j} that CaB is reduced
@@ -39,7 +39,7 @@ func QabcdBlock(pcab, ccab []int, ocab []float64,
 	//
 	if isReductionSet(preda, creda, oreda, pcdb, ccdb, ocdb) &&
 		InExt(pccb, cccb, occb, pcbb, ccbb, ocbb, extb) {
-		return qtot + computeContribution(pccb, pcab, canon, i1, lb, len(preda))
+		qtot += computeContribution(pccb, pcab, canon, i1, lb, len(preda))
 	}
 
 	return qtot
