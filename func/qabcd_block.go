@@ -34,32 +34,31 @@ func QabcdBlock(pcab, ccab []int, ocab []float64,
 	//
 	// Compute the contribution to the probability
 	//
-	if !in_reda || !InExt(pcdb, ccdb, ocdb, pcbb, ccbb, ocbb, extb) {
-		return 0
-	}
+	qtot := 0.0
+	if in_reda && InExt(pcdb, ccdb, ocdb, pcbb, ccbb, ocbb, extb) {
+		// Compute the denominators of Pa and Qba
+		denPa, denQba := 0.0, 0.0
+		// Deal with the zero parts afterwards. Make sure the canonical
+		// representations are in the correct order with only one zero
+		for k := 0; k < len(canon)-1; k++ {
+			denPa += math.Pow(float64(len(canon[k])), Alpha1)
+			denQba += 1.0 + math.Pow(float64(len(canon[k])), Alpha2)
+		}
+		// Include the zero part
+		denQba -= math.Pow(float64(len(canon[i1])), Alpha2)
+		pa := math.Pow(float64(len(canon[i1])), Alpha1) / denPa
 
-	// Compute the denominators of Pa and Qba
-	denPa, denQba := 0.0, 0.0
-	// Deal with the zero parts afterwards. Make sure the canonical
-	// representations are in the correct order with only one zero
-	for k := 0; k < len(canon)-1; k++ {
-		denPa += math.Pow(float64(len(canon[k])), Alpha1)
-		denQba += 1.0 + math.Pow(float64(len(canon[k])), Alpha2)
-	}
-	// Include the zero part
-	denQba -= math.Pow(float64(len(canon[i1])), Alpha2)
-	pa := math.Pow(float64(len(canon[i1])), Alpha1) / denPa
+		// Incase a zero is chosen
+		qba := 1.0
+		if len(pcbb) != 1 || pcbb[0] != 0 {
+			qba += math.Pow(float64(len(pcbb)), Alpha2)
+		}
+		qba /= denQba
 
-	// Incase a zero is chosen
-	qba := 1.0
-	if len(pcbb) != 1 || pcbb[0] != 0 {
-		qba += math.Pow(float64(len(pcbb)), Alpha2)
+		qtot = pa * qba /
+			((float64(len(preda)) / IslandSymmetryBlock(pcab)) *
+				(float64(lb) / IslandSymmetryBlock(pcbb)))
 	}
-	qba /= denQba
-
-	qtot := pa * qba /
-		((float64(len(preda)) / IslandSymmetryBlock(pcab)) *
-			(float64(lb) / IslandSymmetryBlock(pcbb)))
 
 	// 2. Compute the probability q_{ab,dc}^{k-->j} that Ca is reduced
 	// to give Cd, and Cb is extended to give Cc.
@@ -83,7 +82,7 @@ func QabcdBlock(pcab, ccab []int, ocab []float64,
 	}
 
 	// Compute the denominators of Pa and Qba
-	denPa, denQba = 0.0, 0.0
+	denPa, denQba := 0.0, 0.0
 	// Deal with the zero parts afterwards. Make sure the canonical
 	// representations are in the correct order with only one zero
 	for k := 0; k < len(canon)-1; k++ {
@@ -92,10 +91,10 @@ func QabcdBlock(pcab, ccab []int, ocab []float64,
 	}
 	// Include the zero part
 	denQba -= math.Pow(float64(len(canon[i1])), Alpha2)
-	pa = math.Pow(float64(len(canon[i1])), Alpha1) / denPa
+	pa := math.Pow(float64(len(canon[i1])), Alpha1) / denPa
 
 	// Incase a zero is chosen
-	qba = 1.0
+	qba := 1.0
 	if len(pcbb) != 1 || pcbb[0] != 0 {
 		qba += math.Pow(float64(len(pcbb)), Alpha2)
 	}
