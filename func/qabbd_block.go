@@ -41,3 +41,24 @@ func QabbdBlock(pcab, ccab []int, ocab []float64,
 
 	return qtot
 }
+
+// 1. Compute the probability q_{ab,0d}^{k-->j} that CaB is reduced to
+// give zero island, and CbB is extended to give CdB.
+//
+func Qab0dBlock(pcab, ccab []int, ocab []float64,
+	pcbb, ccbb []int, ocbb []float64, pcdb, ccdb []int, ocdb []float64,
+	preda, creda [][]int, oreda [][]float64,
+	canon [][]int, extb [][][]int, lb, i1 int) float64 {
+
+	// Turn to true if Cc is in the reduction set of Ca, and Cd is in
+	// the extension set of Cb
+	//
+	// Empty block
+	//
+	if isReductionSet(preda, creda, oreda, []int{0}, []int{0}, []float64{0}) &&
+		InExt(pcdb, ccdb, ocdb, pcbb, ccbb, ocbb, extb) {
+		return computeContribution(pcbb, pcab, canon, i1, lb, len(preda))
+	}
+
+	return 0.0
+}
