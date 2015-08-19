@@ -99,30 +99,40 @@ func probBlockQabcd(pcanon, ccanon [][]int, ocanon [][]float64,
 func probBlockQabbd(pcanon, ccanon [][]int, ocanon [][]float64,
 	pcanon_out, ccanon_out [][]int, ocanon_out [][]float64, a int) float64 {
 	// Permutation(l-1, 2) : 0-base
-	l, qtestOut := len(pcanon), 0.0
+	l := len(pcanon)
+	numGor := l * (l - 1)
+	ch := make(chan float64, numGor)
 	for i1 := 0; i1 < l; i1++ {
 		for i2 := 0; i2 < l; i2++ {
 			if i1 == i2 {
 				continue
 			}
+			go func(i1, i2 int) {
+				var zcoord [][]float64
+				if len(pcanon[i2]) == 1 && pcanon[i2][0] == 0 {
+					zcoord = [][]float64{{0, 0, 0}}
+				} else {
+					zcoord = CoordsIsland(pcanon[i2], ccanon[i2], ocanon[i2])
+				}
+				extb, lb := ExtensionBlock(pcanon[i2], zcoord)
 
-			var zcoord [][]float64
-			if len(pcanon[i2]) == 1 && pcanon[i2][0] == 0 {
-				zcoord = [][]float64{{0, 0, 0}}
-			} else {
-				zcoord = CoordsIsland(pcanon[i2], ccanon[i2], ocanon[i2])
-			}
-			extb, lb := ExtensionBlock(pcanon[i2], zcoord)
-
-			preda, creda, oreda := ReductionBlock(pcanon[i1], ccanon[i1], ocanon[i1])
-			qtestOut += QabbdBlock(pcanon[i1], ccanon[i1], ocanon[i1],
-				pcanon[i2], ccanon[i2], ocanon[i2], pcanon_out[a], ccanon_out[a], ocanon_out[a],
-				preda, creda, oreda, pcanon, extb, lb, i1) +
-				Qab0dBlock(pcanon[i1], ccanon[i1], ocanon[i1],
+				preda, creda, oreda := ReductionBlock(pcanon[i1], ccanon[i1], ocanon[i1])
+				ret := QabbdBlock(pcanon[i1], ccanon[i1], ocanon[i1],
 					pcanon[i2], ccanon[i2], ocanon[i2], pcanon_out[a], ccanon_out[a], ocanon_out[a],
-					preda, creda, oreda, pcanon, extb, lb, i1)
+					preda, creda, oreda, pcanon, extb, lb, i1) +
+					Qab0dBlock(pcanon[i1], ccanon[i1], ocanon[i1],
+						pcanon[i2], ccanon[i2], ocanon[i2], pcanon_out[a], ccanon_out[a], ocanon_out[a],
+						preda, creda, oreda, pcanon, extb, lb, i1)
+				ch <- ret
+			}(i1, i2)
 		}
 	}
+
+	qtestOut := 0.0
+	for i := 0; i < numGor; i++ {
+		qtestOut += <-ch
+	}
+	close(ch)
 
 	return qtestOut
 }
@@ -132,28 +142,38 @@ func probBlockQabbd(pcanon, ccanon [][]int, ocanon [][]float64,
 func probBlockQabba(pcanon, ccanon [][]int, ocanon [][]float64,
 	pcanon_out, ccanon_out [][]int, ocanon_out [][]float64) float64 {
 	// Permutation(l-1, 2) : 0-base
-	l, qtestOut := len(pcanon), 0.0
+	l := len(pcanon)
+	numGor := l * (l - 1)
+	ch := make(chan float64, numGor)
 	for i1 := 0; i1 < l; i1++ {
 		for i2 := 0; i2 < l; i2++ {
 			if i1 == i2 {
 				continue
 			}
+			go func(i1, i2 int) {
+				var zcoord [][]float64
+				if len(pcanon[i2]) == 1 && pcanon[i2][0] == 0 {
+					zcoord = [][]float64{{0, 0, 0}}
+				} else {
+					zcoord = CoordsIsland(pcanon[i2], ccanon[i2], ocanon[i2])
+				}
+				extb, lb := ExtensionBlock(pcanon[i2], zcoord)
 
-			var zcoord [][]float64
-			if len(pcanon[i2]) == 1 && pcanon[i2][0] == 0 {
-				zcoord = [][]float64{{0, 0, 0}}
-			} else {
-				zcoord = CoordsIsland(pcanon[i2], ccanon[i2], ocanon[i2])
-			}
-			extb, lb := ExtensionBlock(pcanon[i2], zcoord)
-
-			preda, creda, oreda := ReductionBlock(pcanon[i1], ccanon[i1], ocanon[i1])
-			qtestOut += QabbaBlock(pcanon[i1], ccanon[i1], ocanon[i1],
-				pcanon[i2], ccanon[i2], ocanon[i2], preda, creda, oreda, pcanon, extb, lb, i1) +
-				Qab0aBlock(pcanon[i1], ccanon[i1], ocanon[i1],
-					pcanon[i2], ccanon[i2], ocanon[i2], preda, creda, oreda, pcanon, extb, lb, i1)
+				preda, creda, oreda := ReductionBlock(pcanon[i1], ccanon[i1], ocanon[i1])
+				ret := QabbaBlock(pcanon[i1], ccanon[i1], ocanon[i1],
+					pcanon[i2], ccanon[i2], ocanon[i2], preda, creda, oreda, pcanon, extb, lb, i1) +
+					Qab0aBlock(pcanon[i1], ccanon[i1], ocanon[i1],
+						pcanon[i2], ccanon[i2], ocanon[i2], preda, creda, oreda, pcanon, extb, lb, i1)
+				ch <- ret
+			}(i1, i2)
 		}
 	}
+
+	qtestOut := 0.0
+	for i := 0; i < numGor; i++ {
+		qtestOut += <-ch
+	}
+	close(ch)
 
 	return qtestOut
 }
