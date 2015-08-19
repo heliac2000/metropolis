@@ -297,90 +297,92 @@ type annMinK struct {
 }
 
 //
-// FNN/src/kd_search.cpp: global variables
+// FNN/src/kd_search.cpp: shared variables
 //
-var (
+type annSharedVars struct {
 	annKdDim     int
 	annKdQ       []float64
 	annKdPts     [][]float64
 	annKdPointMK *annMinK
-)
+}
 
 //
 // FNN/src/kd_search.cpp: ANNkd_tree::annkSearch()
 //
 func annkSearch(tree *annkdTree, q []float64, k int) ([]float64, []int) {
-	annKdDim = tree.dim
-	annKdQ = q
-	annKdPts = tree.pts
-
 	if k > tree.nPts {
 		log.Fatalln("Requesting more near neighbors than data points")
 	}
 
-	annKdPointMK = newAnnMinK(k)
+	sharedVars := &annSharedVars{
+		annKdDim:     tree.dim,
+		annKdQ:       q,
+		annKdPts:     tree.pts,
+		annKdPointMK: newAnnMinK(k),
+	}
+
 	dist := annBoxDistance(q, tree.bndBoxLo, tree.bndBoxHi, tree.dim)
 	reflect.ValueOf(tree.root).MethodByName("AnnSearch").
-		Call([]reflect.Value{reflect.ValueOf(dist)})
+		Call([]reflect.Value{reflect.ValueOf(dist), reflect.ValueOf(sharedVars)})
 
 	dd, nn_idx := make([]float64, k), make([]int, k)
 	for i := 0; i < k; i++ {
-		dd[i] = annKdPointMK.ithSmallestKey(i)
-		nn_idx[i] = annKdPointMK.ithSmallestInfo(i)
+		dd[i] = sharedVars.annKdPointMK.ithSmallestKey(i)
+		nn_idx[i] = sharedVars.annKdPointMK.ithSmallestInfo(i)
 	}
 
 	return dd, nn_idx
 }
 
-func (node *annkdSplit) AnnSearch(boxDist float64) {
-	cutDiff := annKdQ[node.cutDim] - node.cutVal
+func (node *annkdSplit) AnnSearch(boxDist float64, sharedVars *annSharedVars) {
+	cutDiff := sharedVars.annKdQ[node.cutDim] - node.cutVal
 	if cutDiff < 0 {
 		reflect.ValueOf(node.child[0]).MethodByName("AnnSearch").
-			Call([]reflect.Value{reflect.ValueOf(boxDist)})
+			Call([]reflect.Value{reflect.ValueOf(boxDist), reflect.ValueOf(sharedVars)})
 
-		boxDiff := node.cdBnds[0] - annKdQ[node.cutDim]
+		boxDiff := node.cdBnds[0] - sharedVars.annKdQ[node.cutDim]
 		if boxDiff < 0 {
 			boxDiff = 0
 		}
 		boxDist += cutDiff*cutDiff - boxDiff*boxDiff
 
-		if boxDist < annKdPointMK.maxKey() {
+		if boxDist < sharedVars.annKdPointMK.maxKey() {
 			reflect.ValueOf(node.child[1]).MethodByName("AnnSearch").
-				Call([]reflect.Value{reflect.ValueOf(boxDist)})
+				Call([]reflect.Value{reflect.ValueOf(boxDist), reflect.ValueOf(sharedVars)})
 		}
 	} else {
 		reflect.ValueOf(node.child[1]).MethodByName("AnnSearch").
-			Call([]reflect.Value{reflect.ValueOf(boxDist)})
+			Call([]reflect.Value{reflect.ValueOf(boxDist), reflect.ValueOf(sharedVars)})
 
-		boxDiff := annKdQ[node.cutDim] - node.cdBnds[1]
+		boxDiff := sharedVars.annKdQ[node.cutDim] - node.cdBnds[1]
 		if boxDiff < 0 {
 			boxDiff = 0
 		}
 		boxDist += cutDiff*cutDiff - boxDiff*boxDiff
 
-		if boxDist < annKdPointMK.maxKey() {
+		if boxDist < sharedVars.annKdPointMK.maxKey() {
 			reflect.ValueOf(node.child[0]).MethodByName("AnnSearch").
-				Call([]reflect.Value{reflect.ValueOf(boxDist)})
+				Call([]reflect.Value{reflect.ValueOf(boxDist), reflect.ValueOf(sharedVars)})
 		}
 	}
 
 	return
 }
 
-func (node *annkdLeaf) AnnSearch(boxDist float64) {
-	minDist, dist := annKdPointMK.maxKey(), 0.0
+func (node *annkdLeaf) AnnSearch(boxDist float64, sharedVars *annSharedVars) {
+	minDist, dist := sharedVars.annKdPointMK.maxKey(), 0.0
 
 	for i := 0; i < node.nPts; i++ {
-		pp, d := annKdPts[node.bkt[i]], 0
-		for ; d < annKdDim; d++ {
-			dist += (annKdQ[d] - pp[d]) * (annKdQ[d] - pp[d])
+		pp, d := sharedVars.annKdPts[node.bkt[i]], 0
+		for ; d < sharedVars.annKdDim; d++ {
+			dist += (sharedVars.annKdQ[d] - pp[d]) * (sharedVars.annKdQ[d] - pp[d])
 			if dist > minDist {
 				break
 			}
 		}
-		if d >= annKdDim {
-			annKdPointMK.insert(dist, node.bkt[i])
-			minDist = annKdPointMK.maxKey()
+		if d >= sharedVars.annKdDim {
+			sharedVars.annKdPointMK.insert(dist, node.bkt[i])
+			minDist = sharedVars.annKdPointMK.maxKey()
 		}
 	}
 
