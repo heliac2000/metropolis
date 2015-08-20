@@ -8,16 +8,16 @@ import . "./"
 
 // WhichOverZero
 //
-func TestWhichOverZero(t *testing.T) {
-	hop := [][]int{{0, 1, 2, 3, -1, 10, 15, -20}}
-	actual := WhichOverZero(0, hop)
-	expected := []int{1, 2, 3, 5, 6}
-
-	if !reflect.DeepEqual(actual, expected) {
-		t.Errorf("\ngot  %v\nwant %v", actual, expected)
-		return
-	}
-}
+// func TestWhichOverZero(t *testing.T) {
+// 	hop := [][]int{{0, 1, 2, 3, -1, 10, 15, -20}}
+// 	actual := WhichOverZero(0, hop)
+// 	expected := []int{1, 2, 3, 5, 6}
+//
+// 	if !reflect.DeepEqual(actual, expected) {
+// 		t.Errorf("\ngot  %v\nwant %v", actual, expected)
+// 		return
+// 	}
+// }
 
 // WhichIn
 //
