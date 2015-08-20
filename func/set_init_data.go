@@ -17,8 +17,17 @@ type InitData struct {
 	MoleculeCoordinates    *MoleculeCoordinates
 }
 
-func SetInitData(ucFile, lvFile string) {
+//
+// ucFile: UnitCell data
+// uc2File: UnitCell2 data(CSV format)
+// lvFile: LatticeVector data(CSV format)
+//
+// [R] write.table(format(UnitCell2, digits=22, trim=T), file="UnitCell2.csv",
+//                 sep=",", row.names=FALSE, col.names=FALSE, quote=F)
+//
+func SetInitData(ucFile, uc2File, lvFile string) {
 	unitCell := LoadFromCsvFile2Dim(ucFile, ' ')
+	unitCell2 := LoadFromCsvFile2Dim(uc2File, ',')
 	LatticeVectors := LoadFromCsvFile2Dim(lvFile, ',')
 
 	Lattice, character := LatticeGen(unitCell, LatticeVectors)
@@ -109,7 +118,7 @@ func SetInitData(ucFile, lvFile string) {
 
 	Inp = &InitData{
 		UnitCell:               unitCell,
-		UnitCell2:              LoadFromCsvFile2Dim("./data/UnitCell2.csv", ','),
+		UnitCell2:              unitCell2,
 		UnitCellCoords:         unitCellCoords,
 		AdjCuml:                adjCuml,
 		Character:              character,

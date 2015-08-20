@@ -13,7 +13,7 @@ type testCasesRotationBlock struct {
 }
 
 func TestRotationBlock(t *testing.T) {
-	SetInitData("./data/PrecursorUnitCell.csv", "./data/PrecursorUnitCellAxes.csv")
+	SetInitData("./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv")
 
 	// NOTICE: R is 1-base index, golang is 0-base.
 	testCases := []testCasesRotationBlock{

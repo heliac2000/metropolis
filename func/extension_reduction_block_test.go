@@ -12,19 +12,22 @@ type testExtensionReductionBlock struct {
 }
 
 func TestExtensionRedunctionBlock(t *testing.T) {
-	SetInitData("./data/PrecursorUnitCell.csv", "./data/PrecursorUnitCellAxes.csv")
+	SetInitData("./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv")
 
 	testCases := []testExtensionReductionBlock{
 		{
-			// [R] lst1 = Canonical.Gen(); ExtensionRedunctionBlock(lst1)
+			// NOTICE: R is 1-base index, golang is 0-base.
+			//   ctest(characters) are 1-base in R but 0-base in Golang
 			//
+			// [R]
+			// lst1 = Canonical.Gen(); ExtensionRedunctionBlock(lst1)
 			// lst1 = list(
 			//   list(c(313), c(313), c(313), c(313), c(313), c(313), c(313), c(313), c(313), c(313)),
 			//   list(c(5), c(6), c(4), c(4), c(5), c(7), c(4), c(6), c(5), c(6)),
 			//   list(c(60), c(0), c(0), c(0), c(120), c(0), c(120), c(120), c(120), c(0)))
 			//
 			xtest: [][]int{{313}, {313}, {313}, {313}, {313}, {313}, {313}, {313}, {313}, {313}},
-			ctest: [][]int{{5}, {6}, {4}, {4}, {5}, {7}, {4}, {6}, {5}, {6}},
+			ctest: [][]int{{4}, {5}, {3}, {3}, {4}, {6}, {3}, {5}, {4}, {5}},
 			otest: [][]float64{{60}, {0}, {0}, {0}, {120}, {0}, {120}, {120}, {120}, {0}},
 		},
 	}

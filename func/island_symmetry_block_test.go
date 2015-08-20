@@ -12,7 +12,7 @@ type testCasesIslandSymmetry struct {
 }
 
 func TestIslandSymmetry(t *testing.T) {
-	SetInitData("./data/PrecursorUnitCell.csv", "./data/PrecursorUnitCellAxes.csv")
+	SetInitData("./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv")
 
 	testCases := []testCasesIslandSymmetry{
 		// [R]

@@ -15,9 +15,7 @@ type testCasesCoordsIsland struct {
 }
 
 func TestCoordsIsland(t *testing.T) {
-	// [R] write.table(format(UnitCell2, digits=22, trim=T), file="UnitCell2.csv",
-	//                 sep=",", row.names=FALSE, col.names=FALSE, quote=F)
-	SetInitData("./data/PrecursorUnitCell.csv", "./data/PrecursorUnitCellAxes.csv")
+	SetInitData("./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv")
 
 	testCases := []testCasesCoordsIsland{
 		{
