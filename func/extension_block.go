@@ -30,11 +30,8 @@ func ExtensionBlock(xtest []int, zcoords [][]float64) ([][][]int, int) {
 			// Make the CharacersOrientations based checking for overlap
 			// condition. Must make this faster
 			xadd := MakeCharactersOrientations(zcoords, []int{xsurr[k]})
-			if len(xadd) == 0 {
-				continue
-			}
-			if l := len(xadd) * len(xadd[0]); l > 0 {
-				if l == 3 {
+			if len(xadd) > 0 && len(xadd)*len(xadd[0]) > 0 {
+				if len(xadd)*len(xadd[0]) == 3 {
 					xadd = Transpose(xadd).([][]int)
 				}
 				lx += len(xadd)
