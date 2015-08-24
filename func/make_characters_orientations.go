@@ -20,7 +20,7 @@ func MakeCharactersOrientations(zcoords [][]float64, xadd []int) [][]int {
 		addO[i][0] = xadd[i%len(xadd)]
 	}
 
-	mcut, keep := float64(0), make([]int, 0, l)
+	keep := make([]int, 0, l)
 	for k := 0; k < l; k++ {
 		distKnnx, _ := GetKnnx(zcoords,
 			CoordsIsland(addO[k][0:1], addO[k][1:2], []float64{float64(addO[k][2])}), 1)
@@ -33,7 +33,7 @@ func MakeCharactersOrientations(zcoords [][]float64, xadd []int) [][]int {
 				}
 			}
 		}
-		if min > mcut {
+		if min > Mcut {
 			keep = append(keep, k)
 		}
 	}
