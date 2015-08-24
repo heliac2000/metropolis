@@ -16,7 +16,7 @@ const (
 	Nuc int = 25
 
 	// Temperature in kelvin.
-	Temp float64 = 150
+	Temp float64 = 75
 
 	// Boltzmann ant in eV K-1
 	KB float64 = 1.38e-23 / 1.60e-19
@@ -34,7 +34,7 @@ const (
 
 	// Number of cuts of the lattice vectors to use to identify lattice
 	// points in the lattice planes
-	Nstep int = 1e4
+	Nstep int = 1e5
 
 	// Number of molecules to consider
 	Nmolec int = 10
@@ -53,7 +53,7 @@ const (
 	// Parameters for repulsive part of interaction
 
 	// Minimum distance that two atoms by be in before touching repulsive wall
-	Mcut float64 = 1.5
+	Mcut float64 = 1.0
 
 	// Radius to get rid of duplicated points
 	Epsilon float64 = 0.5
@@ -72,7 +72,7 @@ var (
 	Inp *InitData
 
 	// For parallel tempering
-	TempS []int = []int{100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200}
+	TempS []int = []int{50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200}
 
 	// For parallel tempering
 	Nparallel int = len(TempS)
