@@ -1,8 +1,20 @@
 package util
 
+// Count a number of items in slice
+//
+func CountItems(item int, slice []int) int {
+	n := 0
+	for _, v := range slice {
+		if v == item {
+			n++
+		}
+	}
+
+	return n
+}
+
 // R's `which' functions
 //
-
 // func WhichOverZero(hop int, ahop [][]int) []int {
 // 	l := len(ahop[hop])
 // 	hop_d := make([]int, 0, l)
