@@ -6,8 +6,6 @@ package functions
 
 import (
 	"reflect"
-
-	_ "../util"
 )
 
 // Next part: Calculation transistion probability based on reaction class
