@@ -13,6 +13,19 @@ func CountItems(item int, slice []int) int {
 	return n
 }
 
+// R's which function
+//
+func Which(slice []int, a int) []int {
+	c := make([]int, 0, len(slice))
+	for i, v := range slice {
+		if v == a {
+			c = append(c, i)
+		}
+	}
+
+	return c
+}
+
 // R's `which' functions
 //
 // func WhichOverZero(hop int, ahop [][]int) []int {

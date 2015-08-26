@@ -19,6 +19,32 @@ import . "./"
 // 	}
 // }
 
+// Which
+//
+type testCasesWhich struct {
+	slice    []int
+	a        int
+	expected []int
+}
+
+func TestWhich(t *testing.T) {
+	testCases := []testCasesWhich{
+		{
+			slice:    []int{-1, 1, 0, 3, -1, 2},
+			a:        -1,
+			expected: []int{0, 4},
+		},
+	}
+
+	for _, tc := range testCases {
+		actual := Which(tc.slice, tc.a)
+		if !reflect.DeepEqual(actual, tc.expected) {
+			t.Errorf("\ngot  %v\nwant %v", actual, tc.expected)
+			return
+		}
+	}
+}
+
 // WhichIn
 //
 type testCasesWhichIn struct {
