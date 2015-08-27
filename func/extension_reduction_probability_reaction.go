@@ -300,27 +300,38 @@ func (e *eRPRFunction) ERPRClass9() float64 {
 	}
 
 	// Compute the off-diagonal term
+	numGor := l * (l - 1) / 2
+	ch := make(chan float64, numGor)
 	for k := 0; k < l-1; k++ {
-		for j := k + 1; k < l; k++ {
-			pR1, cR1, oR1 := e.pil[k], e.cil[k], e.oil[k]
-			pR2, cR2, oR2 := e.pil[j], e.cil[j], e.oil[j]
+		for j := k + 1; j < l; j++ {
+			go func(k, j int) {
+				pR1, cR1, oR1 := e.pil[k], e.cil[k], e.oil[k]
+				pR2, cR2, oR2 := e.pil[j], e.cil[j], e.oil[j]
 
-			if (pR1[0] == 0 && cR1[0] == 0) || (pR2[0] == 0 && cR2[0] == 0) {
-				continue
-			}
+				if (pR1[0] == 0 && cR1[0] == 0) || (pR2[0] == 0 && cR2[0] == 0) {
+					ch <- 0.0
+					return
+				}
 
-			pRedR1, cRedR1, oRedR1 := ReductionBlock(pR1, cR1, oR1)
-			pRedR2, cRedR2, oRedR2 := ReductionBlock(pR1, cR2, oR2)
-			extR1, lR1 := ExtensionBlock(pR1, CoordsIsland(pR1, cR1, oR1))
-			extR2, lR2 := ExtensionBlock(pR2, CoordsIsland(pR2, cR2, oR2))
-			nR1, nR2 := float64(e.rCoeffs[k]), float64(e.rCoeffs[j])
+				pRedR1, cRedR1, oRedR1 := ReductionBlock(pR1, cR1, oR1)
+				pRedR2, cRedR2, oRedR2 := ReductionBlock(pR1, cR2, oR2)
+				extR1, lR1 := ExtensionBlock(pR1, CoordsIsland(pR1, cR1, oR1))
+				extR2, lR2 := ExtensionBlock(pR2, CoordsIsland(pR2, cR2, oR2))
+				nR1, nR2 := float64(e.rCoeffs[k]), float64(e.rCoeffs[j])
 
-			qTestTot += nR1*nR2*QabbaBlock(
-				pR1, cR1, oR1, pR2, cR2, oR2, pRedR1, cRedR1, oRedR1, e.prct, extR2, lR2, 1) +
-				nR1*nR2*QabbaBlock(
-					pR2, cR2, oR2, pR1, cR1, oR1, pRedR2, cRedR2, oRedR2, e.prct, extR1, lR1, 1)
+				q := nR1*nR2*QabbaBlock(
+					pR1, cR1, oR1, pR2, cR2, oR2, pRedR1, cRedR1, oRedR1, e.prct, extR2, lR2, 1) +
+					nR1*nR2*QabbaBlock(
+						pR2, cR2, oR2, pR1, cR1, oR1, pRedR2, cRedR2, oRedR2, e.prct, extR1, lR1, 1)
+				ch <- q
+			}(k, j)
 		}
 	}
+
+	for i := 0; i < numGor; i++ {
+		qTestTot += <-ch
+	}
+	close(ch)
 
 	return qTestTot
 }
