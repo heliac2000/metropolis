@@ -54,8 +54,9 @@ func ReactionClassID(diff []int) int {
 		return REACT_UNKNOWN
 	}
 
+	l := len(dijp)
 	for i, v := range classKey {
-		if reflect.DeepEqual(dijp, v) {
+		if len(v) == l && reflect.DeepEqual(dijp, v) {
 			return i
 		}
 	}
