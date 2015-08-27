@@ -32,7 +32,6 @@ var classKey = [][]int{
 	{-1, 1, 1},
 	{-1, 2},
 	{-1, 1},
-	{},
 }
 
 // Identify reaction class according to scheme above
@@ -50,11 +49,13 @@ func ReactionClassID(diff []int) int {
 		}
 	}
 
-	if len(dijp) > 4 || len(dijp) == 1 {
+	l := len(dijp)
+	if l == 0 {
+		return REACT_CLASS9
+	} else if l > 4 || l == 1 {
 		return REACT_UNKNOWN
 	}
 
-	l := len(dijp)
 	for i, v := range classKey {
 		if len(v) == l && reflect.DeepEqual(dijp, v) {
 			return i
