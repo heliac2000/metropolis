@@ -17,7 +17,8 @@ func BrokenIslandUnitCell(xtest []int) bool {
 		return false
 	}
 
-	adjX := Create2DimArray(int(0), l, l).([][]int)
+	var adjX [][]int
+	Create2DimArray(&adjX, l, l)
 	for k := 0; k < l-1; k++ {
 		for j := k + 1; j < l; j++ {
 			if Member(xtest[k], SurrAdj([]int{xtest[j]}, Inp.AdjCuml[Npower-1])) {

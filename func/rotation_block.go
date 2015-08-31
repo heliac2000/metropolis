@@ -20,9 +20,10 @@ import (
 // islandO: Island block orientations(angle)
 func RotationBlock(islandP []int) []int {
 	// Fetch the island coordinates
+	var xtestC, xcom [][]float64
 	r, c := len(islandP), len(Inp.UnitCellCoords[0])
-	xtestC := Create2DimArray(float64(0), r, c).([][]float64)
-	xcom := Create2DimArray(float64(0), c, r).([][]float64)
+	Create2DimArray(&xtestC, r, c)
+	Create2DimArray(&xcom, c, r)
 	for i, p := range islandP {
 		copy(xtestC[i], Inp.UnitCellCoords[p])
 		for j := 0; j < c; j++ {
@@ -37,7 +38,8 @@ func RotationBlock(islandP []int) []int {
 	_, ind := GetKnnx(xtestC, xcom, 1)
 	xcom2 := ind[0][0]
 
-	xtestR := Create2DimArray(float64(0), r, c).([][]float64)
+	var xtestR [][]float64
+	Create2DimArray(&xtestR, r, c)
 	for i := 0; i < r; i++ {
 		xtestR[i][0] = xtestC[i][0]*math.Cos(math.Pi) - xtestC[i][1]*math.Sin(math.Pi)
 		xtestR[i][1] = xtestC[i][0]*math.Sin(math.Pi) + xtestC[i][1]*math.Cos(math.Pi)

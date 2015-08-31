@@ -66,9 +66,11 @@ func GetKnnx(data, query [][]float64, k int) ([][]float64, [][]int) {
 func getKNNXkd(data, query [][]float64, K int) ([][]float64, [][]int) {
 	tree := newAnnkdTree(data)
 
+	var nn_dist [][]float64
+	var nn_idx [][]int
 	m := len(query)
-	nn_dist := Create2DimArray(float64(0), m, K).([][]float64)
-	nn_idx := Create2DimArray(int(0), m, K).([][]int)
+	Create2DimArray(&nn_dist, m, K)
+	Create2DimArray(&nn_idx, m, K)
 	for i := 0; i < m; i++ {
 		dist, index := annkSearch(tree, query[i], K)
 		for j := 0; j < K; j++ {

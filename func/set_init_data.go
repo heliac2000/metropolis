@@ -50,15 +50,18 @@ func SetInitData(ucFile, uc2File, lvFile string) {
 	// Make adjacency matrix for the unit cells
 
 	// Number of unit cells
+	var unitCellCoords [][]float64
 	nUC := len(wh4)
-	unitCellCoords := Create2DimArray(float64(0), nUC, 2).([][]float64)
+	Create2DimArray(&unitCellCoords, nUC, 2)
 	for k := 0; k < nUC; k++ {
 		copy(unitCellCoords[k], Lattice[wh4[k]])
 	}
 
+	var Moves [][]float64
+	var Adj [][]int
+	Create2DimArray(&Moves, 4, 2)
+	Create2DimArray(&Adj, nUC, nUC)
 	avec, bvec := LatticeVectors[0], LatticeVectors[1]
-	Moves := Create2DimArray(float64(0), 4, 2).([][]float64)
-	Adj := Create2DimArray(int(0), nUC, nUC).([][]int)
 	for j := 0; j < nUC; j++ {
 		for i := 0; i < 4; i++ {
 			copy(Moves[i], unitCellCoords[j])
@@ -106,8 +109,9 @@ func SetInitData(ucFile, uc2File, lvFile string) {
 	//
 	// charactersOrientations[][1] is index(0-base or 1-base)
 	//
+	var charactersOrientations [][]int
 	chUnique := Unique(character)
-	charactersOrientations := Create2DimArray(int(0), len(chUnique)*3, 3).([][]int)
+	Create2DimArray(&charactersOrientations, len(chUnique)*3, 3)
 	for k, cnt := 0, 0; k < len(chUnique); k++ {
 		for j := 0; j < 3; j++ {
 			charactersOrientations[cnt][1] = chUnique[k]

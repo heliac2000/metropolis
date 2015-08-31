@@ -54,7 +54,13 @@ func TestReductionBlock(t *testing.T) {
 
 func nthColumn(n int, data [][][]int, x interface{}) interface{} {
 	r, c := len(data), len(data[0])
-	arr := reflect.ValueOf(Create2DimArray(x, r, c))
+
+	ts := reflect.SliceOf(reflect.ValueOf(x).Type())
+	ts2 := reflect.SliceOf(ts)
+	arr := reflect.MakeSlice(ts2, r, r)
+	for i := 0; i < r; i++ {
+		arr.Index(i).Set(reflect.MakeSlice(ts, c, c))
+	}
 
 	switch x.(type) {
 	case float32, float64:

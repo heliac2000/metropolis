@@ -31,9 +31,10 @@ func Transpose(m interface{}) interface{} {
 // Multiply matrix A and B
 //
 func MatrixMultiply(A, B [][]int) [][]int {
+	var C [][]int
 	r_A, c_A, c_B := len(A), len(A[0]), len(B[0])
 
-	C := Create2DimArray(int(0), r_A, c_B).([][]int)
+	Create2DimArray(&C, r_A, c_B)
 
 	var wg sync.WaitGroup
 	wg.Add(r_A)

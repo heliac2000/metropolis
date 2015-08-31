@@ -19,9 +19,11 @@ func ReactionRepresentation(prct, crct [][]int, orct [][]float64,
 	cPrct, cPpdt := Copy2DimArray(prct).([][]int), Copy2DimArray(ppdt).([][]int)
 	cCrct, cCpdt := Copy2DimArray(crct).([][]int), Copy2DimArray(cpdt).([][]int)
 	cOrct, cOpdt := Copy2DimArray(orct).([][]float64), Copy2DimArray(opdt).([][]float64)
-	ptot := Create2DimArray(int(0), len(prct)+len(ppdt), len(prct[0])).([][]int)
-	ctot := Create2DimArray(int(0), len(crct)+len(cpdt), len(crct[0])).([][]int)
-	otot := Create2DimArray(float64(0), len(orct)+len(opdt), len(orct[0])).([][]float64)
+	var ptot, ctot [][]int
+	var otot [][]float64
+	Create2DimArray(&ptot, len(prct)+len(ppdt), len(prct[0]))
+	Create2DimArray(&ctot, len(crct)+len(cpdt), len(crct[0]))
+	Create2DimArray(&otot, len(orct)+len(opdt), len(orct[0]))
 
 	copy(ptot, cPrct)
 	copy(ptot[len(cPrct):], cPpdt)
@@ -55,10 +57,12 @@ func ReactionRepresentation(prct, crct [][]int, orct [][]float64,
 	labUnq := Unique(labels)
 	sort.Ints(labUnq)
 
+	var pil, cil [][]int
+	var oil [][]float64
 	l := len(labUnq)
-	pil := Create2DimArray(int(0), l, len(ptot[0])).([][]int)
-	cil := Create2DimArray(int(0), l, len(ctot[0])).([][]int)
-	oil := Create2DimArray(float64(0), l, len(otot[0])).([][]float64)
+	Create2DimArray(&pil, l, len(ptot[0]))
+	Create2DimArray(&cil, l, len(ctot[0]))
+	Create2DimArray(&oil, l, len(otot[0]))
 	for i, k := range labUnq {
 		pil[i], cil[i], oil[i] = ptot[k], ctot[k], otot[k]
 	}
