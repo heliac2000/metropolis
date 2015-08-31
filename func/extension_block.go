@@ -32,9 +32,9 @@ func ExtensionBlock(xtest []int, zcoords [][]float64) ([][][]int, int) {
 			// condition. Must make this faster
 			xadd := MakeCharactersOrientations(zcoords, []int{xsurr[k]})
 			if len(xadd) > 0 && len(xadd)*len(xadd[0]) > 0 {
-				if len(xadd)*len(xadd[0]) == 3 {
-					xadd = Transpose(xadd).([][]int)
-				}
+				//if len(xadd)*len(xadd[0]) == 3 {
+				//xadd = Transpose(xadd).([][]int)
+				//}
 				lx += len(xadd)
 				for i := 0; i < len(xadd); i++ {
 					xadd[i][0] = xsurr[k]
