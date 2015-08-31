@@ -14,8 +14,10 @@ import (
 func MakeCharactersOrientations(zcoords [][]float64, xadd []int) [][]int {
 	// Make a list of rows in CharactersOrientations to keep. Zcoords is
 	// the coordinates of the atoms in Island
+	var addO [][]int
+
 	l := len(Inp.CharactersOrientations)
-	addO := Copy2DimArray(Inp.CharactersOrientations).([][]int)
+	Copy2DimArray(&addO, Inp.CharactersOrientations)
 	for i := 0; i < l; i++ {
 		addO[i][0] = xadd[i%len(xadd)]
 	}

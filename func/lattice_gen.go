@@ -33,11 +33,13 @@ func LatticeGen(unitCell, latticeVectors [][]float64) ([][]float64, []int) {
 	}(nlp)
 	character = append(character, seq...)
 
+	var unitCellC [][]float64
 	avec, bvec := latticeVectors[0], latticeVectors[1]
-	unitCellC := Copy2DimArray(latticeCoords)
+	Copy2DimArray(&unitCellC, latticeCoords)
 	for k := 0; k < Nrepeat/2; k++ {
+		var latticeTemp [][]float64
 		for j := 0; j < Nrepeat/2; j++ {
-			latticeTemp := Copy2DimArray(unitCellC).([][]float64)
+			Copy2DimArray(&latticeTemp, unitCellC)
 			for h := 0; h < nlp; h++ {
 				latticeTemp[h][0] += float64(k)*avec[0] + float64(j)*bvec[0]
 				latticeTemp[h][1] += float64(k)*avec[1] + float64(j)*bvec[1]

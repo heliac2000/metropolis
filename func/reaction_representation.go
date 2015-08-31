@@ -16,9 +16,12 @@ import (
 func ReactionRepresentation(prct, crct [][]int, orct [][]float64,
 	ppdt, cpdt [][]int, opdt [][]float64) ([][]int, [][]int, [][]float64, []int, []int, []int) {
 
-	cPrct, cPpdt := Copy2DimArray(prct).([][]int), Copy2DimArray(ppdt).([][]int)
-	cCrct, cCpdt := Copy2DimArray(crct).([][]int), Copy2DimArray(cpdt).([][]int)
-	cOrct, cOpdt := Copy2DimArray(orct).([][]float64), Copy2DimArray(opdt).([][]float64)
+	var cPrct, cPpdt, cCrct, cCpdt [][]int
+	var cOrct, cOpdt [][]float64
+	_, _ = Copy2DimArray(&cPrct, prct), Copy2DimArray(&cPpdt, ppdt)
+	_, _ = Copy2DimArray(&cCrct, crct), Copy2DimArray(&cCpdt, cpdt)
+	_, _ = Copy2DimArray(&cOrct, orct), Copy2DimArray(&cOpdt, opdt)
+
 	var ptot, ctot [][]int
 	var otot [][]float64
 	Create2DimArray(&ptot, len(prct)+len(ppdt), len(prct[0]))

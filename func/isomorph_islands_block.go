@@ -58,7 +58,8 @@ func IsomorphIslandsBlock(xtest1, ctest1 []int, otest1 []float64,
 
 		// Move Island1 so that its center of mass is over the center of
 		// mass of Island2
-		xtest1CMove := Copy2DimArray(xtest1C).([][]float64)
+		var xtest1CMove [][]float64
+		Copy2DimArray(&xtest1CMove, xtest1C)
 		for i := 0; i < len(xtest1CMove); i++ {
 			xtest1CMove[i][0] -= deltaX
 			xtest1CMove[i][1] -= deltaY

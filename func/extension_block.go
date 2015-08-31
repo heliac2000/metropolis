@@ -13,11 +13,12 @@ import (
 //
 func ExtensionBlock(xtest []int, zcoords [][]float64) ([][][]int, int) {
 	// Count the number of elements in the extension set
+	var xadd [][]int
+
 	lx := 0
 	xtestAppend := make([][][]int, 0, len(Inp.AdjCuml[Npower-1]))
-
 	if len(xtest) == 1 && xtest[0] == 0 {
-		xadd := Copy2DimArray(Inp.CharactersOrientations).([][]int)
+		Copy2DimArray(&xadd, Inp.CharactersOrientations)
 		for i := 0; i < len(xadd); i++ {
 			xadd[i][0] = UCcenter
 		}

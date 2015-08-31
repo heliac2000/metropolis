@@ -9,10 +9,10 @@ import . "../util"
 // Put COM of molecule at coordinate X (1 x 2 vector)
 //
 func ShiftMCpos(moleculeCoords *MoleculeCoordinates, x []float64) [][]float64 {
-	shift := Copy2DimArray(moleculeCoords.All).([][]float64)
-	r := len(shift)
+	var shift [][]float64
+	Copy2DimArray(&shift, moleculeCoords.All)
 
-	sumX, sumY := 0.0, 0.0
+	r, sumX, sumY := len(shift), 0.0, 0.0
 	for i := 0; i < r; i++ {
 		sumX += shift[i][0]
 		sumY += shift[i][1]

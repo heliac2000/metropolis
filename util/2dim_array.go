@@ -20,19 +20,17 @@ func Create2DimArray(dim interface{}, r, c int, cap ...int) {
 
 // Copy 2-dim array
 //
-func Copy2DimArray(src interface{}) interface{} {
-	v := reflect.ValueOf(src)
-	r, c := v.Len(), v.Index(0).Len()
-	ts := reflect.SliceOf(v.Index(0).Index(0).Type())
-	ts2 := reflect.SliceOf(ts)
+func Copy2DimArray(dst, src interface{}) bool {
+	sv, dv := reflect.ValueOf(src), reflect.ValueOf(dst).Elem()
+	typ, r, c := sv.Type(), sv.Len(), sv.Index(0).Len()
 
-	dst := reflect.MakeSlice(ts2, r, r)
-	for i := 0; i < r; i++ {
-		dst.Index(i).Set(reflect.MakeSlice(ts, c, c))
-		reflect.Copy(dst.Index(i), v.Index(i))
+	dv.Set(reflect.MakeSlice(typ, r, r))
+	for i, t := 0, typ.Elem(); i < r; i++ {
+		dv.Index(i).Set(reflect.MakeSlice(t, c, c))
+		reflect.Copy(dv.Index(i), sv.Index(i))
 	}
 
-	return dst.Interface()
+	return true
 }
 
 // Copy vector
@@ -64,4 +62,21 @@ func CopyVector(src interface{}) interface{} {
 // 	}
 //
 // 	return arr.Interface()
+// }
+
+// Copy 2-dim array
+//
+// func Copy2DimArray(src interface{}) interface{} {
+// 	v := reflect.ValueOf(src)
+// 	r, c := v.Len(), v.Index(0).Len()
+// 	ts := reflect.SliceOf(v.Index(0).Index(0).Type())
+// 	ts2 := reflect.SliceOf(ts)
+//
+// 	dst := reflect.MakeSlice(ts2, r, r)
+// 	for i := 0; i < r; i++ {
+// 		dst.Index(i).Set(reflect.MakeSlice(ts, c, c))
+// 		reflect.Copy(dst.Index(i), v.Index(i))
+// 	}
+//
+// 	return dst.Interface()
 // }
