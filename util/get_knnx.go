@@ -69,8 +69,7 @@ func getKNNXkd(data, query [][]float64, K int) ([][]float64, [][]int) {
 	var nn_dist [][]float64
 	var nn_idx [][]int
 	m := len(query)
-	Create2DimArray(&nn_dist, m, K)
-	Create2DimArray(&nn_idx, m, K)
+	_, _ = Create2DimArray(&nn_dist, m, K), Create2DimArray(&nn_idx, m, K)
 	for i := 0; i < m; i++ {
 		dist, index := annkSearch(tree, query[i], K)
 		for j := 0; j < K; j++ {

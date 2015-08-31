@@ -4,7 +4,7 @@ import "reflect"
 
 // Create 2-dim array
 //
-func Create2DimArray(dim interface{}, r, c int, cap ...int) {
+func Create2DimArray(dim interface{}, r, c int, cap ...int) bool {
 	v := reflect.ValueOf(dim).Elem()
 	typ := v.Type()
 	if len(cap) > 0 {
@@ -16,6 +16,8 @@ func Create2DimArray(dim interface{}, r, c int, cap ...int) {
 	for i, t := 0, typ.Elem(); i < r; i++ {
 		v.Index(i).Set(reflect.MakeSlice(t, c, c))
 	}
+
+	return true
 }
 
 // Copy 2-dim array

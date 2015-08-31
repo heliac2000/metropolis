@@ -22,8 +22,7 @@ func RotationBlock(islandP []int) []int {
 	// Fetch the island coordinates
 	var xtestC, xcom [][]float64
 	r, c := len(islandP), len(Inp.UnitCellCoords[0])
-	Create2DimArray(&xtestC, r, c)
-	Create2DimArray(&xcom, c, r)
+	_, _ = Create2DimArray(&xtestC, r, c), Create2DimArray(&xcom, c, r)
 	for i, p := range islandP {
 		copy(xtestC[i], Inp.UnitCellCoords[p])
 		for j := 0; j < c; j++ {

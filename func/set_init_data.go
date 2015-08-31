@@ -59,8 +59,7 @@ func SetInitData(ucFile, uc2File, lvFile string) {
 
 	var Moves [][]float64
 	var Adj [][]int
-	Create2DimArray(&Moves, 4, 2)
-	Create2DimArray(&Adj, nUC, nUC)
+	_, _ = Create2DimArray(&Moves, 4, 2), Create2DimArray(&Adj, nUC, nUC)
 	avec, bvec := LatticeVectors[0], LatticeVectors[1]
 	for j := 0; j < nUC; j++ {
 		for i := 0; i < 4; i++ {
