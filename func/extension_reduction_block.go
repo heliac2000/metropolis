@@ -77,9 +77,7 @@ func ExtensionReductionBlock(xtest, ctest [][]int, otest [][]float64) (
 
 	var xout, cout [][]int
 	var oout [][]float64
-	Copy2DimArray(&xout, xtest)
-	Copy2DimArray(&cout, ctest)
-	Copy2DimArray(&oout, otest)
+	_, _, _ = Copy2DimArray(&xout, xtest), Copy2DimArray(&cout, ctest), Copy2DimArray(&oout, otest)
 
 	// Choose element from CExtend to replace Cout[[sExt]]
 	if chE1, chE2 := 0, 0; len(xExtend) == 1 {
