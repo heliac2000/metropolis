@@ -4,7 +4,11 @@
 
 package functions
 
-import . "../util"
+import (
+	"math"
+
+	. "../util"
+)
 
 type InitData struct {
 	UnitCell               [][]float64
@@ -128,5 +132,39 @@ func SetInitData(ucFile, uc2File, lvFile string) {
 		ChUnique:               chUnique,
 		CharactersOrientations: charactersOrientations,
 		MoleculeCoordinates:    LoadMoleculeCoordinates("./data/Ccarts", "./data/Hcarts", "./data/Brcarts"),
+	}
+
+	SetZcoulomb()
+}
+
+// Prepare the numerators of the Coulomb matrices
+//
+func SetZcoulomb() {
+	totAtoms := 0
+	for _, v := range Natoms {
+		totAtoms += v
+	}
+
+	// Assign the atomic numbers
+	atNum := make([]float64, totAtoms)
+	thrNum := []int{Natoms[0], Natoms[0] + Natoms[1], totAtoms}
+	for k := 0; k < totAtoms; k++ {
+		for i, v := range thrNum {
+			if k < v {
+				atNum[k] = AtomNumber[i]
+				break
+			}
+		}
+	}
+
+	// Prepare the numerators of the Coulomb matrices
+	Create2DimArray(&Zcoulomb, totAtoms, totAtoms)
+	for k := 0; k < totAtoms; k++ {
+		for j := 0; j < totAtoms; j++ {
+			Zcoulomb[k][j] = atNum[k] * atNum[j]
+			if k == j {
+				Zcoulomb[k][j] = 0.5 * math.Pow(atNum[k], 2.4)
+			}
+		}
 	}
 }

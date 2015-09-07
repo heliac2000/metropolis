@@ -59,6 +59,13 @@ const (
 	Epsilon float64 = 0.5
 )
 
+// Atom identities
+const (
+	AtomC int = iota
+	AtomH
+	AtomBr
+)
+
 // Global variables
 //
 var (
@@ -79,4 +86,13 @@ var (
 
 	// Genereate island from UC center
 	UCcenter int = 313
+
+	// Numbers of atoms in order of appearence in Coordinates
+	Natoms []int = []int{56, 32, 4}
+
+	// Assign the atomic numbers
+	AtomNumber []float64 = []float64{6.0, 1.0, 35.0}
+
+	// The numerators of the Coulomb matrices
+	Zcoulomb [][]float64
 )
