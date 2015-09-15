@@ -29,7 +29,7 @@ type InitData struct {
 // [R] write.table(format(UnitCell2, digits=22, trim=T), file="UnitCell2.csv",
 //                 sep=",", row.names=FALSE, col.names=FALSE, quote=F)
 //
-func SetInitData(ucFile, uc2File, lvFile string) {
+func SetInitData(ucFile, uc2File, lvFile, krlsLogFile, krlsAttFile string) {
 	unitCell := LoadFromCsvFile2Dim(ucFile, ' ')
 	unitCell2 := LoadFromCsvFile2Dim(uc2File, ',')
 	LatticeVectors := LoadFromCsvFile2Dim(lvFile, ',')
@@ -135,6 +135,10 @@ func SetInitData(ucFile, uc2File, lvFile string) {
 	}
 
 	SetZcoulomb()
+
+	// Load KRLS objects
+	LoadDataFromJSONFile(&KernelRegsRepLog, krlsLogFile)
+	LoadDataFromJSONFile(&KernelRegsAtt, krlsAttFile)
 }
 
 // Prepare the numerators of the Coulomb matrices

@@ -15,7 +15,9 @@ type testCasesIsomorphIslands struct {
 }
 
 func TestIsomorphIslandsBlock(t *testing.T) {
-	SetInitData("./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv")
+	SetInitData(
+		"./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv",
+		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json")
 
 	// NOTICE: R is 1-base index, golang is 0-base.
 	testCases := []testCasesIsomorphIslands{

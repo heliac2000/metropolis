@@ -13,7 +13,9 @@ import (
 //       file="Zcoulomb.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
 //
 func TestSetZcoulomb(t *testing.T) {
-	SetInitData("./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv")
+	SetInitData(
+		"./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv",
+		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json")
 	zcb := LoadFromCsvFile2Dim("./data/Zcoulomb.csv", ',')
 
 	if !reflect.DeepEqual(Zcoulomb, zcb) {

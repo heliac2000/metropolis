@@ -7,7 +7,9 @@ import (
 )
 
 func TestRandomIslandUnitCell(t *testing.T) {
-	SetInitData("./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv")
+	SetInitData(
+		"./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv",
+		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json")
 
 	islandP, islandC, islandO := RandomIslandUnitCell(4)
 	t.Logf("\nIslandP: %v\nIslandC: %v\nIslandO: %v\n", islandP, islandC, islandO)

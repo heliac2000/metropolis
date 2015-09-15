@@ -95,4 +95,8 @@ var (
 
 	// The numerators of the Coulomb matrices
 	Zcoulomb [][]float64
+
+	// KRLS objects
+	KernelRegsRepLog Krls
+	KernelRegsAtt    Krls
 )
