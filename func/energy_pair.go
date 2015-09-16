@@ -70,7 +70,7 @@ func EnergyPair(k1, k2, ch1, ch2 int, o1, o2 float64) []float64 {
 	}
 
 	return EigenValues(minFast)
-	//speck := EigenValues(minFast)
+	//speck := [][]float64{EigenValues(minFast)}
 	//fmt.Println(speck)
 
 	// Decide if the interaction is attractive or repulsive
