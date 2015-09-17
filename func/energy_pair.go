@@ -6,9 +6,6 @@ package functions
 
 import (
 	"math"
-	"sort"
-
-	"github.com/skelterjohn/go.matrix"
 
 	. "../util"
 )
@@ -60,7 +57,7 @@ func EnergyPair(k1, k2, ch1, ch2 int, o1, o2 float64) []float64 {
 	copy(coordinates[(2*(lc+lh)+lbr):], m2[(lc+lh):])
 
 	// Convert coordinate matrix into a Coulomb matrix
-	distIJ := Dist(coordinates)
+	distIJ := Dist(coordinates, Mcut)
 	var minFast [][]float64
 	Create2DimArray(&minFast, len(distIJ), len(distIJ[0]))
 	for i := 0; i < len(distIJ); i++ {
@@ -75,53 +72,4 @@ func EnergyPair(k1, k2, ch1, ch2 int, o1, o2 float64) []float64 {
 
 	// Decide if the interaction is attractive or repulsive
 	// Check via support vector machines
-}
-
-// [R] dist function(3-dimension)
-//
-func Dist(m [][]float64) [][]float64 {
-	var dist [][]float64
-	l := len(m)
-	Create2DimArray(&dist, l, l)
-
-	for i := 0; i < l; i++ {
-		for j := 0; j < l; j++ {
-			if i == j {
-				dist[i][j] = Mcut
-			} else {
-				dist[i][j] =
-					math.Sqrt((m[i][0]-m[j][0])*(m[i][0]-m[j][0]) +
-						(m[i][1]-m[j][1])*(m[i][1]-m[j][1]) +
-						(m[i][2]-m[j][2])*(m[i][2]-m[j][2]))
-			}
-		}
-	}
-
-	return dist
-}
-
-// [R] eigen function(return eigen$values only)
-//
-func EigenValues(mat [][]float64) []float64 {
-	l := len(mat) // Square matrix
-	m := make([]float64, l*l)
-	for i, k := 0, 0; i < l; i++ {
-		for j := 0; j < l; j++ {
-			m[k], k = mat[i][j], k+1
-		}
-	}
-
-	dm := matrix.MakeDenseMatrix(m, l, l)
-	_, v, err := dm.Eigen()
-	if err != nil {
-		return m
-	}
-
-	ev := make([]float64, l)
-	for i := 0; i < l; i++ {
-		ev[i] = v.Get(i, i)
-	}
-	sort.Sort(sort.Reverse(sort.Float64Slice(ev)))
-
-	return ev
 }
