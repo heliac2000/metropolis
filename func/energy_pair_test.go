@@ -22,7 +22,7 @@ func TestEnergyPair(t *testing.T) {
 
 	for _, tc := range testCases {
 		actual := EnergyPair(tc.k1, tc.k2, tc.ch1, tc.ch2, tc.o1, tc.o2)
-		t.Logf("%v\n%v\n", actual, len(actual))
+		t.Logf("%v\n", actual)
 	}
 }
 
