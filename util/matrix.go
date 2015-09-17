@@ -57,6 +57,29 @@ func MatrixMultiply(A, B [][]int) [][]int {
 	return C
 }
 
+func MatrixMultiplyFloat(A, B [][]float64) [][]float64 {
+	var C [][]float64
+	r_A, c_A, c_B := len(A), len(A[0]), len(B[0])
+
+	Create2DimArray(&C, r_A, c_B)
+
+	var wg sync.WaitGroup
+	wg.Add(r_A)
+	for i := 0; i < r_A; i++ {
+		go func(i int) {
+			defer wg.Done()
+			for j := 0; j < c_B; j++ {
+				for k := 0; k < c_A; k++ {
+					C[i][j] += A[i][k] * B[k][j]
+				}
+			}
+		}(i)
+	}
+	wg.Wait()
+
+	return C
+}
+
 // Add B to A
 //
 func MatrixAdd(A, B [][]int) [][]int {
