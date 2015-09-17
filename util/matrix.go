@@ -1,8 +1,12 @@
 package util
 
 import (
+	"math"
 	"reflect"
+	"sort"
 	"sync"
+
+	"github.com/skelterjohn/go.matrix"
 )
 
 // Transpose
@@ -65,4 +69,67 @@ func MatrixAdd(A, B [][]int) [][]int {
 	}
 
 	return A
+}
+
+// [R] dist function
+//
+func Dist(m [][]float64, diag float64) [][]float64 {
+	var dist [][]float64
+	r, c := len(m), len(m[0])
+	Create2DimArray(&dist, r, r)
+
+	for i := 0; i < r; i++ {
+		for j := 0; j < r; j++ {
+			if i == j {
+				dist[i][j] = diag
+			} else {
+				sum := 0.0
+				for k := 0; k < c; k++ {
+					sum += (m[i][k] - m[j][k]) * (m[i][k] - m[j][k])
+				}
+				dist[i][j] = math.Sqrt(sum)
+			}
+		}
+	}
+
+	return dist
+}
+
+// [R] eigen function(return eigen$values only)
+//
+func EigenValues(mat [][]float64) []float64 {
+	l := len(mat) // Square matrix
+	m := make([]float64, l*l)
+	for i, k := 0, 0; i < l; i++ {
+		for j := 0; j < l; j++ {
+			m[k], k = mat[i][j], k+1
+		}
+	}
+
+	dm := matrix.MakeDenseMatrix(m, l, l)
+	_, v, err := dm.Eigen()
+	if err != nil {
+		return m
+	}
+
+	ev := make([]float64, l)
+	for i := 0; i < l; i++ {
+		ev[i] = v.Get(i, i)
+	}
+	sort.Sort(sort.Reverse(sort.Float64Slice(ev)))
+
+	return ev
+}
+
+// [R] Krls gausskernel function
+//
+func GaussKernel(x [][]float64, sigma float64) [][]float64 {
+	xd := Dist(x, 0.0)
+	for i := 0; i < len(xd); i++ {
+		for j := 0; j < len(xd[0]); j++ {
+			xd[i][j] = math.Exp(-1 * (xd[i][j] * xd[i][j]) / sigma)
+		}
+	}
+
+	return xd
 }
