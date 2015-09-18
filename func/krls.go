@@ -29,7 +29,7 @@ type Krls struct {
 
 // R's predict generic function
 //
-func PredictKrls(kls *Krls, newd [][]float64) float64 {
+func (kls *Krls) Predict(newd [][]float64) float64 {
 	// dimension check
 	if len(kls.X[0]) != len(newd[0]) {
 		log.Fatalln("PredictKrls: ncol(newdata) differs from ncol(krls.X).")

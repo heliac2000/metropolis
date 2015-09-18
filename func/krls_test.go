@@ -43,8 +43,8 @@ func TestPredictKrls(t *testing.T) {
 		-1.20822051007325, -1.27679498823501,
 	}}
 
-	t.Logf("KernelRegsRepLog = %.22f\n", PredictKrls(&KernelRegsRepLog, speck))
-	t.Logf("KernelRegsAtt = %.22f\n", PredictKrls(&KernelRegsAtt, speck))
+	t.Logf("KernelRegsRepLog = %.22f\n", KernelRegsRepLog.Predict(speck))
+	t.Logf("KernelRegsAtt = %.22f\n", KernelRegsAtt.Predict(speck))
 }
 
 // Local Variables:
