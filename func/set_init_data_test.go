@@ -15,7 +15,7 @@ import (
 func TestSetZcoulomb(t *testing.T) {
 	SetInitData(
 		"./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv",
-		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json")
+		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json", "./data/svm_model.json")
 	zcb := LoadFromCsvFile2Dim("./data/Zcoulomb.csv", ',')
 
 	if !reflect.DeepEqual(Zcoulomb, zcb) {

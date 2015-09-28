@@ -17,7 +17,7 @@ type testCasesCoordsIsland struct {
 func TestCoordsIsland(t *testing.T) {
 	SetInitData(
 		"./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv",
-		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json")
+		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json", "./data/svm_model.json")
 
 	testCases := []testCasesCoordsIsland{
 		{
