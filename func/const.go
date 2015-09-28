@@ -99,4 +99,7 @@ var (
 	// KRLS objects
 	KernelRegsRepLog Krls
 	KernelRegsAtt    Krls
+
+	// Svm object
+	SvmModel Svm
 )
