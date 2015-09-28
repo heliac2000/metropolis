@@ -139,6 +139,8 @@ func SetInitData(ucFile, uc2File, lvFile, krlsLogFile, krlsAttFile, svmModelFile
 	// Load KRLS objects
 	LoadDataFromJSONFile(&KernelRegsRepLog, krlsLogFile)
 	LoadDataFromJSONFile(&KernelRegsAtt, krlsAttFile)
+
+	// Load SVM objects
 	LoadDataFromJSONFile(&SvmModel, svmModelFile)
 }
 
