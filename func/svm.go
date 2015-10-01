@@ -5,7 +5,6 @@
 package functions
 
 import (
-	"fmt"
 	"log"
 	"math"
 )
@@ -178,8 +177,6 @@ func (svm *Svm) SvmPredict(newd [][]float64) []int {
 	for i := 0; i < len(newd); i++ {
 		ret[i] = m.svmPredictValues(train[i])
 	}
-
-	fmt.Println(ret)
 
 	return ret
 }
