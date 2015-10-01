@@ -5,6 +5,7 @@
 package functions
 
 import (
+	"fmt"
 	"log"
 	"math"
 )
@@ -83,7 +84,8 @@ func (svm *Svm) Predict(newd [][]float64) string {
 		log.Fatalln("Test data does not match model !")
 	}
 
-	return svm.Levels[svm.SvmPredict(newd)[0]]
+	// R is 1-base, Golang is 0-base
+	return svm.Levels[svm.SvmPredict(newd)[0]-1]
 }
 
 // [R] e1071/src/svm.h
@@ -177,6 +179,8 @@ func (svm *Svm) SvmPredict(newd [][]float64) []int {
 		ret[i] = m.svmPredictValues(train[i])
 	}
 
+	fmt.Println(ret)
+
 	return ret
 }
 
@@ -197,9 +201,6 @@ func sparsify(x [][]float64) [][]svmNode {
 					svmNode{index: ii + 1, value: x[i][ii]})
 			}
 		}
-
-		// set termination element
-		//sparse[i] = append(sparse[i], svmNode{index: -1})
 	}
 
 	return sparse
@@ -223,7 +224,7 @@ func (model *svmModel) svmPredictValues(x []svmNode) int {
 	vote := make([]int, model.nrClass)
 
 	p := 0
-	for i := 1; i < model.nrClass; i++ {
+	for i := 0; i < model.nrClass; i++ {
 		for j := i + 1; j < model.nrClass; j++ {
 			sum := 0.0
 			si, sj := start[i], start[j]
@@ -284,8 +285,8 @@ func kFunction(x []svmNode, y []svmNode, param *svmParameter) float64 {
 }
 
 func kernelRBF(x []svmNode, y []svmNode, gamma float64) float64 {
-	sum := 0.0
-	for i, j := 0, 0; i < len(x) && j < len(y); {
+	sum, i, j := 0.0, 0, 0
+	for i < len(x) && j < len(y) {
 		if x[i].index == y[j].index {
 			sum += (x[i].value - y[j].value) * (x[i].value - y[j].value)
 			i, j = i+1, j+1
@@ -300,10 +301,10 @@ func kernelRBF(x []svmNode, y []svmNode, gamma float64) float64 {
 		}
 	}
 
-	for i := 0; i < len(x); i++ {
+	for ; i < len(x); i++ {
 		sum += x[i].value * x[i].value
 	}
-	for j := 0; j < len(y); j++ {
+	for ; j < len(y); j++ {
 		sum += y[j].value * y[j].value
 	}
 
