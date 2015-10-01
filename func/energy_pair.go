@@ -70,8 +70,7 @@ func EnergyPair(k1, k2, ch1, ch2 int, o1, o2 float64) float64 {
 
 	// Decide if the interaction is attractive or repulsive
 	// Check via support vector machines
-	// int_type = predict(svm_model, newdata = speck)
-	intType := "attractive"
+	intType := SvmModel.Predict(speck)
 
 	// For repulsive type, predict log of interaction energy
 	eint := 0.0
