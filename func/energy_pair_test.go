@@ -37,7 +37,7 @@ func TestEnergyPair(t *testing.T) {
 	for _, tc := range testCases {
 		intType, eint := EnergyPair(tc.k1, tc.k2, tc.ch1, tc.ch2, tc.o1, tc.o2)
 		if tc.intType != intType ||
-			math.Abs(tc.eint-eint) > 10E-12 {
+			math.Abs(tc.eint-eint) > 1.0E-12 {
 			t.Errorf("\nExpected: Type   = %v, Energy = %v\n  Actual: Type   = %v, Energy = %v\n",
 				tc.intType, tc.eint, intType, eint)
 		}
