@@ -18,11 +18,12 @@ func TestEnergyPair(t *testing.T) {
 
 	testCases := []testEnegyPair{
 		{313, 363, 6, 6, 0, 0},
+		{31, 63, 1, 1, 2, 1},
 	}
 
 	for _, tc := range testCases {
-		actual := EnergyPair(tc.k1, tc.k2, tc.ch1, tc.ch2, tc.o1, tc.o2)
-		t.Logf("%v\n", actual)
+		intType, eint := EnergyPair(tc.k1, tc.k2, tc.ch1, tc.ch2, tc.o1, tc.o2)
+		t.Logf("\nType   = %v\nEnergy = %v\n", intType, eint)
 	}
 }
 

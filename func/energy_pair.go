@@ -14,7 +14,7 @@ import (
 // character c1, in orientation o1, and a molecule at unit cel k2,
 // character c2, in orientation o2. Orientations in degrees.
 //
-func EnergyPair(k1, k2, ch1, ch2 int, o1, o2 float64) float64 {
+func EnergyPair(k1, k2, ch1, ch2 int, o1, o2 float64) (string, float64) {
 	// First, need to get the coordinates of the molecules
 	deltaxy1 := []float64{
 		Inp.UnitCell2[3][1] - Inp.UnitCell2[ch1][1],
@@ -80,5 +80,5 @@ func EnergyPair(k1, k2, ch1, ch2 int, o1, o2 float64) float64 {
 		eint = KernelRegsAtt.Predict(speck)
 	}
 
-	return eint
+	return intType, eint
 }
