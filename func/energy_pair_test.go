@@ -19,18 +19,23 @@ func TestEnergyPair(t *testing.T) {
 		"./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv",
 		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json", "./data/svm_model.json")
 
-	// [R]
+	// NOTICE: R is 1-base index, golang is 0-base.
+	//   ch1 and ch2 are characters, 1-base in R but 0-base in Golang
 	//
-	// format(EnergyPair(31, 63, 1, 1, 2, 1), digits=22, trim=T)
+	// [R] format(EnergyPair(31, 63, 1, 1, 2, 1), digits=22, trim=T)
 	//
 	testCases := []testCasesEnegyPair{
 		{
-			k1: 313, k2: 363, ch1: 6, ch2: 6, o1: 0, o2: 0,
-			intType: "repulsive", eint: 0.9265127673648503314752,
+			k1: 313, k2: 363, ch1: 5, ch2: 5, o1: 0, o2: 0,
+			intType: "repulsive", eint: 0.9265127673649427020308,
 		},
 		{
-			k1: 31, k2: 63, ch1: 1, ch2: 1, o1: 2, o2: 1,
+			k1: 31, k2: 63, ch1: 0, ch2: 0, o1: 2, o2: 1,
 			intType: "attractive", eint: -0.05134541334315906313535,
+		},
+		{
+			k1: 313, k2: 214, ch1: 4, ch2: 5, o1: 120, o2: 0,
+			intType: "attractive", eint: -0.02641924571672984653481,
 		},
 	}
 
