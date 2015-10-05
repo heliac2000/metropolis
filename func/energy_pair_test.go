@@ -34,6 +34,10 @@ func TestEnergyPair(t *testing.T) {
 			intType: "attractive", eint: -0.05134541334315906313535,
 		},
 		{
+			k1: 313, k2: 388, ch1: 5, ch2: 6, o1: 0, o2: 0,
+			intType: "repulsive", eint: 0.9242549719009683917292,
+		},
+		{
 			k1: 313, k2: 214, ch1: 4, ch2: 5, o1: 120, o2: 0,
 			intType: "attractive", eint: -0.02641924571672984653481,
 		},
