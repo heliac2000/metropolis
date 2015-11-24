@@ -6,6 +6,7 @@ package functions
 
 import (
 	"reflect"
+	"sort"
 )
 
 // Next part: Calculation transistion probability based on reaction class
@@ -56,6 +57,7 @@ func ReactionClassID(diff []int) int {
 		return REACT_UNKNOWN
 	}
 
+	sort.Ints(dijp)
 	for i, v := range classKey {
 		if len(v) == l && reflect.DeepEqual(dijp, v) {
 			return i
