@@ -15,7 +15,7 @@ func EnergyIsland(pos, chr []int, ori []float64) float64 {
 		o1 := ori[k]
 		ao := Inp.UnitCell2[ch]
 
-		for i := 5; i < 7; i++ {
+		for i := 5; i < 8; i++ {
 			if ao[i] == o1 {
 				ene += ao[i+3]
 				break
