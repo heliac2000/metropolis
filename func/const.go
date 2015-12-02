@@ -15,9 +15,6 @@ const (
 	// calculation
 	Nuc int = 25
 
-	// Temperature in kelvin.
-	Temp float64 = 75
-
 	// Boltzmann ant in eV K-1
 	KB float64 = 1.38e-23 / 1.60e-19
 
@@ -77,6 +74,9 @@ var (
 
 	// Input data
 	Inp *InitData
+
+	// Temperature in kelvin.
+	Temp float64 = 75
 
 	// For parallel tempering
 	TempS []float64 = []float64{50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200}
