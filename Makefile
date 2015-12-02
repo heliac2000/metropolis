@@ -2,7 +2,7 @@
 ## Makefile for golang project
 ##
 
-SRCS = hop_data.go main.go
+SRCS = main.go
 TARGET = metropolis_V2
 GCFLAGS = -gcflags='-B -largemodel'
 RELEASE_DIR = ../Release_V1
