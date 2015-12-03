@@ -24,9 +24,9 @@ func NewCanonical(pos, chr [][]int, ori [][]float64) Canonical {
 // Clone
 func (src Canonical) Dup() Canonical {
 	var dst Canonical
-	Copy2DimArray(dst.pos, src.pos)
-	Copy2DimArray(dst.chr, src.chr)
-	Copy2DimArray(dst.chr, src.ori)
+	Copy2DimArray(&dst.pos, src.pos)
+	Copy2DimArray(&dst.chr, src.chr)
+	Copy2DimArray(&dst.ori, src.ori)
 
 	return dst
 }
