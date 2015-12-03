@@ -5,7 +5,7 @@ main
 TAGS
 *.gob
 data/*
-metropolis*
+metropolis_V2
 *.log
 *.dat
 *.pdf
