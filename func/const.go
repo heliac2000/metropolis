@@ -6,7 +6,6 @@ package functions
 
 import (
 	"math/rand"
-	"runtime"
 	"time"
 )
 
@@ -67,7 +66,7 @@ const (
 //
 var (
 	// Number of Concurrency
-	NumConcurrency int = runtime.NumCPU()
+	//NumConcurrency int = runtime.NumCPU()
 
 	// Random seed
 	Rnd *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
