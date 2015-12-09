@@ -46,8 +46,8 @@ func MetropolisBlockParallel(N int, eout, cout string) {
 
 	for n := 0; n < N/tick; n++ {
 		for k := 1; k < tick; k++ {
-			if k%100 == 1 {
-				log.Printf("n = %4d/N = %5d\n", n*tick+k-1, N)
+			if k%100 == 99 {
+				log.Printf("n = %4d/N = %5d\n", n*tick+k+1, N)
 			}
 
 			// Draw a uniform random variable to decide to do the tempering
