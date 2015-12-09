@@ -44,10 +44,10 @@ func MetropolisBlockParallel(N int, eout, cout string) {
 		eoutP[k][0] = EnergyCanonical(coutP[k][0].Explode())
 	}
 
-	for j := 0; j < N/tick; j++ {
+	for n := 0; n < N/tick; n++ {
 		for k := 1; k < tick; k++ {
-			if k%100 == 0 {
-				log.Printf("n = %4d/N = %5d\n", j*tick+k, N)
+			if k%100 == 1 {
+				log.Printf("n = %4d/N = %5d\n", n*tick+k-1, N)
 			}
 
 			// Draw a uniform random variable to decide to do the tempering
@@ -167,7 +167,7 @@ func MetropolisBlockParallel(N int, eout, cout string) {
 		// Save data
 		for i := 0; i < Nparallel; i++ {
 			appendArrayToFile(eoutP[i], eout)
-			//appendListWithCSV(coutP[i], cout)
+			appendListWithCSV(coutP[i], cout)
 		}
 
 		// Reset
@@ -228,7 +228,7 @@ func appendArrayToFile(arr []float64, eout string) {
 	}
 }
 
-func appendListWithCSV(lst [][][][]int, cout string) {
+func appendListWithCSV(can []Canonical, cout string) {
 	file, err := os.OpenFile(cout, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
 	if err != nil {
 		log.Fatalf("[%s] %s", getFuncName(), err.Error())
@@ -236,19 +236,27 @@ func appendListWithCSV(lst [][][][]int, cout string) {
 
 	defer file.Close()
 	writer := csv.NewWriter(file)
-	for i := 0; i < len(lst); i++ {
-		for j := 0; j < len(lst[i]); j++ {
-			r, c := len(lst[i][j]), len(lst[i][j][0])
-			l := make([]string, 0, r*c+2)
-			l = append(l, strconv.Itoa(r), strconv.Itoa(c))
-			for k := 0; k < c; k++ {
-				for n := 0; n < r; n++ {
-					l = append(l, strconv.Itoa(lst[i][j][n][k]))
-				}
-			}
-			writer.Write(l)
+	for i := 0; i < len(can); i++ {
+		r, c := len(can[i].pos), len(can[i].pos[0])
+		for j := 0; j < r; j++ {
+			can[i].chr[j][c-1] -= 1
 		}
-		writer.Write([]string{""})
+		pos, chr, ori := make([]string, 0, r*c+2), make([]string, 0, r*c+2), make([]string, 0, r*c+2)
+		for j := 0; j < c; j++ {
+			for k := 0; k < r; k++ {
+				pos = append(pos, strconv.Itoa(can[i].pos[k][j]))
+				chr = append(chr, strconv.Itoa(can[i].chr[k][j]+1))
+				ori = append(ori, fmt.Sprintf("%.22f", can[i].ori[k][j]))
+			}
+		}
+		writer.Write(pos)
+		writer.Write(chr)
+		writer.Write(ori)
 		writer.Flush()
+
+		// Restore
+		for j := 0; j < r; j++ {
+			can[i].chr[j][c-1] += 1
+		}
 	}
 }
