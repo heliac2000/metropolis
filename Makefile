@@ -2,6 +2,8 @@
 ## Makefile for golang project
 ##
 
+SHELL = /bin/bash
+
 SRCS = main.go
 TARGET = metropolis_V2
 GCFLAGS = -gcflags='-B -largemodel'
@@ -19,6 +21,9 @@ release rel:
 
 $(TARGET) b build: $(SRCS)
 	@go build $(GCFLAGS) -o $(TARGET) .
+
+testrun t:
+	@./$(TARGET) -N 10000 > log 2>&1 &
 
 ## gccgo
 ##
