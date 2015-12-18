@@ -24,10 +24,11 @@ func Create2DimArray(dim interface{}, r, c int, cap ...int) bool {
 //
 func Copy2DimArray(dst, src interface{}) bool {
 	sv, dv := reflect.ValueOf(src), reflect.ValueOf(dst).Elem()
-	typ, r, c := sv.Type(), sv.Len(), sv.Index(0).Len()
+	typ, r := sv.Type(), sv.Len()
 
 	dv.Set(reflect.MakeSlice(typ, r, r))
 	for i, t := 0, typ.Elem(); i < r; i++ {
+		c := sv.Index(i).Len()
 		dv.Index(i).Set(reflect.MakeSlice(t, c, c))
 		reflect.Copy(dv.Index(i), sv.Index(i))
 	}
