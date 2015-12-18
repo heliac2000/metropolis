@@ -6,7 +6,7 @@ SHELL = /bin/bash
 
 SRCS = main.go
 TARGET = metropolis_V2
-GCFLAGS = -gcflags='-B -largemodel'
+GCFLAGS = -gcflags='-B'
 RELEASE_DIR = ../Release_V1
 
 test:
