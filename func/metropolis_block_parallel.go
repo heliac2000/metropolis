@@ -237,26 +237,25 @@ func appendListWithCSV(can []Canonical, cout string) {
 	defer file.Close()
 	writer := csv.NewWriter(file)
 	for i := 0; i < len(can); i++ {
-		r, c := len(can[i].pos), len(can[i].pos[0])
+		r := len(can[i].pos)
+		pos, chr, ori := make([]string, r), make([]string, r), make([]string, r)
 		for j := 0; j < r; j++ {
-			can[i].chr[j][c-1] -= 1
-		}
-		pos, chr, ori := make([]string, 0, r*c+2), make([]string, 0, r*c+2), make([]string, 0, r*c+2)
-		for j := 0; j < c; j++ {
-			for k := 0; k < r; k++ {
-				pos = append(pos, strconv.Itoa(can[i].pos[k][j]))
-				chr = append(chr, strconv.Itoa(can[i].chr[k][j]+1))
-				ori = append(ori, fmt.Sprintf("%.22f", can[i].ori[k][j]))
+			c := len(can[i].pos[j])
+			strp, strc, stro := make([]string, c), make([]string, c), make([]string, c)
+			for k := 0; k < c; k++ {
+				strp[k] = strconv.Itoa(can[i].pos[j][k])
+				strc[k] = strconv.Itoa(can[i].chr[j][k] + 1)
+				stro[k] = fmt.Sprintf("%.22f", can[i].ori[j][k])
 			}
+			pos[j] = strings.Join(strp, ":")
+			chr[j] = strings.Join(strc, ":")
+			ori[j] = strings.Join(stro, ":")
 		}
+		chr[r-1] = "0" // ends with 0
+
 		writer.Write(pos)
 		writer.Write(chr)
 		writer.Write(ori)
 		writer.Flush()
-
-		// Restore
-		for j := 0; j < r; j++ {
-			can[i].chr[j][c-1] += 1
-		}
 	}
 }
