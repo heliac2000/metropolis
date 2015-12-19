@@ -58,7 +58,7 @@ func MetropolisBlockParallel(N int, eout, cout string) {
 				for i := 0; i < k; i++ {
 					cout[i] = coutP[schoose][i].Dup()
 				}
-				eout := CopyVector(eoutP[schoose]).([]float64)
+				eout := CopyVectorFloat(eoutP[schoose])
 				for h := 0; h < Nparallel; h++ {
 					if h != schoose {
 						coutP[h][k] = coutP[h][k-1].Dup()

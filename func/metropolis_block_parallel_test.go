@@ -35,7 +35,7 @@ func TestMetropolisBlockParallel(t *testing.T) {
 }
 
 // Local Variables:
-// compile-command: (concat "go test -v " (file-name-nondirectory buffer-file-name))
+// compile-command: (concat "go test -v -gcflags='-B' " (file-name-nondirectory buffer-file-name))
 // End:
 //
 // go test -v -gcflags='-B' -timeout 1h -cpuprofile cpu.dat metropolis_block_parallel_test.go

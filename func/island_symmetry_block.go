@@ -18,12 +18,12 @@ func IslandSymmetryBlock(cab []int) float64 {
 	l := len(cab)
 	xtest := make([][]float64, 0, l)
 	for i := 0; i < l; i++ {
-		xtest = append(xtest, CopyVector(Inp.UnitCellCoords[cab[i]]).([]float64))
+		xtest = append(xtest, CopyVectorFloat(Inp.UnitCellCoords[cab[i]]))
 	}
 
 	xtestr := make([][]float64, 0, l)
 	for _, v := range RotationBlock(cab) {
-		xtestr = append(xtestr, CopyVector(Inp.UnitCellCoords[v]).([]float64))
+		xtestr = append(xtestr, CopyVectorFloat(Inp.UnitCellCoords[v]))
 	}
 
 	rmn, cnt := make([]int, len(xtestr)), 0

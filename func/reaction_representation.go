@@ -22,11 +22,9 @@ func ReactionRepresentation(prct, crct [][]int, orct [][]float64,
 	_, _ = Copy2DimArray(&cCrct, crct), Copy2DimArray(&cCpdt, cpdt)
 	_, _ = Copy2DimArray(&cOrct, orct), Copy2DimArray(&cOpdt, opdt)
 
-	var ptot, ctot [][]int
-	var otot [][]float64
-	Create2DimArray(&ptot, len(prct)+len(ppdt), len(prct[0]))
-	Create2DimArray(&ctot, len(crct)+len(cpdt), len(crct[0]))
-	Create2DimArray(&otot, len(orct)+len(opdt), len(orct[0]))
+	ptot := Create2DimArrayInt(len(prct)+len(ppdt), len(prct[0]))
+	ctot := Create2DimArrayInt(len(crct)+len(cpdt), len(crct[0]))
+	otot := Create2DimArrayFloat(len(orct)+len(opdt), len(orct[0]))
 
 	copy(ptot, cPrct)
 	copy(ptot[len(cPrct):], cPpdt)
@@ -60,18 +58,16 @@ func ReactionRepresentation(prct, crct [][]int, orct [][]float64,
 	labUnq := Unique(labels)
 	sort.Ints(labUnq)
 
-	var pil, cil [][]int
-	var oil [][]float64
 	l := len(labUnq)
-	Create2DimArray(&pil, l, len(ptot[0]))
-	Create2DimArray(&cil, l, len(ctot[0]))
-	Create2DimArray(&oil, l, len(otot[0]))
+	pil := Create2DimArrayInt(l, len(ptot[0]))
+	cil := Create2DimArrayInt(l, len(ctot[0]))
+	oil := Create2DimArrayFloat(l, len(otot[0]))
 	for i, k := range labUnq {
 		pil[i], cil[i], oil[i] = ptot[k], ctot[k], otot[k]
 	}
 
 	// lab1:Labels for reactant side, lab2:Labels for product side
-	lab1, lab2 := CopyVector(labels[:len(prct)]).([]int), CopyVector(labels[len(prct):]).([]int)
+	lab1, lab2 := CopyVectorInt(labels[:len(prct)]), CopyVectorInt(labels[len(prct):])
 	// Coefficients for reactant side, Coefficients for product side
 	coeffsRct, coeffsPdt := make([]int, 0, l), make([]int, 0, l)
 	for _, k := range labUnq {

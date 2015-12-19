@@ -66,10 +66,8 @@ func GetKnnx(data, query [][]float64, k int) ([][]float64, [][]int) {
 func getKNNXkd(data, query [][]float64, K int) ([][]float64, [][]int) {
 	tree := newAnnkdTree(data)
 
-	var nn_dist [][]float64
-	var nn_idx [][]int
 	m := len(query)
-	_, _ = Create2DimArray(&nn_dist, m, K), Create2DimArray(&nn_idx, m, K)
+	nn_dist, nn_idx := Create2DimArrayFloat(m, K), Create2DimArrayInt(m, K)
 
 	var wg sync.WaitGroup
 	wg.Add(m)
@@ -102,7 +100,7 @@ func newAnnkdTree(data [][]float64) *annkdTree {
 		pidx[i] = i
 	}
 	lo, hi := annEnclRect(data, pidx)
-	loc, hic := CopyVector(lo).([]float64), CopyVector(hi).([]float64)
+	loc, hic := CopyVectorFloat(lo), CopyVectorFloat(hi)
 	root := rkdTree(data, pidx, n, loc, hic)
 
 	return &annkdTree{

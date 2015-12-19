@@ -30,10 +30,9 @@ func Transpose(m [][]float64) [][]float64 {
 // Multiply matrix A and B
 //
 func MatrixMultiply(A, B [][]int) [][]int {
-	var C [][]int
 	r_A, c_A, c_B := len(A), len(A[0]), len(B[0])
 
-	Create2DimArray(&C, r_A, c_B)
+	C := Create2DimArrayInt(r_A, c_B)
 
 	var wg sync.WaitGroup
 	wg.Add(r_A)
@@ -53,10 +52,9 @@ func MatrixMultiply(A, B [][]int) [][]int {
 }
 
 func MatrixMultiplyFloat(A, B [][]float64) [][]float64 {
-	var C [][]float64
 	r_A, c_A, c_B := len(A), len(A[0]), len(B[0])
 
-	Create2DimArray(&C, r_A, c_B)
+	C := Create2DimArrayFloat(r_A, c_B)
 
 	var wg sync.WaitGroup
 	wg.Add(r_A)
@@ -92,9 +90,8 @@ func MatrixAdd(A, B [][]int) [][]int {
 // [R] dist function
 //
 func Dist(m [][]float64, diag float64) [][]float64 {
-	var dist [][]float64
 	r, c := len(m), len(m[0])
-	Create2DimArray(&dist, r, r)
+	dist := Create2DimArrayFloat(r, r)
 
 	for i := 0; i < r; i++ {
 		for j := 0; j < r; j++ {

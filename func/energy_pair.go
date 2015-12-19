@@ -41,8 +41,7 @@ func EnergyPair(k1, k2, ch1, ch2 int, o1, o2 float64) (string, float64) {
 
 	// Put together the cooridinate matrix
 	l := len(m1) * 2 // l = (lc + lh + lbr) * 2
-	var coordinates [][]float64
-	Create2DimArray(&coordinates, l, 3)
+	coordinates := Create2DimArrayFloat(l, 3)
 
 	lc := len(Inp.MoleculeCoordinates.C)
 	copy(coordinates, m1[:lc])
@@ -58,8 +57,7 @@ func EnergyPair(k1, k2, ch1, ch2 int, o1, o2 float64) (string, float64) {
 
 	// Convert coordinate matrix into a Coulomb matrix
 	distIJ := Dist(coordinates, Mcut)
-	var minFast [][]float64
-	Create2DimArray(&minFast, len(distIJ), len(distIJ[0]))
+	minFast := Create2DimArrayFloat(len(distIJ), len(distIJ[0]))
 	for i := 0; i < len(distIJ); i++ {
 		for j := 0; j < len(distIJ[0]); j++ {
 			minFast[i][j] = Zcoulomb[i][j] / distIJ[i][j]

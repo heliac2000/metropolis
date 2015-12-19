@@ -13,8 +13,7 @@ func LatticeGen(unitCell, latticeVectors [][]float64) ([][]float64, []int) {
 	nlp := len(unitCell)
 
 	// Generate the coordinates of the lattice from the unit cell
-	var latticeCoords [][]float64
-	Create2DimArray(&latticeCoords, nlp, 2, (nlp+1)*Nrepeat*Nrepeat/4)
+	latticeCoords := Create2DimArrayFloat(nlp, 2, (nlp+1)*Nrepeat*Nrepeat/4)
 
 	// horizontal/vertical coordinate
 	for k := 0; k < nlp; k++ {

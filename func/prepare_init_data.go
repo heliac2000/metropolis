@@ -30,16 +30,13 @@ func PrepareInitData(ucFile, lvFile string) ([][]float64, [][]float64, [][][]int
 	// Make adjacency matrix for the unit cells
 
 	// Number of unit cells
-	var UnitCellCoords [][]float64
 	nUC := len(wh4)
-	Create2DimArray(&UnitCellCoords, nUC, 2)
+	UnitCellCoords := Create2DimArrayFloat(nUC, 2)
 	for k := 0; k < nUC; k++ {
 		copy(UnitCellCoords[k], Lattice[wh4[k]])
 	}
 
-	var Moves [][]float64
-	var Adj [][]int
-	_, _ = Create2DimArray(&Moves, 4, 2), Create2DimArray(&Adj, nUC, nUC)
+	Moves, Adj := Create2DimArrayFloat(4, 2), Create2DimArrayInt(nUC, nUC)
 	avec, bvec := LatticeVectors[0], LatticeVectors[1]
 	for j := 0; j < nUC; j++ {
 		for i := 0; i < 4; i++ {

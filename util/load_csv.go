@@ -147,10 +147,9 @@ func LoadFromCsvFileList(fname string) [][][]int {
 
 	ret := make([][][]int, 0, 1000)
 	for f, err := reader.Read(); err == nil; f, err = reader.Read() {
-		var mat [][]int
 		nrow, _ := strconv.Atoi(f[0])
 		ncol, _ := strconv.Atoi(f[1])
-		Create2DimArray(&mat, nrow, ncol)
+		mat := Create2DimArrayInt(nrow, ncol)
 		for c, n := 0, 2; c < ncol; c++ {
 			for r := 0; r < nrow; r++ {
 				v, _ := strconv.Atoi(f[n])

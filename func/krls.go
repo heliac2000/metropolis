@@ -59,8 +59,7 @@ func (kls *Krls) Predict(newd [][]float64) float64 {
 	}
 
 	// [R] matrix(gausskernel(...), nrow=nrow(newdata), byrow=FALSE)
-	var mm [][]float64
-	Create2DimArray(&mm, nn, l)
+	mm := Create2DimArrayFloat(nn, l)
 	for i := 0; i < l; i++ {
 		for j := 0; j < nn; j++ {
 			mm[j][i] = m[i*nn+j]

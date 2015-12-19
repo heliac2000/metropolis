@@ -54,16 +54,13 @@ func SetInitData(ucFile, uc2File, lvFile, krlsLogFile, krlsAttFile, svmModelFile
 	// Make adjacency matrix for the unit cells
 
 	// Number of unit cells
-	var unitCellCoords [][]float64
 	nUC := len(wh4)
-	Create2DimArray(&unitCellCoords, nUC, 2)
+	unitCellCoords := Create2DimArrayFloat(nUC, 2)
 	for k := 0; k < nUC; k++ {
 		copy(unitCellCoords[k], Lattice[wh4[k]])
 	}
 
-	var Moves [][]float64
-	var Adj [][]int
-	_, _ = Create2DimArray(&Moves, 4, 2), Create2DimArray(&Adj, nUC, nUC)
+	Moves, Adj := Create2DimArrayFloat(4, 2), Create2DimArrayInt(nUC, nUC)
 	avec, bvec := LatticeVectors[0], LatticeVectors[1]
 	for j := 0; j < nUC; j++ {
 		for i := 0; i < 4; i++ {
@@ -112,9 +109,8 @@ func SetInitData(ucFile, uc2File, lvFile, krlsLogFile, krlsAttFile, svmModelFile
 	//
 	// charactersOrientations[][1] is index(0-base or 1-base)
 	//
-	var charactersOrientations [][]int
 	chUnique := Unique(character)
-	Create2DimArray(&charactersOrientations, len(chUnique)*3, 3)
+	charactersOrientations := Create2DimArrayInt(len(chUnique)*3, 3)
 	for k, cnt := 0, 0; k < len(chUnique); k++ {
 		for j := 0; j < 3; j++ {
 			charactersOrientations[cnt][1] = chUnique[k]
@@ -165,7 +161,7 @@ func SetZcoulomb() {
 	}
 
 	// Prepare the numerators of the Coulomb matrices
-	Create2DimArray(&Zcoulomb, totAtoms, totAtoms)
+	Zcoulomb = Create2DimArrayFloat(totAtoms, totAtoms)
 	for k := 0; k < totAtoms; k++ {
 		for j := 0; j < totAtoms; j++ {
 			Zcoulomb[k][j] = atNum[k] * atNum[j]

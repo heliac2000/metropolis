@@ -59,8 +59,7 @@ func (svm *Svm) Predict(newd [][]float64) string {
 
 	if Any(svm.Scaled) {
 		r, c := len(newd), len(newd[0])
-		var newData [][]float64
-		Create2DimArray(&newData, r, c)
+		newData := Create2DimArrayFloat(r, c)
 		n := 0
 		for j := 0; j < c; j++ {
 			if svm.Scaled[j] {
