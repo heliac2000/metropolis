@@ -162,26 +162,19 @@ func (e *eRPRFunction) ERPRClass5() float64 {
 	// whR: Identify what was affected during the ER transformation
 	// whP: Identify what was produced during the ER transformation
 	whR, whP := Which(e.dCoeffs, -2), Which(e.dCoeffs, 1)
-	whR1, whR2, whP1 := whR[0], whR[1], whP[0]
-	// R1: Reactant island 1, R2: Reactant island 2
+	whR1, whP1 := whR[0], whP[0]
+	// R1: Reactant island 1, P1: Product island 1
 	pR1, cR1, oR1 := e.pil[whR1], e.cil[whR1], e.oil[whR1]
-	pR2, cR2, oR2 := e.pil[whR2], e.cil[whR2], e.oil[whR2]
-	// P1: Product island 1, P2: Product island 2
 	pP1, cP1, oP1 := e.pil[whP1], e.cil[whP1], e.oil[whP1]
-	// Coefficients for the islands R1 and R2 on the reactant side
+	// Coefficients for the islands R1 on the reactant side
 	nR1 := float64(e.rCoeffs[whR1])
 
 	pRedR1, cRedR1, oRedR1 := ReductionBlock(pR1, cR1, oR1)
-	pRedR2, cRedR2, oRedR2 := ReductionBlock(pR2, cR2, oR2)
 	extR1, lR1 := ExtensionBlock(pR1, CoordsIsland(pR1, cR1, oR1))
-	extR2, lR2 := ExtensionBlock(pR2, CoordsIsland(pR2, cR2, oR2))
 
-	return nR1*nR1*Qab0dBlock(
-		pR1, cR1, oR1, pR2, cR2, oR2, pP1, cP1, oP1,
-		pRedR1, cRedR1, oRedR1, e.prct, extR2, lR2, 1) +
-		nR1*nR1*Qab0dBlock(
-			pR2, cR2, oR2, pR1, cR1, oR1, pP1, cP1, oP1,
-			pRedR2, cRedR2, oRedR2, e.prct, extR1, lR1, 1)
+	return nR1 * nR1 * Qab0dBlock(
+		pR1, cR1, oR1, pR1, cR1, oR1, pP1, cP1, oP1,
+		pRedR1, cRedR1, oRedR1, e.prct, extR1, lR1, 1)
 }
 
 // REACT_CLASS6
