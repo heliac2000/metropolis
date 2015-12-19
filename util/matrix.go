@@ -93,19 +93,25 @@ func Dist(m [][]float64, diag float64) [][]float64 {
 	r, c := len(m), len(m[0])
 	dist := Create2DimArrayFloat(r, r)
 
+	var wg sync.WaitGroup
+	wg.Add(r)
 	for i := 0; i < r; i++ {
-		for j := 0; j < r; j++ {
-			if i == j {
-				dist[i][j] = diag
-			} else {
-				sum := 0.0
-				for k := 0; k < c; k++ {
-					sum += (m[i][k] - m[j][k]) * (m[i][k] - m[j][k])
+		go func(i int) {
+			defer wg.Done()
+			for j := 0; j < r; j++ {
+				if i == j {
+					dist[i][j] = diag
+				} else {
+					sum := 0.0
+					for k := 0; k < c; k++ {
+						sum += (m[i][k] - m[j][k]) * (m[i][k] - m[j][k])
+					}
+					dist[i][j] = math.Sqrt(sum)
 				}
-				dist[i][j] = math.Sqrt(sum)
 			}
-		}
+		}(i)
 	}
+	wg.Wait()
 
 	return dist
 }
