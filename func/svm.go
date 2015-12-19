@@ -146,7 +146,7 @@ func (svm *Svm) SvmPredict(newd [][]float64) []int {
 		l:       svm.TotNsv,
 		nrClass: svm.NClasses,
 		svCoef: func() [][]float64 {
-			return Transpose(svm.Coefs).([][]float64)
+			return Transpose(svm.Coefs)
 		}(),
 		svNodes: sparsify(svm.Sv), // [R] svm_model$sparse == FALSE
 		rho:     svm.Rho,
