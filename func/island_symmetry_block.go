@@ -26,10 +26,6 @@ func IslandSymmetryBlock(cab []int) float64 {
 		xtestr = append(xtestr, CopyVector(Inp.UnitCellCoords[v]).([]float64))
 	}
 
-	// if l == 1 {
-	// 	xtest, xtestr = Transpose(xtest).([][]float64), Transpose(xtestr).([][]float64)
-	// }
-
 	rmn, cnt := make([]int, len(xtestr)), 0
 	for k := 0; k < len(xtest); k++ {
 		for j := 0; j < len(xtestr); j++ {
