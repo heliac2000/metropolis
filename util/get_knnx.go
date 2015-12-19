@@ -14,7 +14,6 @@ package util
 import (
 	"log"
 	"math"
-	"reflect"
 	"sync"
 )
 
@@ -331,8 +330,12 @@ func annkSearch(tree *annkdTree, q []float64, k int) ([]float64, []int) {
 	}
 
 	dist := annBoxDistance(q, tree.bndBoxLo, tree.bndBoxHi, tree.dim)
-	reflect.ValueOf(tree.root).MethodByName("AnnSearch").
-		Call([]reflect.Value{reflect.ValueOf(dist), reflect.ValueOf(sharedVars)})
+	switch tree.root.(type) {
+	case *annkdSplit:
+		tree.root.(*annkdSplit).AnnSearch(dist, sharedVars)
+	case *annkdLeaf:
+		tree.root.(*annkdLeaf).AnnSearch(dist, sharedVars)
+	}
 
 	dd, nn_idx := make([]float64, k), make([]int, k)
 	for i := 0; i < k; i++ {
@@ -346,8 +349,12 @@ func annkSearch(tree *annkdTree, q []float64, k int) ([]float64, []int) {
 func (node *annkdSplit) AnnSearch(boxDist float64, sharedVars *annSharedVars) {
 	cutDiff := sharedVars.annKdQ[node.cutDim] - node.cutVal
 	if cutDiff < 0 {
-		reflect.ValueOf(node.child[0]).MethodByName("AnnSearch").
-			Call([]reflect.Value{reflect.ValueOf(boxDist), reflect.ValueOf(sharedVars)})
+		switch node.child[0].(type) {
+		case *annkdSplit:
+			node.child[0].(*annkdSplit).AnnSearch(boxDist, sharedVars)
+		case *annkdLeaf:
+			node.child[0].(*annkdLeaf).AnnSearch(boxDist, sharedVars)
+		}
 
 		boxDiff := node.cdBnds[0] - sharedVars.annKdQ[node.cutDim]
 		if boxDiff < 0 {
@@ -356,12 +363,20 @@ func (node *annkdSplit) AnnSearch(boxDist float64, sharedVars *annSharedVars) {
 		boxDist += cutDiff*cutDiff - boxDiff*boxDiff
 
 		if boxDist < sharedVars.annKdPointMK.maxKey() {
-			reflect.ValueOf(node.child[1]).MethodByName("AnnSearch").
-				Call([]reflect.Value{reflect.ValueOf(boxDist), reflect.ValueOf(sharedVars)})
+			switch node.child[1].(type) {
+			case *annkdSplit:
+				node.child[1].(*annkdSplit).AnnSearch(boxDist, sharedVars)
+			case *annkdLeaf:
+				node.child[1].(*annkdLeaf).AnnSearch(boxDist, sharedVars)
+			}
 		}
 	} else {
-		reflect.ValueOf(node.child[1]).MethodByName("AnnSearch").
-			Call([]reflect.Value{reflect.ValueOf(boxDist), reflect.ValueOf(sharedVars)})
+		switch node.child[1].(type) {
+		case *annkdSplit:
+			node.child[1].(*annkdSplit).AnnSearch(boxDist, sharedVars)
+		case *annkdLeaf:
+			node.child[1].(*annkdLeaf).AnnSearch(boxDist, sharedVars)
+		}
 
 		boxDiff := sharedVars.annKdQ[node.cutDim] - node.cdBnds[1]
 		if boxDiff < 0 {
@@ -370,8 +385,12 @@ func (node *annkdSplit) AnnSearch(boxDist float64, sharedVars *annSharedVars) {
 		boxDist += cutDiff*cutDiff - boxDiff*boxDiff
 
 		if boxDist < sharedVars.annKdPointMK.maxKey() {
-			reflect.ValueOf(node.child[0]).MethodByName("AnnSearch").
-				Call([]reflect.Value{reflect.ValueOf(boxDist), reflect.ValueOf(sharedVars)})
+			switch node.child[0].(type) {
+			case *annkdSplit:
+				node.child[0].(*annkdSplit).AnnSearch(boxDist, sharedVars)
+			case *annkdLeaf:
+				node.child[0].(*annkdLeaf).AnnSearch(boxDist, sharedVars)
+			}
 		}
 	}
 
