@@ -19,9 +19,9 @@ func ReductionBlock(xtest, ctest []int, otest []float64) (
 		make([][]int, 0, l), make([][]int, 0, l), make([][]float64, 0, l)
 	for k := 0; k < l; k++ {
 		xout := make([]int, 0, l)
-		for i := 0; i < l; i++ {
-			if xtest[i] != xtest[k] {
-				xout = append(xout, xtest[i])
+		for _, v := range xtest {
+			if v != xtest[k] {
+				xout = append(xout, v)
 			}
 		}
 
@@ -35,11 +35,18 @@ func ReductionBlock(xtest, ctest []int, otest []float64) (
 				cind = append(cind, i)
 			}
 		}
+		if len(cind) == 0 {
+			continue
+		}
+
 		oind := make([]int, 0, len(otest))
 		for i := 0; i < len(otest); i++ {
 			if i != k {
 				oind = append(oind, i)
 			}
+		}
+		if len(oind) == 0 {
+			continue
 		}
 
 		xo, co, oo := make([]int, l-1), make([]int, l-1), make([]float64, l-1)
