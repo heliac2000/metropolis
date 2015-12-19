@@ -161,7 +161,7 @@ func (e *eRPRFunction) ERPRClass4() float64 {
 func (e *eRPRFunction) ERPRClass5() float64 {
 	// whR: Identify what was affected during the ER transformation
 	// whP: Identify what was produced during the ER transformation
-	whR, whP := Which(e.dCoeffs, -1), Which(e.dCoeffs, 1)
+	whR, whP := Which(e.dCoeffs, -2), Which(e.dCoeffs, 1)
 	whR1, whR2, whP1 := whR[0], whR[1], whP[0]
 	// R1: Reactant island 1, R2: Reactant island 2
 	pR1, cR1, oR1 := e.pil[whR1], e.cil[whR1], e.oil[whR1]
