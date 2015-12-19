@@ -45,7 +45,7 @@ func ExtensionReductionProbabilityReaction(prct, crct [][]int, orct [][]float64,
 
 	return (reflect.ValueOf(&eRPRFunction{
 		prct, crct, orct, ppdt, cpdt, opdt, pil, cil, oil, rCoeffs, pCoeffs, dCoeffs, rclass,
-	}).MethodByName("ERPRClass" + strconv.Itoa(rclass+1)).Call(nil))[0].Interface().(float64)
+	}).MethodByName("ERPRClass" + strconv.Itoa(rclass+1)).Call(nil))[0].Float()
 }
 
 // REACT_CLASS1
