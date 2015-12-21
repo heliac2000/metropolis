@@ -12,7 +12,7 @@ import (
 const (
 	// Number of unit cells projections along a-axis # For degeneracy
 	// calculation
-	Nuc int = 25
+	Nuc int = 50
 
 	// Boltzmann ant in eV K-1
 	KB float64 = 1.38e-23 / 1.60e-19
@@ -21,12 +21,15 @@ const (
 	Alpha1 float64 = 1
 	Alpha2 float64 = 1
 
+	// Character of unit cell central point
+	CentralPoint = 5
+
 	// Input the hopping lattice from the unit cell
 
 	// Number of horizontal and vertical repetitions of the unit cell to
 	// generate interaction lattice (assuming unit cell with straight
 	// edges)
-	Nrepeat int = 50
+	Nrepeat int = 100
 
 	// Number of cuts of the lattice vectors to use to identify lattice
 	// points in the lattice planes
@@ -83,8 +86,8 @@ var (
 	// For parallel tempering
 	Nparallel int = len(TempS)
 
-	// Genereate island from UC center
-	UCcenter int = 313
+	// Genereate island from UC center(use 1227 for 100 x 100 lattice, use 313 for 50 x 50 lattice)
+	UCcenter int = 1227
 
 	// Numbers of atoms in order of appearence in Coordinates
 	Natoms []int = []int{56, 32, 4}
