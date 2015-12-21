@@ -36,17 +36,21 @@ func SetInitData(ucFile, uc2File, lvFile, krlsLogFile, krlsAttFile, svmModelFile
 
 	Lattice, character := LatticeGen(unitCell, LatticeVectors)
 
+	// Make identical unit cell points?
+	// 1 <-> 11, 4 <-> 8
 	for i := 0; i < len(character); i++ {
-		if character[i] >= 0 && character[i] <= 2 {
-			character[i] = 6 - character[i]
+		if character[i] == 0 {
+			character[i] = 10
+		} else if character[i] == 3 {
+			character[i] = 7
 		}
 	}
 
 	// Identify the unit cells by those which have character == 4
-	wh4 := make([]int, 0, len(character))
+	whC := make([]int, 0, len(character))
 	for i := 0; i < len(character); i++ {
-		if character[i] == 3 {
-			wh4 = append(wh4, i)
+		if character[i] == CentralPoint {
+			whC = append(whC, i)
 		}
 	}
 
@@ -54,10 +58,10 @@ func SetInitData(ucFile, uc2File, lvFile, krlsLogFile, krlsAttFile, svmModelFile
 	// Make adjacency matrix for the unit cells
 
 	// Number of unit cells
-	nUC := len(wh4)
+	nUC := len(whC)
 	unitCellCoords := Create2DimArrayFloat(nUC, 2)
 	for k := 0; k < nUC; k++ {
-		copy(unitCellCoords[k], Lattice[wh4[k]])
+		copy(unitCellCoords[k], Lattice[whC[k]])
 	}
 
 	Moves, Adj := Create2DimArrayFloat(4, 2), Create2DimArrayInt(nUC, nUC)
