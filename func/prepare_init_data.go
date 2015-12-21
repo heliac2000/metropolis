@@ -12,17 +12,21 @@ func PrepareInitData(ucFile, lvFile string) ([][]float64, [][]float64, [][][]int
 
 	Lattice, Character := LatticeGen(UnitCell, LatticeVectors)
 
+	// Make identical unit cell points?
+	// 1 <-> 11, 4 <-> 8
 	for i := 0; i < len(Character); i++ {
-		if Character[i] >= 0 && Character[i] <= 2 {
-			Character[i] = 6 - Character[i]
+		if Character[i] == 0 {
+			Character[i] = 10
+		} else if Character[i] == 3 {
+			Character[i] = 7
 		}
 	}
 
-	// Identify the unit cells by those which have character == 4
-	wh4 := make([]int, 0, len(Character))
+	// Identify the unit cells by those which have character == central.point
+	whC := make([]int, 0, len(Character))
 	for i := 0; i < len(Character); i++ {
-		if Character[i] == 3 {
-			wh4 = append(wh4, i)
+		if Character[i] == CentralPoint {
+			whC = append(whC, i)
 		}
 	}
 
@@ -30,10 +34,10 @@ func PrepareInitData(ucFile, lvFile string) ([][]float64, [][]float64, [][][]int
 	// Make adjacency matrix for the unit cells
 
 	// Number of unit cells
-	nUC := len(wh4)
+	nUC := len(whC)
 	UnitCellCoords := Create2DimArrayFloat(nUC, 2)
 	for k := 0; k < nUC; k++ {
-		copy(UnitCellCoords[k], Lattice[wh4[k]])
+		copy(UnitCellCoords[k], Lattice[whC[k]])
 	}
 
 	Moves, Adj := Create2DimArrayFloat(4, 2), Create2DimArrayInt(nUC, nUC)
