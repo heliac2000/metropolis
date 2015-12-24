@@ -2,6 +2,7 @@ package functions_test
 
 import (
 	"math"
+	"path"
 	"testing"
 
 	. "../util"
@@ -15,9 +16,7 @@ type testCasesCoordsIsland struct {
 }
 
 func TestCoordsIsland(t *testing.T) {
-	SetInitData(
-		"./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv",
-		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json", "./data/svm_model.json")
+	SetInitData()
 
 	testCases := []testCasesCoordsIsland{
 		{
@@ -33,7 +32,7 @@ func TestCoordsIsland(t *testing.T) {
 			coutX:    []int{2},
 			coutC:    []int{6},
 			coutO:    []float64{150},
-			expected: LoadFromCsvFile2Dim("./data/CoordsIsland_01.csv", ','),
+			expected: LoadFromCsvFile2Dim(path.Join(DATA_DIR, "CoordsIsland_01.csv"), ','),
 		},
 	}
 

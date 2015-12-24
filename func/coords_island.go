@@ -19,8 +19,8 @@ func CoordsIsland(coutX, coutC []int, coutO []float64) [][]float64 {
 	coords := make([]float64, 2)
 
 	for i := 0; i < l; i++ {
-		coords[0] = Inp.UnitCellCoords[coutX[i]][0] - (Inp.UnitCell2[3][1] - Inp.UnitCell2[coutC[i]][1])
-		coords[1] = Inp.UnitCellCoords[coutX[i]][1] - (Inp.UnitCell2[3][1] - Inp.UnitCell2[coutC[i]][2])
+		coords[0] = Inp.UnitCellCoords[coutX[i]][0] - (Inp.UnitCell[CentralPoint][1] - Inp.UnitCell[coutC[i]][1])
+		coords[1] = Inp.UnitCellCoords[coutX[i]][1] - (Inp.UnitCell[CentralPoint][1] - Inp.UnitCell[coutC[i]][2])
 		islandTemp = append(islandTemp,
 			RotateZ(ShiftMCpos(Inp.MoleculeCoordinates, coords), coutO[i]*math.Pi/180.0)...)
 	}
