@@ -8,6 +8,8 @@ import (
 	"math/rand"
 	"path"
 	"time"
+
+	. "../util"
 )
 
 const (
@@ -55,6 +57,9 @@ const (
 	// Minimum distance that two atoms by be in before touching repulsive wall
 	Mcut float64 = 1.0
 
+	// Maximum distance allowable between two atoms ('cut-off distance')
+	McomCUT float64 = 8.0
+
 	// Radius to get rid of duplicated points
 	Epsilon float64 = 0.5
 )
@@ -95,7 +100,7 @@ var (
 	Temp float64 = 75
 
 	// For parallel tempering
-	TempS []float64 = []float64{50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200}
+	TempS []float64 = Seq(100, 500, 35)
 
 	// For parallel tempering
 	Nparallel int = len(TempS)
