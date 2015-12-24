@@ -17,7 +17,7 @@ func LatticeGen(unitCell, latticeVectors [][]float64) ([][]float64, []int) {
 
 	// horizontal/vertical coordinate
 	for k := 0; k < nlp; k++ {
-		latticeCoords[k][0], latticeCoords[k][1] = unitCell[k][0], unitCell[k][1]
+		latticeCoords[k][0], latticeCoords[k][1] = unitCell[k][1], unitCell[k][2]
 	}
 
 	// Specify which unit cell point the lattice point corresponds to
