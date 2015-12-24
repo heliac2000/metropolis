@@ -6,6 +6,7 @@ package functions
 
 import (
 	"math/rand"
+	"path"
 	"time"
 )
 
@@ -56,6 +57,19 @@ const (
 
 	// Radius to get rid of duplicated points
 	Epsilon float64 = 0.5
+)
+
+// Data files
+const (
+	// Data directory
+	DATA_DIR string = "./data_2.1"
+)
+
+var (
+	// Coordinates of atoms in molecule
+	CCoords  = path.Join(DATA_DIR, "CcoordsAVE.csv")
+	HCoords  = path.Join(DATA_DIR, "HcoordsAVE.csv")
+	BrCoords = path.Join(DATA_DIR, "BrcoordsAVE.csv")
 )
 
 // Atom identities

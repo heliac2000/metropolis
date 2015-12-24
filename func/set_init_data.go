@@ -6,6 +6,8 @@ package functions
 
 import (
 	"math"
+	"path"
+	"sort"
 
 	. "../util"
 )
@@ -13,6 +15,7 @@ import (
 type InitData struct {
 	UnitCell               [][]float64
 	UnitCell2              [][]float64
+	OrientationsEnergies   [][][]float64
 	UnitCellCoords         [][]float64
 	AdjCuml                [][][]int
 	Character              []int
@@ -22,17 +25,54 @@ type InitData struct {
 }
 
 //
-// ucFile: UnitCell data
-// uc2File: UnitCell2 data(CSV format)
-// lvFile: LatticeVector data(CSV format)
+// [R]
+// write.table(format(UnitCell2, digits=22, trim=T), file="UnitCell2.csv",
+//             sep=",", row.names=FALSE, col.names=FALSE, quote=F)
 //
-// [R] write.table(format(UnitCell2, digits=22, trim=T), file="UnitCell2.csv",
-//                 sep=",", row.names=FALSE, col.names=FALSE, quote=F)
-//
-func SetInitData(ucFile, uc2File, lvFile, krlsLogFile, krlsAttFile, svmModelFile string) {
-	unitCell := LoadFromCsvFile2Dim(ucFile, ' ')
-	unitCell2 := LoadFromCsvFile2Dim(uc2File, ',')
-	LatticeVectors := LoadFromCsvFile2Dim(lvFile, ',')
+func SetInitData() {
+	unitCell2 := LoadFromCsvFile2Dim(path.Join(DATA_DIR, "UnitCell2.csv"), ',')
+	LatticeVectors := LoadFromCsvFile2Dim(path.Join(DATA_DIR, "PrecursorUnitCellAxes.csv"), ',')
+
+	// Identify the colors
+	c := make([]int, len(unitCell2))
+	for i := 0; i < len(unitCell2); i++ {
+		c[i] = int(unitCell2[i][0])
+	}
+	colors := Unique(c)
+	sort.Ints(colors)
+
+	// This should be ordered according to color!
+	unitCell := Create2DimArrayFloat(len(colors), 3)
+	for k := 0; k < len(colors); k++ {
+		whk := 0
+		for i, v := range c {
+			if v == colors[k] {
+				whk = i
+				break
+			}
+		}
+		unitCell[k][0] = float64(colors[k])
+		unitCell[k][1] = unitCell2[whk][1]
+		unitCell[k][2] = unitCell2[whk][2]
+	}
+
+	// OrientationsEnergies[[k]][[1]] is the orientations available for
+	// colour k, OrientationsEnergies[[k]][[2]] is the corresponding
+	// adsorption energies
+	orientationsEnergies := make([][][]float64, len(colors))
+	for k := 0; k < len(colors); k++ {
+		add := make([][]float64, 2)
+		for i := 0; i < 2; i++ {
+			add[i] = make([]float64, 0, len(unitCell2))
+		}
+		for i := 0; i < len(unitCell2); i++ {
+			if int(unitCell2[i][0]) == colors[k] {
+				add[0] = append(add[0], unitCell2[i][3])
+				add[1] = append(add[1], unitCell2[i][4])
+			}
+		}
+		orientationsEnergies[k] = add
+	}
 
 	Lattice, character := LatticeGen(unitCell, LatticeVectors)
 
@@ -46,13 +86,8 @@ func SetInitData(ucFile, uc2File, lvFile, krlsLogFile, krlsAttFile, svmModelFile
 		}
 	}
 
-	// Identify the unit cells by those which have character == 4
-	whC := make([]int, 0, len(character))
-	for i := 0; i < len(character); i++ {
-		if character[i] == CentralPoint {
-			whC = append(whC, i)
-		}
-	}
+	// Identify the unit cells by those which have character == central.point
+	whC := Which(character, CentralPoint)
 
 	// Label the unit cell points
 	// Make adjacency matrix for the unit cells
@@ -114,11 +149,18 @@ func SetInitData(ucFile, uc2File, lvFile, krlsLogFile, krlsAttFile, svmModelFile
 	// charactersOrientations[][1] is index(0-base or 1-base)
 	//
 	chUnique := Unique(character)
-	charactersOrientations := Create2DimArrayInt(len(chUnique)*3, 3)
-	for k, cnt := 0, 0; k < len(chUnique); k++ {
-		for j := 0; j < 3; j++ {
-			charactersOrientations[cnt][1] = chUnique[k]
-			charactersOrientations[cnt][2] = int(unitCell[chUnique[k]][j+4])
+	sort.Ints(chUnique)
+
+	totalCombs := 0
+	for _, v := range chUnique {
+		totalCombs += len(orientationsEnergies[v][0])
+	}
+	charactersOrientations := Create2DimArrayInt(totalCombs, 3)
+	cnt := 0
+	for _, ch := range chUnique {
+		for _, opos := range orientationsEnergies[ch][0] {
+			charactersOrientations[cnt][1] = ch
+			charactersOrientations[cnt][2] = int(math.Floor(opos + .5))
 			cnt++
 		}
 	}
@@ -126,22 +168,23 @@ func SetInitData(ucFile, uc2File, lvFile, krlsLogFile, krlsAttFile, svmModelFile
 	Inp = &InitData{
 		UnitCell:               unitCell,
 		UnitCell2:              unitCell2,
+		OrientationsEnergies:   orientationsEnergies,
 		UnitCellCoords:         unitCellCoords,
 		AdjCuml:                adjCuml,
 		Character:              character,
 		ChUnique:               chUnique,
 		CharactersOrientations: charactersOrientations,
-		MoleculeCoordinates:    LoadMoleculeCoordinates("./data/Ccarts", "./data/Hcarts", "./data/Brcarts"),
+		MoleculeCoordinates:    LoadMoleculeCoordinates(CCoords, HCoords, BrCoords),
 	}
 
 	SetZcoulomb()
 
 	// Load KRLS objects
-	LoadDataFromJSONFile(&KernelRegsRepLog, krlsLogFile)
-	LoadDataFromJSONFile(&KernelRegsAtt, krlsAttFile)
+	LoadDataFromJSONFile(&KernelRegsRepLog, path.Join(DATA_DIR, "kernelregS_Rep_log.json"))
+	LoadDataFromJSONFile(&KernelRegsAtt, path.Join(DATA_DIR, "kernelregS_Att.json"))
 
 	// Load SVM objects
-	LoadDataFromJSONFile(&SvmModel, svmModelFile)
+	LoadDataFromJSONFile(&SvmModel, path.Join(DATA_DIR, "svm_model.json"))
 }
 
 // Prepare the numerators of the Coulomb matrices
