@@ -23,7 +23,7 @@ const (
 	Alpha2 float64 = 1
 
 	// Character of unit cell central point
-	CentralPoint = 5
+	CentralPoint int = 5
 
 	// Input the hopping lattice from the unit cell
 
