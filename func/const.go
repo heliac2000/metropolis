@@ -62,6 +62,9 @@ const (
 
 	// Radius to get rid of duplicated points
 	Epsilon float64 = 0.5
+
+	// Energy for unstable region
+	Eunstable int = 10
 )
 
 // Data files
