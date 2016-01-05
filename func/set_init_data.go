@@ -134,21 +134,21 @@ func SetInitData() {
 	}
 
 	// Make a sequence of power matrices
-	AdjSEQ := make([][][]int, Npower)
-	AdjSEQ[0] = Adj
-	for k := 1; k < Npower; k++ {
-		// Generate the power matrices
-		AdjSEQ[k] = MatrixMultiply(AdjSEQ[k-1], Adj)
-	}
-
-	adjCuml := make([][][]int, Npower)
-	Copy2DimArray(&adjCuml[0], AdjSEQ[0])
-	for k := 1; k < Npower; k++ {
-		Copy2DimArray(&adjCuml[k], AdjSEQ[0])
-		for j := 1; j <= k; j++ {
-			MatrixAdd(adjCuml[k], AdjSEQ[j])
-		}
-	}
+	// AdjSEQ := make([][][]int, Npower)
+	// AdjSEQ[0] = Adj
+	// for k := 1; k < Npower; k++ {
+	// 	// Generate the power matrices
+	// 	AdjSEQ[k] = MatrixMultiply(AdjSEQ[k-1], Adj)
+	// }
+	//
+	// adjCuml := make([][][]int, Npower)
+	// Copy2DimArray(&adjCuml[0], AdjSEQ[0])
+	// for k := 1; k < Npower; k++ {
+	// 	Copy2DimArray(&adjCuml[k], AdjSEQ[0])
+	// 	for j := 1; j <= k; j++ {
+	// 		MatrixAdd(adjCuml[k], AdjSEQ[j])
+	// 	}
+	// }
 
 	// Generate all combinations of characters and corresponding
 	// orientations. First space is empty - it gets filled in
@@ -178,7 +178,7 @@ func SetInitData() {
 		UnitCell2:              unitCell2,
 		OrientationsEnergies:   orientationsEnergies,
 		UnitCellCoords:         unitCellCoords,
-		AdjCuml:                adjCuml,
+		AdjCuml:                LoadFromCsvFileList(path.Join(DATA_DIR, "AdjCuml.csv")),
 		Character:              character,
 		ChUnique:               chUnique,
 		CharactersOrientations: charactersOrientations,
