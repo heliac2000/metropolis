@@ -23,7 +23,8 @@ func RandomIslandUnitCell(n int) ([]int, []int, []float64) {
 	islandC, islandO := make([]int, 0, n), make([]float64, 0, n)
 	for k := 0; k < n; k++ {
 		islandC = append(islandC, Inp.ChUnique[Rnd.Intn(len(Inp.ChUnique))])
-		islandO = append(islandO, Inp.UnitCell[islandC[k]][4+Rnd.Intn(3)])
+		oAvail := Inp.OrientationsEnergies[islandC[k]][0]
+		islandO = append(islandO, oAvail[Rnd.Intn(len(oAvail))])
 	}
 
 	return islandP, islandC, islandO
