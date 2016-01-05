@@ -151,7 +151,7 @@ func (e *eRPRFunction) ERPRClass4() float64 {
 	pRedR1, cRedR1, oRedR1 := ReductionBlock(pR1, cR1, oR1)
 	extR1, lR1 := ExtensionBlock(pR1, CoordsIsland(pR1, cR1, oR1))
 
-	return nR1 * nR1 * QabcdBlock(
+	return nR1 * (nR1 - 1) * QabcdBlock(
 		pR1, pR1, cR1, oR1, pP1, cP1, oP1, pP2, cP2, oP2,
 		pRedR1, cRedR1, oRedR1, e.prct, extR1, lR1, 1)
 }
@@ -172,7 +172,7 @@ func (e *eRPRFunction) ERPRClass5() float64 {
 	pRedR1, cRedR1, oRedR1 := ReductionBlock(pR1, cR1, oR1)
 	extR1, lR1 := ExtensionBlock(pR1, CoordsIsland(pR1, cR1, oR1))
 
-	return nR1 * nR1 * Qab0dBlock(
+	return nR1 * (nR1 - 1) * Qab0dBlock(
 		pR1, cR1, oR1, pR1, cR1, oR1, pP1, cP1, oP1,
 		pRedR1, cRedR1, oRedR1, e.prct, extR1, lR1, 1)
 }
@@ -258,7 +258,6 @@ func (e *eRPRFunction) ERPRClass8() float64 {
 				nR1*nR2*QabcdBlock(
 					pR1, pR2, cR2, oR2, pR2, cR2, oR2, pP1, cP1, oP1,
 					pRedR1, cRedR1, oRedR1, e.prct, extR2, lR2, 1)
-			qTestTot *= 2
 		}
 	}
 
