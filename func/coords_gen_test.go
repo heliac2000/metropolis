@@ -46,7 +46,7 @@ func TestCoordsGen(t *testing.T) {
 }
 
 // Local Variables:
-// compile-command: (concat "go test -v " (file-name-nondirectory buffer-file-name))
+// compile-command: (concat "go test -gcflags='-B' -v " (file-name-nondirectory buffer-file-name))
 // End:
 
 // [R]
