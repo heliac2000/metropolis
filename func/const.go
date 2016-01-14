@@ -63,6 +63,9 @@ const (
 	// Radius to get rid of duplicated points
 	Epsilon float64 = 0.5
 
+	// Set to TRUE if wish to use low-dimensional representation based on PCA
+	PcaRep bool = true
+
 	// Energy for unstable region
 	Eunstable int = 10
 )
@@ -126,4 +129,7 @@ var (
 
 	// Svm object
 	SvmModel Svm
+
+	// List of variables
+	Vars [][]int
 )
