@@ -187,6 +187,15 @@ func SetInitData() {
 
 	SetZcoulomb()
 
+	// Generate the list VARS of indices for the interacting Coulomb matrix
+	if PcaRep {
+		for k := 0; k < len(Inp.MoleculeCoordinates.All); k++ {
+			for j := 0; j < len(Inp.MoleculeCoordinates.All); j++ {
+				Vars = append(Vars, []int{k, j})
+			}
+		}
+	}
+
 	// Load KRLS objects
 	LoadDataFromJSONFile(&KernelRegsRepLog, path.Join(DATA_DIR, "kernelregS_Rep_log.json"))
 	LoadDataFromJSONFile(&KernelRegsAtt, path.Join(DATA_DIR, "kernelregS_Att.json"))
@@ -225,14 +234,4 @@ func SetZcoulomb() {
 			}
 		}
 	}
-
-	// Generate the list VARS of indices for the interacting Coulomb matrix
-	if PcaRep {
-		for k := 0; k < len(Inp.MoleculeCoordinates.All); k++ {
-			for j := 0; j < len(Inp.MoleculeCoordinates.All); j++ {
-				Vars = append(Vars, []int{k, j})
-			}
-		}
-	}
-
 }
