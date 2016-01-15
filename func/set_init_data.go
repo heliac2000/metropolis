@@ -74,7 +74,14 @@ func SetInitData() {
 		orientationsEnergies[k] = add
 	}
 
-	Lattice, character := LatticeGen(unitCell, LatticeVectors)
+	// [R]
+	// write.table(format(Lattice, digits=22, trim=T),
+	//             file="Lattice.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
+	// write.table(t(as.matrix(Character-1)),
+	//             file="Character.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
+	//Lattice, character := LatticeGen(unitCell, LatticeVectors)
+	Lattice := LoadFromCsvFile2Dim(path.Join(DATA_DIR, "Lattice.csv"), ',')
+	character := LoadFromCsvFileInt(path.Join(DATA_DIR, "Character.csv"))
 
 	// Make identical unit cell points?
 	// 1 <-> 11, 4 <-> 8
@@ -85,14 +92,6 @@ func SetInitData() {
 			character[i] = 7
 		}
 	}
-
-	// [R]
-	// write.table(format(Lattice, digits=22, trim=T),
-	//             file="Lattice.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
-	// write.table(t(as.matrix(Character-1)),
-	//             file="Character.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
-	//Lattice := LoadFromCsvFile2Dim(path.Join(DATA_DIR, "Lattice.csv"), ',')
-	//character := LoadFromCsvFileInt(path.Join(DATA_DIR, "Character.csv"))
 
 	// Identify the unit cells by those which have character == central.point
 	whC := Which(character, CentralPoint)
@@ -174,11 +173,12 @@ func SetInitData() {
 	}
 
 	Inp = &InitData{
-		UnitCell:               unitCell,
-		UnitCell2:              unitCell2,
-		OrientationsEnergies:   orientationsEnergies,
-		UnitCellCoords:         unitCellCoords,
-		AdjCuml:                LoadFromCsvFileList(path.Join(DATA_DIR, "AdjCuml.csv")),
+		UnitCell:             unitCell,
+		UnitCell2:            unitCell2,
+		OrientationsEnergies: orientationsEnergies,
+		UnitCellCoords:       unitCellCoords,
+		//AdjCuml:                LoadFromCsvFileList(path.Join(DATA_DIR, "AdjCuml.csv")),
+		AdjCuml:                [][][]int{{{0}}},
 		Character:              character,
 		ChUnique:               chUnique,
 		CharactersOrientations: charactersOrientations,
