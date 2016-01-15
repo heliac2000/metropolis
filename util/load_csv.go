@@ -145,7 +145,7 @@ func LoadFromCsvFileList(fname string) [][][]int {
 	reader := csv.NewReader(csvfile)
 	reader.FieldsPerRecord = -1
 
-	ret := make([][][]int, 0, 1000)
+	ret := make([][][]int, 0, 10)
 	for f, err := reader.Read(); err == nil; f, err = reader.Read() {
 		nrow, _ := strconv.Atoi(f[0])
 		ncol, _ := strconv.Atoi(f[1])
