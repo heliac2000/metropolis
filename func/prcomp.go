@@ -26,7 +26,7 @@ func (prc *PrComp) Predict(newData [][]float64) [][]float64 {
 	}
 
 	var sc [][]float64
-	if prc.Scale == false {
+	if !prc.Scale {
 		sc = ScaleWithoutScaling(newData, prc.Center)
 	}
 
