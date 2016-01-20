@@ -202,6 +202,9 @@ func SetInitData() {
 
 	// Load SVM objects
 	LoadDataFromJSONFile(&SvmModel, path.Join(DATA_DIR, "svm_model.json"))
+
+	// Load PrComp objects
+	LoadDataFromJSONFile(&XeigPc, path.Join(DATA_DIR, "xeigpc.json"))
 }
 
 // Prepare the numerators of the Coulomb matrices

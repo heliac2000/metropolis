@@ -68,6 +68,9 @@ const (
 
 	// Energy for unstable region
 	Eunstable int = 10
+
+	// Number of principal components to use in the force field
+	Npcs int = 7
 )
 
 // Data files
@@ -129,6 +132,9 @@ var (
 
 	// Svm object
 	SvmModel Svm
+
+	// PrComp object
+	XeigPc PrComp
 
 	// List of variables
 	Vars [][]int
