@@ -30,7 +30,7 @@ func (prc *PrComp) Predict(newData [][]float64) [][]float64 {
 		sc = ScaleWithoutScaling(newData, prc.Center)
 	}
 
-	return MatrixMultiplyFloat(sc, prc.Rotation)
+	return MatrixMultiplyFloat(sc[0:1], prc.Rotation)
 }
 
 /*
