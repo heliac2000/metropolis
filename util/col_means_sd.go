@@ -54,3 +54,17 @@ func Scale(m [][]float64, center []float64, scale []float64) [][]float64 {
 
 	return scaled
 }
+
+func ScaleWithoutScaling(m [][]float64, center []float64) [][]float64 {
+	var scaled [][]float64
+	Copy2DimArray(&scaled, m)
+
+	r, c := len(m), len(m[0])
+	for i := 0; i < c; i++ {
+		for j := 0; j < r; j++ {
+			scaled[j][i] = scaled[j][i] - center[i]
+		}
+	}
+
+	return scaled
+}
