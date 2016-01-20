@@ -26,8 +26,7 @@ func TestCoulombVectorise(t *testing.T) {
 		{
 			cmVec: func() []float64 {
 				ci, _ := CoulombIntMatrix(500, 400, 0, 0, 90, 90)
-				cv := CoulombVectorise(ci)
-				return cv
+				return CoulombVectorise(ci)
 			}(),
 			expected: []float64{
 				181.83229427688087298520, 52.07623191468651668856, -88.78906289938313989296, -272.03612236354888409551,
