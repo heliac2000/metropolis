@@ -202,6 +202,9 @@ func SetInitData() {
 
 	// Load SVM objects
 	LoadDataFromJSONFile(&SvmModel, path.Join(DATA_DIR, "svm_model.json"))
+	LoadDataFromJSONFile(&SvmModelOp, path.Join(DATA_DIR, "svm_model_op.json"))
+	LoadDataFromJSONFile(&SvmModelNzp, path.Join(DATA_DIR, "svm_model_nzp.json"))
+	LoadDataFromJSONFile(&SvmModelUsp, path.Join(DATA_DIR, "svm_model_usp.json"))
 
 	// Load PrComp objects
 	LoadDataFromJSONFile(&XeigPc, path.Join(DATA_DIR, "xeigpc.json"))

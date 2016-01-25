@@ -67,7 +67,7 @@ const (
 	PcaRep bool = true
 
 	// Energy for unstable region
-	Eunstable int = 10
+	Eunstable float64 = 10
 
 	// Number of principal components to use in the force field
 	Npcs int = 7
@@ -127,11 +127,10 @@ var (
 	Zcoulomb [][]float64
 
 	// KRLS objects
-	KernelRegsRepLog Krls
-	KernelRegsAtt    Krls
+	KernelRegsRepLog, KernelRegsAtt Krls
 
 	// Svm object
-	SvmModel Svm
+	SvmModel, SvmModelOp, SvmModelNzp, SvmModelUsp Svm
 
 	// PrComp object
 	XeigPc PrComp
