@@ -36,7 +36,7 @@ func TestCoulombVectorise(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		actual := CMvecReduce(tc.cmVec, Npcs)
+		actual := CMvecReduce(tc.cmVec, Npcs)[0]
 		for i := 0; i < len(actual); i++ {
 			if math.Abs(actual[i]-tc.expected[i]) > 1.0E-10 {
 				t.Errorf("\n[%d]\ngot  %.22f\nwant %.22f", i, actual[i], tc.expected[i])
