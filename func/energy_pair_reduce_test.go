@@ -19,9 +19,7 @@ func TestEnergyPairReduce(t *testing.T) {
 	// NOTICE: R is 1-base index, golang is 0-base.
 	//   ch1 and ch2 are characters, 1-base in R but 0-base in Golang
 	//
-	// [R]
-	// write.table(format(CoulombIntMatrix(31, 63, 1, 1, 2, 1)[[1]], digits=22, trim=T),
-	//             file="CoulombIntMatrix_01.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
+	// [R] EnergyPairReduce(1, 2, 3, 4, 5, 6)
 	//
 	testCases := []testCasesEnergyPairReduce{
 		{
