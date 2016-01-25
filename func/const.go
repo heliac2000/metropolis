@@ -71,6 +71,9 @@ const (
 
 	// Number of principal components to use in the force field
 	Npcs int = 7
+
+	// Detection limit for angles
+	Detect float64 = 1 / 100
 )
 
 // Data files
