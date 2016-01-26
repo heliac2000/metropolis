@@ -73,7 +73,7 @@ const (
 	Npcs int = 7
 
 	// Detection limit for angles
-	Detect float64 = 1 / 100
+	Detect float64 = 0.01
 )
 
 // Data files
