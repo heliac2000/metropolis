@@ -13,28 +13,22 @@ type testCasesEnegyCanonical struct {
 }
 
 func TestEnergyCanonical(t *testing.T) {
-	SetInitData(
-		"./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv",
-		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json", "./data/svm_model.json")
+	SetInitData()
 
 	// NOTICE: R is 1-base index, golang is 0-base.
 	//   chr is characters, 1-base in R but 0-base in Golang
 	//
 	// [R]
 	// c <- Canonical.Order(Canonical.Gen())
-	// island <- list()
-	// island[[1]] = c[[1]][[1]] ## 313 # position
-	// island[[2]] = c[[2]][[1]] ## 4   # character
-	// island[[3]] = c[[3]][[1]] ## 90  # orientation
-	// format(EnergyIsland(island), digit=22)
-	// [1] "-1.146029999999996107363"
+	// format(EnergyCanonical(c), digit=22)
+	// [1] "-20.20290000000102281774"
 	//
 	testCases := []testCasesEnegyCanonical{
 		{
-			pos:  [][]int{{313}, {313}, {313}, {313}, {313}, {313}, {313}, {313}, {313}, {313}, {0}},
-			chr:  [][]int{{3}, {3}, {5}, {5}, {4}, {4}, {4}, {5}, {3}, {4}, {0}},
-			ori:  [][]float64{{90}, {0}, {60}, {120}, {30}, {120}, {60}, {0}, {90}, {30}, {0}},
-			eInt: -11.52151000000014846592,
+			pos:  [][]int{{1227}, {1227}, {1227}, {1227}, {1227}, {1227}, {1227}, {1227}, {1227}, {1227}, {0}},
+			chr:  [][]int{{1}, {8}, {7}, {7}, {8}, {10}, {2}, {4}, {4}, {10}, {0}},
+			ori:  [][]float64{{60}, {120}, {60}, {60}, {120}, {60}, {120}, {0}, {0}, {120}, {0}},
+			eInt: -20.20290000000102281774,
 		},
 	}
 

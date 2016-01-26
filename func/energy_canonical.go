@@ -12,7 +12,8 @@ func EnergyCanonical(pos, chr [][]int, ori [][]float64) float64 {
 
 	// Don't include the final zero term
 	for k := 0; k < len(pos)-1; k++ {
-		ene += EnergyIsland(pos[k], chr[k], ori[k])
+		// Edit as appropriate!
+		ene += EnergyIslandPCA(pos[k], chr[k], ori[k])
 	}
 
 	return ene
