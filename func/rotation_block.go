@@ -18,6 +18,9 @@ import (
 // islandP: Island block positions(index)
 // islandC: Island block characters(index)
 // islandO: Island block orientations(angle)
+//
+// [NOTICE] Characters and orientations do not change under rotation
+//
 func RotationBlock(islandP []int) []int {
 	// Fetch the island coordinates
 	r, c := len(islandP), len(Inp.UnitCellCoords[0])
