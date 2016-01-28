@@ -23,13 +23,13 @@ func TestTranslationIdentical(t *testing.T) {
 			// [R]
 			// TranslationIdentical(list(c(5, 40, 200), c(1,1,1), c(1,1,1)), list(c(5,40,200), c(1,1,1), c(1,1,1)))
 			//
-			pos1: []int{4, 39, 199}, chr1: []int{1, 1, 1}, ori1: []float64{1, 1, 1},
-			pos2: []int{4, 39, 199}, chr2: []int{1, 1, 1}, ori2: []float64{1, 1, 1},
+			pos1: []int{4, 39, 199}, chr1: []int{0, 0, 0}, ori1: []float64{1, 1, 1},
+			pos2: []int{4, 39, 199}, chr2: []int{0, 0, 0}, ori2: []float64{1, 1, 1},
 			same: true,
 		},
 		{
-			pos1: []int{4, 39, 199}, chr1: []int{1, 1, 1}, ori1: []float64{1, 1, 1},
-			pos2: []int{4, 39, 199}, chr2: []int{2, 1, 1}, ori2: []float64{1, 1, 1},
+			pos1: []int{4, 39, 199}, chr1: []int{0, 0, 0}, ori1: []float64{1, 1, 1},
+			pos2: []int{4, 39, 199}, chr2: []int{1, 0, 0}, ori2: []float64{1, 1, 1},
 			same: false,
 		},
 	}
