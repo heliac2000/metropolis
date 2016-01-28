@@ -24,19 +24,19 @@ func TestUniqueOrientations(t *testing.T) {
 			//     [[2]][[2]][[1]] 50 40 31
 			//
 			pos:      []int{4, 39, 199},
-			same:     []int{1, 2},
+			same:     []int{0, 1},
 			expected: []int{49, 39, 30},
 		},
 		{
 			// [R] uniqueOrientations(list(c(1), c(1), c(1)))
 			pos:      []int{0},
-			same:     []int{1},
+			same:     []int{0},
 			expected: []int{0},
 		},
 		{
 			// [R] uniqueOrientations(list(c(1, 10, 100), c(1), c(1)))
 			pos:      []int{0, 9, 99},
-			same:     []int{1, 2},
+			same:     []int{0, 1},
 			expected: []int{18, 9, 750},
 		},
 	}
