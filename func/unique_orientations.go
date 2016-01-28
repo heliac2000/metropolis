@@ -62,10 +62,10 @@ func UniqueOrientations(pos []int) ([]int, []int) {
 
 		for k := 0; k < len(ind1); k++ {
 			if x1MoveTemp[ind1[k]] != ir[ind2[k]] {
-				return ir, []int{1, 2}
+				return []int{1, 2}, ir
 			}
 		}
 	}
 
-	return ir, []int{1}
+	return []int{1}, ir
 }

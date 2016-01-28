@@ -42,7 +42,7 @@ func TestUniqueOrientations(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		actual, same := UniqueOrientations(tc.pos)
+		same, actual := UniqueOrientations(tc.pos)
 		if !reflect.DeepEqual(same, tc.same) {
 			t.Errorf("\ngot  %v\nwant %v", same, tc.same)
 			return
