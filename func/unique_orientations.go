@@ -8,7 +8,7 @@ import . "../util"
 
 // Determine the unique orientations of island Xtest
 //
-func UniqueOrientations(pos []int) ([]int, bool) {
+func UniqueOrientations(pos []int) ([]int, []int) {
 	// Strictly assumes two-fold symmetry
 	ir := RotationBlock(pos)
 
@@ -62,10 +62,10 @@ func UniqueOrientations(pos []int) ([]int, bool) {
 
 		for k := 0; k < len(ind1); k++ {
 			if x1MoveTemp[ind1[k]] != ir[ind2[k]] {
-				return ir, false
+				return ir, []int{1, 2}
 			}
 		}
 	}
 
-	return ir, true
+	return ir, []int{1}
 }

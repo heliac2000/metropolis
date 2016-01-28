@@ -9,7 +9,7 @@ import (
 
 type testCasesUniqueOrientations struct {
 	pos      []int
-	same     bool
+	same     []int
 	expected []int
 }
 
@@ -24,26 +24,26 @@ func TestUniqueOrientations(t *testing.T) {
 			//     [[2]][[2]][[1]] 50 40 31
 			//
 			pos:      []int{4, 39, 199},
-			same:     false,
+			same:     []int{1, 2},
 			expected: []int{49, 39, 30},
 		},
 		{
 			// [R] uniqueOrientations(list(c(1), c(1), c(1)))
 			pos:      []int{0},
-			same:     true,
+			same:     []int{1},
 			expected: []int{0},
 		},
 		{
 			// [R] uniqueOrientations(list(c(1, 10, 100), c(1), c(1)))
 			pos:      []int{0, 9, 99},
-			same:     false,
+			same:     []int{1, 2},
 			expected: []int{18, 9, 750},
 		},
 	}
 
 	for _, tc := range testCases {
 		actual, same := UniqueOrientations(tc.pos)
-		if same != tc.same {
+		if !reflect.DeepEqual(same, tc.same) {
 			t.Errorf("\ngot  %v\nwant %v", same, tc.same)
 			return
 		}
