@@ -8,7 +8,7 @@ import . "../util"
 
 // Determine the unique orientations of island Xtest
 //
-func UniqueOrientations(pos []int) ([]int, []int) {
+func UniqueOrientations(pos, chr []int, ori []float64) ([]int, []int) {
 	// Strictly assumes two-fold symmetry
 	ir := RotationBlock(pos)
 
@@ -59,9 +59,10 @@ func UniqueOrientations(pos []int) ([]int, []int) {
 
 		// Sort the islands in order of unit cel index
 		ind1, ind2 := SortIndexReturn(x1MoveTemp), SortIndexReturn(ir)
-
 		for k := 0; k < len(ind1); k++ {
-			if x1MoveTemp[ind1[k]] != ir[ind2[k]] {
+			i1, i2 := ind1[k], ind2[k]
+			if x1MoveTemp[i1] != ir[i1] ||
+				chr[i1] != chr[i2] || ori[i1] != ori[i2] {
 				return []int{0, 1}, ir
 			}
 		}

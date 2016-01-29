@@ -8,7 +8,8 @@ import (
 )
 
 type testCasesUniqueOrientations struct {
-	pos      []int
+	pos, chr []int
+	ori      []float64
 	same     []int
 	expected []int
 }
@@ -19,30 +20,16 @@ func TestUniqueOrientations(t *testing.T) {
 	// NOTICE: R is 1-base index, golang is 0-base.
 	testCases := []testCasesUniqueOrientations{
 		{
-			// [R] uniqueOrientations(list(c(5, 40, 200), c(1), c(1)))
-			//     [[1]][1] 1 2
-			//     [[2]][[2]][[1]] 50 40 31
+			// [R] uniqueOrientations(list(c(1227, 1181), c(6, 2), c(0, 60)))
 			//
-			pos:      []int{4, 39, 199},
+			pos: []int{1226, 1180}, chr: []int{5, 1}, ori: []float64{0, 60},
 			same:     []int{0, 1},
-			expected: []int{49, 39, 30},
-		},
-		{
-			// [R] uniqueOrientations(list(c(1), c(1), c(1)))
-			pos:      []int{0},
-			same:     []int{0},
-			expected: []int{0},
-		},
-		{
-			// [R] uniqueOrientations(list(c(1, 10, 100), c(1), c(1)))
-			pos:      []int{0, 9, 99},
-			same:     []int{0, 1},
-			expected: []int{18, 9, 750},
+			expected: []int{1134, 1180},
 		},
 	}
 
 	for _, tc := range testCases {
-		same, actual := UniqueOrientations(tc.pos)
+		same, actual := UniqueOrientations(tc.pos, tc.chr, tc.ori)
 		if !reflect.DeepEqual(same, tc.same) {
 			t.Errorf("\ngot  %v\nwant %v", same, tc.same)
 			return
