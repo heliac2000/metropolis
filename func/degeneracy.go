@@ -27,7 +27,7 @@ func Degeneracy(pos, chr [][]int, ori [][]float64) float64 {
 	// rot: Store all rotated islands, rotInd: Unique indices
 	rotInd, rot := make([][]int, clength), make([][]int, clength)
 	for k := 0; k < clength; k++ {
-		rotInd[k], rot[k] = UniqueOrientations(pos[k])
+		rotInd[k], rot[k] = UniqueOrientations(pos[k], chr[k], ori[k])
 	}
 
 	// Now, determine all unique combinations of indices from Rot
