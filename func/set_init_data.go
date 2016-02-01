@@ -173,12 +173,11 @@ func SetInitData() {
 	}
 
 	Inp = &InitData{
-		UnitCell:             unitCell,
-		UnitCell2:            unitCell2,
-		OrientationsEnergies: orientationsEnergies,
-		UnitCellCoords:       unitCellCoords,
-		//AdjCuml:                LoadFromCsvFileList(path.Join(DATA_DIR, "AdjCuml.csv")),
-		AdjCuml:                [][][]int{{{0}}},
+		UnitCell:               unitCell,
+		UnitCell2:              unitCell2,
+		OrientationsEnergies:   orientationsEnergies,
+		UnitCellCoords:         unitCellCoords,
+		AdjCuml:                LoadFromCsvFileList(path.Join(DATA_DIR, "AdjCuml.csv")),
 		Character:              character,
 		ChUnique:               chUnique,
 		CharactersOrientations: charactersOrientations,

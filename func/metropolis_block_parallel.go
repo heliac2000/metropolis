@@ -87,11 +87,9 @@ func MetropolisBlockParallel(N int, eout, cout string) {
 					}
 				}
 
-				fx := Factorial(lcprev) * Factorial(Nuc) / (Factorial(lcprev) * Factorial(Nuc-lcprev))
-				fy := Factorial(lctemp) * Factorial(Nuc) / (Factorial(lctemp) * Factorial(Nuc-lctemp))
-				// Stationary distribution in invisible islands approximation.
-				pix := IslandSymmetryCanonicalB(cout[k-1].pos) * fx * fx
-				piy := IslandSymmetryCanonicalB(coutTemp.pos) * fy * fy
+				// New invisible islands approximations
+				pix := Degeneracy(cout[k-1].Explode())
+				piy := Degeneracy(coutTemp.Explode())
 
 				alpha := piy * qC2C1 * math.Exp(-(ay-ax)/(KB*Temp)) / (pix * qC1C2)
 				if alpha > 1.0 {
@@ -145,7 +143,8 @@ func MetropolisBlockParallel(N int, eout, cout string) {
 				e12 := EnergyCanonical(c1.Explode())
 				e21 := EnergyCanonical(c2.Explode())
 
-				//r12 := h1x2 * h2x1 / (h1x1 * h2x2)
+				// [R] r12 = h1x2*h2x1/(h1x1*h2x2) * exp(-(E21 - E11)/(kB*Temp1) - (E12 - E22)/(kB*Temp2))
+				// Problems here with infinities!
 				r12 := math.Exp(-(e21-e11)/(KB*temp1) - (e12-e22)/(KB*temp2))
 				alpha := 1.0
 				if r12 < alpha {
