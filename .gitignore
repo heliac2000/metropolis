@@ -5,7 +5,7 @@ main
 TAGS
 *.gob
 data/*
-data_2.1/*
+data_2.1
 metropolis_V2
 *.log
 *.dat
