@@ -4,12 +4,7 @@
 
 package functions
 
-import (
-	"reflect"
-	"strconv"
-
-	. "../util"
-)
+import . "../util"
 
 type eRPRFunction struct {
 	prct, crct                [][]int
@@ -20,6 +15,11 @@ type eRPRFunction struct {
 	oil                       [][]float64
 	rCoeffs, pCoeffs, dCoeffs []int
 	rclass                    int
+}
+
+var eRPRFuncs []func(e *eRPRFunction) float64 = []func(e *eRPRFunction) float64{
+	ERPRClass1, ERPRClass2, ERPRClass3, ERPRClass4, ERPRClass5,
+	ERPRClass6, ERPRClass7, ERPRClass8, ERPRClass9,
 }
 
 // Probability terms
@@ -43,14 +43,14 @@ func ExtensionReductionProbabilityReaction(prct, crct [][]int, orct [][]float64,
 		return 0.0
 	}
 
-	return (reflect.ValueOf(&eRPRFunction{
+	return eRPRFuncs[rclass](&eRPRFunction{
 		prct, crct, orct, ppdt, cpdt, opdt, pil, cil, oil, rCoeffs, pCoeffs, dCoeffs, rclass,
-	}).MethodByName("ERPRClass" + strconv.Itoa(rclass+1)).Call(nil))[0].Float()
+	})
 }
 
 // REACT_CLASS1
 //
-func (e *eRPRFunction) ERPRClass1() float64 {
+func ERPRClass1(e *eRPRFunction) float64 {
 	// whR: Identify what was affected during the ER transformation
 	// whP: Identify what was produced during the ER transformation
 	whR, whP := Which(e.dCoeffs, -1), Which(e.dCoeffs, 1)
@@ -79,7 +79,7 @@ func (e *eRPRFunction) ERPRClass1() float64 {
 
 // REACT_CLASS2
 //
-func (e *eRPRFunction) ERPRClass2() float64 {
+func ERPRClass2(e *eRPRFunction) float64 {
 	// whR: Identify what was affected during the ER transformation
 	// whP: Identify what was produced during the ER transformation
 	whR, whP := Which(e.dCoeffs, -1), Which(e.dCoeffs, 2)
@@ -107,7 +107,7 @@ func (e *eRPRFunction) ERPRClass2() float64 {
 
 // REACT_CLASS3
 //
-func (e *eRPRFunction) ERPRClass3() float64 {
+func ERPRClass3(e *eRPRFunction) float64 {
 	// whR: Identify what was affected during the ER transformation
 	// whP: Identify what was produced during the ER transformation
 	whR, whP := Which(e.dCoeffs, -1), Which(e.dCoeffs, 1)
@@ -135,7 +135,7 @@ func (e *eRPRFunction) ERPRClass3() float64 {
 
 // REACT_CLASS4
 //
-func (e *eRPRFunction) ERPRClass4() float64 {
+func ERPRClass4(e *eRPRFunction) float64 {
 	// whR: Identify what was affected during the ER transformation
 	// whP: Identify what was produced during the ER transformation
 	whR, whP := Which(e.dCoeffs, -2), Which(e.dCoeffs, 1)
@@ -158,7 +158,7 @@ func (e *eRPRFunction) ERPRClass4() float64 {
 
 // REACT_CLASS5
 //
-func (e *eRPRFunction) ERPRClass5() float64 {
+func ERPRClass5(e *eRPRFunction) float64 {
 	// whR: Identify what was affected during the ER transformation
 	// whP: Identify what was produced during the ER transformation
 	whR, whP := Which(e.dCoeffs, -2), Which(e.dCoeffs, 1)
@@ -179,7 +179,7 @@ func (e *eRPRFunction) ERPRClass5() float64 {
 
 // REACT_CLASS6
 //
-func (e *eRPRFunction) ERPRClass6() float64 {
+func ERPRClass6(e *eRPRFunction) float64 {
 	// whR: Identify what was affected during the ER transformation
 	// whP: Identify what was produced during the ER transformation
 	whR, whP := Which(e.dCoeffs, -1), Which(e.dCoeffs, 1)
@@ -203,7 +203,7 @@ func (e *eRPRFunction) ERPRClass6() float64 {
 
 // REACT_CLASS7
 //
-func (e *eRPRFunction) ERPRClass7() float64 {
+func ERPRClass7(e *eRPRFunction) float64 {
 	// whR: Identify what was affected during the ER transformation
 	// whP: Identify what was produced during the ER transformation
 	whR, whP := Which(e.dCoeffs, -1), Which(e.dCoeffs, 2)
@@ -228,7 +228,7 @@ func (e *eRPRFunction) ERPRClass7() float64 {
 
 // REACT_CLASS8
 //
-func (e *eRPRFunction) ERPRClass8() float64 {
+func ERPRClass8(e *eRPRFunction) float64 {
 	// whR: Identify what was affected during the ER transformation
 	// whP: Identify what was produced during the ER transformation
 	whR, whP := Which(e.dCoeffs, -1), Which(e.dCoeffs, 1)
@@ -272,7 +272,7 @@ func (e *eRPRFunction) ERPRClass8() float64 {
 
 // REACT_CLASS9
 //
-func (e *eRPRFunction) ERPRClass9() float64 {
+func ERPRClass9(e *eRPRFunction) float64 {
 	// Create the zero block
 	pZb, cZb, oZb := []int{0}, []int{0}, []float64{0}
 	extZb, lZb := ExtensionBlock(pZb, [][]float64{{0, 0, 0}})
