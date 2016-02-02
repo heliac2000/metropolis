@@ -55,8 +55,7 @@ func ExtensionReductionBlock(xtest, ctest [][]int, otest [][]float64) (
 	// Generate a list of extended islands.
 	var xExtend [][][]int
 	if len(xtest[sExt]) == 1 && xtest[sExt][0] == 0 {
-		var xExtendA [][]int
-		Copy2DimArray(&xExtendA, Inp.CharactersOrientations)
+		xExtendA := Copy2DimArrayInt(Inp.CharactersOrientations)
 		for i := 0; i < len(xExtendA); i++ {
 			xExtendA[i][0] = UCcenter
 		}
@@ -75,9 +74,7 @@ func ExtensionReductionBlock(xtest, ctest [][]int, otest [][]float64) (
 		xReduce, cReduce, oReduce = ReductionBlock(xtest[sRed], ctest[sRed], otest[sRed])
 	}
 
-	var xout, cout [][]int
-	var oout [][]float64
-	_, _, _ = Copy2DimArray(&xout, xtest), Copy2DimArray(&cout, ctest), Copy2DimArray(&oout, otest)
+	xout, cout, oout := Copy2DimArrayInt(xtest), Copy2DimArrayInt(ctest), Copy2DimArrayFloat(otest)
 
 	// Choose element from CExtend to replace Cout[[sExt]]
 	if chE1, chE2 := 0, 0; len(xExtend) == 1 {

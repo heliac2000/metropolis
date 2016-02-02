@@ -146,11 +146,19 @@ func EigenValues(mat [][]float64) []float64 {
 //
 func GaussKernel(x [][]float64, sigma float64) [][]float64 {
 	xd := Dist(x, 0.0)
-	for i := 0; i < len(xd); i++ {
-		for j := 0; j < len(xd[0]); j++ {
-			xd[i][j] = math.Exp(-1 * (xd[i][j] * xd[i][j]) / sigma)
-		}
+	l := len(xd)
+
+	var wg sync.WaitGroup
+	wg.Add(l)
+	for i := 0; i < l; i++ {
+		go func(i int) {
+			defer wg.Done()
+			for j := 0; j < len(xd[0]); j++ {
+				xd[i][j] = math.Exp(-1 * (xd[i][j] * xd[i][j]) / sigma)
+			}
+		}(i)
 	}
+	wg.Wait()
 
 	return xd
 }

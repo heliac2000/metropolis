@@ -42,10 +42,7 @@ func ColSd(m [][]float64) []float64 {
 // R's scale function
 //
 func Scale(m [][]float64, center []float64, scale []float64) [][]float64 {
-	var scaled [][]float64
-	Copy2DimArray(&scaled, m)
-
-	r, c := len(m), len(m[0])
+	scaled, r, c := Copy2DimArrayFloat(m), len(m), len(m[0])
 	for i := 0; i < c; i++ {
 		for j := 0; j < r; j++ {
 			scaled[j][i] = (scaled[j][i] - center[i]) / scale[i]
@@ -56,10 +53,7 @@ func Scale(m [][]float64, center []float64, scale []float64) [][]float64 {
 }
 
 func ScaleWithoutScaling(m [][]float64, center []float64) [][]float64 {
-	var scaled [][]float64
-	Copy2DimArray(&scaled, m)
-
-	r, c := len(m), len(m[0])
+	scaled, r, c := Copy2DimArrayFloat(m), len(m), len(m[0])
 	for i := 0; i < c; i++ {
 		for j := 0; j < r; j++ {
 			scaled[j][i] = scaled[j][i] - center[i]

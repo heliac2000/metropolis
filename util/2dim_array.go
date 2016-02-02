@@ -50,6 +50,22 @@ func Copy2DimArray(dst, src interface{}) bool {
 	return true
 }
 
+func Copy2DimArrayInt(src [][]int) [][]int {
+	dst := Create2DimArrayInt(len(src), len(src[0]))
+	for i := 0; i < len(src); i++ {
+		copy(dst[i], src[i])
+	}
+	return dst
+}
+
+func Copy2DimArrayFloat(src [][]float64) [][]float64 {
+	dst := Create2DimArrayFloat(len(src), len(src[0]))
+	for i := 0; i < len(src); i++ {
+		copy(dst[i], src[i])
+	}
+	return dst
+}
+
 // Copy vector
 //
 func CopyVectorInt(src []int) []int {

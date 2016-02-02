@@ -75,9 +75,9 @@ func PrepareInitData(ucFile, lvFile string) ([][]float64, [][]float64, [][][]int
 	}
 
 	AdjCuml := make([][][]int, Npower)
-	Copy2DimArray(&AdjCuml[0], AdjSEQ[0])
+	AdjCuml[0] = Copy2DimArrayInt(AdjSEQ[0])
 	for k := 1; k < Npower; k++ {
-		Copy2DimArray(&AdjCuml[k], AdjSEQ[0])
+		AdjCuml[k] = Copy2DimArrayInt(AdjSEQ[0])
 		for j := 1; j <= k; j++ {
 			MatrixAdd(AdjCuml[k], AdjSEQ[j])
 		}

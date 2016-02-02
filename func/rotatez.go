@@ -13,9 +13,8 @@ import (
 // Rotate molecule about z axis
 //
 func RotateZ(moleculeCoords [][]float64, theta float64) [][]float64 {
-	var rot [][]float64
+	rot := Copy2DimArrayFloat(moleculeCoords)
 
-	Copy2DimArray(&rot, moleculeCoords)
 	l, sumX, sumY := len(rot), 0.0, 0.0
 	for i := 0; i < l; i++ {
 		sumX += rot[i][0]
