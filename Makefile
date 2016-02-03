@@ -25,6 +25,9 @@ $(TARGET) b build: $(SRCS)
 testrun t:
 	@./$(TARGET) -N 10000 > log 2>&1 &
 
+N1e5:
+	@./$(TARGET) -N 100000 > log 2>&1 &
+
 ## gccgo
 ##
 GCCGO_FLAGS = -O3 -fno-go-check-divide-zero -fno-go-check-divide-overflow -static-libgo
