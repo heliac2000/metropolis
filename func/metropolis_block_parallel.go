@@ -91,7 +91,7 @@ func MetropolisBlockParallel(N int, eout, cout string) {
 				pix := Degeneracy(cout[k-1].Explode())
 				piy := Degeneracy(coutTemp.Explode())
 
-				alpha := piy * qC2C1 * math.Exp(-(ay-ax)/(KB*Temp)) / (pix * qC1C2)
+				alpha := piy * qC2C1 * math.Exp(-(ay-ax)/(KB*TempS[schoose])) / (pix * qC1C2)
 				if alpha > 1.0 {
 					alpha = 1.0
 				}
