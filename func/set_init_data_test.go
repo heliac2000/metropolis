@@ -14,8 +14,9 @@ import (
 //       file="Zcoulomb.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
 //
 func TestSetZcoulomb(t *testing.T) {
-	SetInitData()
-	zcb := LoadFromCsvFile2Dim(path.Join(DATA_DIR, "Zcoulomb.csv"), ',')
+	dir := "./data_2.1"
+	SetInitData(dir)
+	zcb := LoadFromCsvFile2Dim(path.Join(dir, "Zcoulomb.csv"), ',')
 
 	if !reflect.DeepEqual(Zcoulomb, zcb) {
 		t.Errorf("\ngot  %v\nwant %v", Zcoulomb, zcb)

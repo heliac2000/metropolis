@@ -15,7 +15,7 @@ type testCasesTranslationIdentical struct {
 }
 
 func TestTranslationIdentical(t *testing.T) {
-	SetInitData()
+	SetInitData("./data")
 
 	// NOTICE: R is 1-base index, golang is 0-base.
 	testCases := []testCasesTranslationIdentical{

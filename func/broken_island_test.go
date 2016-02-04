@@ -12,7 +12,7 @@ type testCasesBrokenIsland struct {
 }
 
 func TestBrokenIslandUnitCell(t *testing.T) {
-	SetInitData()
+	SetInitData("./data")
 
 	testCases := []testCasesBrokenIsland{
 		{

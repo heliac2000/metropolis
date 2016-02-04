@@ -6,7 +6,6 @@ package functions
 
 import (
 	"math/rand"
-	"path"
 	"time"
 
 	. "../util"
@@ -77,16 +76,13 @@ const (
 )
 
 // Data files
-const (
-	// Data directory
-	DATA_DIR string = "./data_2.1"
-)
+//
 
-var (
-	// Coordinates of atoms in molecule
-	CCoords  = path.Join(DATA_DIR, "CcoordsAVE.csv")
-	HCoords  = path.Join(DATA_DIR, "HcoordsAVE.csv")
-	BrCoords = path.Join(DATA_DIR, "BrcoordsAVE.csv")
+// Coordinates of atoms in molecule
+const (
+	CCoords  = "CcoordsAVE.csv"
+	HCoords  = "HcoordsAVE.csv"
+	BrCoords = "BrcoordsAVE.csv"
 )
 
 // Atom identities
@@ -109,7 +105,7 @@ var (
 	Inp *InitData
 
 	// Temperature in kelvin.
-	Temp float64 = 75
+	//Temp float64 = 75
 
 	// For parallel tempering
 	TempS []float64 = Seq(100, 500, 35)

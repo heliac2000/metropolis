@@ -13,13 +13,13 @@ import (
 
 func main() {
 	// Parse command line options
-	N, eout, cout, err := parseOption()
+	N, eout, cout, dataDir, err := parseOption()
 	if err != nil {
 		os.Exit(2)
 	}
 
 	// Load initial data
-	SetInitData()
+	SetInitData(dataDir)
 
 	// Start
 	log.Printf("N = %d\n", N)
@@ -37,7 +37,7 @@ func main() {
 
 // Parse option switchs
 //
-func parseOption() (n int, eout, cout string, err *error) {
+func parseOption() (n int, eout, cout, dataDir string, err *error) {
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, `
 Usage of %s:
@@ -53,6 +53,7 @@ Usage of %s:
 	nPtr := flag.Int("N", 0, "Step number.")
 	eoutPtr := flag.String("Eout", "Eout.dat", "Eout file.")
 	coutPtr := flag.String("Cout", "Cout.csv", "Cout file.")
+	dataDirPtr := flag.String("DataDir", "./data", "Input data directory.")
 	flag.Parse()
 
 	// `-N': required option
@@ -71,7 +72,7 @@ Usage of %s:
 		return
 	}
 
-	n, eout, cout = *nPtr, *eoutPtr, *coutPtr
+	n, eout, cout, dataDir = *nPtr, *eoutPtr, *coutPtr, *dataDirPtr
 
 	if n < 2 {
 		fmt.Fprintf(os.Stderr,

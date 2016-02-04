@@ -29,9 +29,9 @@ type InitData struct {
 // write.table(format(UnitCell2, digits=22, trim=T), file="UnitCell2.csv",
 //             sep=",", row.names=FALSE, col.names=FALSE, quote=F)
 //
-func SetInitData() {
-	unitCell2 := LoadFromCsvFile2Dim(path.Join(DATA_DIR, "UnitCell2.csv"), ',')
-	LatticeVectors := LoadFromCsvFile2Dim(path.Join(DATA_DIR, "PrecursorUnitCellAxes.csv"), ',')
+func SetInitData(dataDir string) {
+	unitCell2 := LoadFromCsvFile2Dim(path.Join(dataDir, "UnitCell2.csv"), ',')
+	LatticeVectors := LoadFromCsvFile2Dim(path.Join(dataDir, "PrecursorUnitCellAxes.csv"), ',')
 
 	// Identify the colors
 	c := make([]int, len(unitCell2))
@@ -80,8 +80,8 @@ func SetInitData() {
 	// write.table(t(as.matrix(Character-1)),
 	//             file="Character.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
 	//Lattice, character := LatticeGen(unitCell, LatticeVectors)
-	Lattice := LoadFromCsvFile2Dim(path.Join(DATA_DIR, "Lattice.csv"), ',')
-	character := LoadFromCsvFileInt(path.Join(DATA_DIR, "Character.csv"))
+	Lattice := LoadFromCsvFile2Dim(path.Join(dataDir, "Lattice.csv"), ',')
+	character := LoadFromCsvFileInt(path.Join(dataDir, "Character.csv"))
 
 	// Make identical unit cell points?
 	// 1 <-> 11, 4 <-> 8
@@ -177,11 +177,11 @@ func SetInitData() {
 		UnitCell2:              unitCell2,
 		OrientationsEnergies:   orientationsEnergies,
 		UnitCellCoords:         unitCellCoords,
-		AdjCuml:                LoadFromCsvFileList(path.Join(DATA_DIR, "AdjCuml.csv")),
+		AdjCuml:                LoadFromCsvFileList(path.Join(dataDir, "AdjCuml.csv")),
 		Character:              character,
 		ChUnique:               chUnique,
 		CharactersOrientations: charactersOrientations,
-		MoleculeCoordinates:    LoadMoleculeCoordinates(CCoords, HCoords, BrCoords),
+		MoleculeCoordinates:    LoadMoleculeCoordinates(dataDir, CCoords, HCoords, BrCoords),
 	}
 
 	SetZcoulomb()
@@ -196,17 +196,17 @@ func SetInitData() {
 	}
 
 	// Load KRLS objects
-	LoadDataFromJSONFile(&KernelRegsRepLog, path.Join(DATA_DIR, "kernelregS_Rep_log.json"))
-	LoadDataFromJSONFile(&KernelRegsAtt, path.Join(DATA_DIR, "kernelregS_Att.json"))
+	LoadDataFromJSONFile(&KernelRegsRepLog, path.Join(dataDir, "kernelregS_Rep_log.json"))
+	LoadDataFromJSONFile(&KernelRegsAtt, path.Join(dataDir, "kernelregS_Att.json"))
 
 	// Load SVM objects
-	LoadDataFromJSONFile(&SvmModel, path.Join(DATA_DIR, "svm_model.json"))
-	LoadDataFromJSONFile(&SvmModelOp, path.Join(DATA_DIR, "svm_model_op.json"))
-	LoadDataFromJSONFile(&SvmModelNzp, path.Join(DATA_DIR, "svm_model_nzp.json"))
-	LoadDataFromJSONFile(&SvmModelUsp, path.Join(DATA_DIR, "svm_model_usp.json"))
+	LoadDataFromJSONFile(&SvmModel, path.Join(dataDir, "svm_model.json"))
+	LoadDataFromJSONFile(&SvmModelOp, path.Join(dataDir, "svm_model_op.json"))
+	LoadDataFromJSONFile(&SvmModelNzp, path.Join(dataDir, "svm_model_nzp.json"))
+	LoadDataFromJSONFile(&SvmModelUsp, path.Join(dataDir, "svm_model_usp.json"))
 
 	// Load PrComp objects
-	LoadDataFromJSONFile(&XeigPc, path.Join(DATA_DIR, "xeigpc.json"))
+	LoadDataFromJSONFile(&XeigPc, path.Join(dataDir, "xeigpc.json"))
 }
 
 // Prepare the numerators of the Coulomb matrices

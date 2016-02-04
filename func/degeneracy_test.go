@@ -18,7 +18,7 @@ type testCasesDegeneracy struct {
 }
 
 func TestDegeneracy(t *testing.T) {
-	SetInitData()
+	SetInitData("./data")
 
 	testCases := []testCasesDegeneracy{
 		{

@@ -7,7 +7,7 @@ import (
 )
 
 func TestRandomIslandUnitCell(t *testing.T) {
-	SetInitData()
+	SetInitData("./data")
 
 	islandP, islandC, islandO := RandomIslandUnitCell(4)
 	t.Logf("\nIslandP: %v\nIslandC: %v\nIslandO: %v\n", islandP, islandC, islandO)

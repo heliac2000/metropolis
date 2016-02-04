@@ -23,7 +23,7 @@ func TestShiftMCpos(t *testing.T) {
 		},
 	}
 
-	mc := LoadMoleculeCoordinates("./data/Ccarts", "./data/Hcarts", "./data/Brcarts")
+	mc := LoadMoleculeCoordinates("./data", "CcoordsAVE.csv", "HcoordsAVE.csv", "BrcoordsAVE.csv")
 	for _, tc := range testCases {
 		actual := ShiftMCpos(mc, tc.X)
 		if len(actual) != len(tc.expected) {

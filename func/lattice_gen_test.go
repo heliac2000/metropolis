@@ -18,17 +18,17 @@ type testCasesLatticeGen struct {
 func TestLatticeGen(t *testing.T) {
 	testCases := []testCasesLatticeGen{
 		{
-			uc: LoadFromCsvFile2Dim("./data/PrecursorUnitCell.csv", ' '),
+			uc: LoadFromCsvFile2Dim("./data/UnitCell.csv", ' '),
 			lv: LoadFromCsvFile2Dim("./data/PrecursorUnitCellAxes.csv", ','),
 			//
-			// [R] write.table(lattice, file="lattice.csv", sep=",", row.names=FALSE, col.names=FALSE)
-			lattice: LoadFromCsvFile2Dim("./data/lattice.csv", ','),
+			// [R] write.table(Lattice, file="lattice_test.csv", sep=",", row.names=FALSE, col.names=FALSE)
+			lattice: LoadFromCsvFile2Dim("./data/lattice_test.csv", ','),
 			//
 			// NOTICE: R is 1-base index, golang is 0-base.
 			//
-			// [R] cc = LatticeGen(UnitCell, latticeVectors)[[2]] - 1
-			//     write.table(cc, file="character.dat", row.names=FALSE, col.names=FALSE)
-			character: LoadFromCsvFileInt("./data/character.dat"),
+			// [R] cc = LatticeGen(UnitCell, LatticeVectors)[[2]] - 1
+			//     write.table(cc, file="character_test.dat", row.names=FALSE, col.names=FALSE)
+			character: LoadFromCsvFileInt("./data/character_test.dat"),
 		},
 	}
 

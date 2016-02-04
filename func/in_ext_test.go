@@ -15,9 +15,7 @@ type testCasesInExt struct {
 }
 
 func TestInExt(t *testing.T) {
-	SetInitData(
-		"./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv",
-		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json", "./data/svm_model.json")
+	SetInitData("./data")
 
 	// NOTICE: R is 1-base index, golang is 0-base.
 	//   ccdb and ccbb are characters, 1-base in R but 0-base in Golang

@@ -9,7 +9,7 @@ import (
 )
 
 func TestLoadMoleculeCoordinates(t *testing.T) {
-	mc := LoadMoleculeCoordinates("./data/Ccarts", "./data/Hcarts", "./data/Brcarts")
+	mc := LoadMoleculeCoordinates("./data", "CcoordsAVE.csv", "HcoordsAVE.csv", "BrcoordsAVE.csv")
 
 	// [R]
 	//  write.table(format(C, digits=22, trim=T),

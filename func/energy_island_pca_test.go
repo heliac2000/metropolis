@@ -13,7 +13,7 @@ type testCasesEnegyIslandPCA struct {
 }
 
 func TestEnergyIslandPCA(t *testing.T) {
-	SetInitData()
+	SetInitData("./data")
 
 	// NOTICE: R is 1-base index, golang is 0-base.
 	//   chr is characters, 1-base in R but 0-base in Golang

@@ -13,9 +13,7 @@ type testCasesRotationBlock struct {
 }
 
 func TestRotationBlock(t *testing.T) {
-	SetInitData(
-		"./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv",
-		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json", "./data/svm_model.json")
+	SetInitData("./data")
 
 	// NOTICE: R is 1-base index, golang is 0-base.
 	testCases := []testCasesRotationBlock{
@@ -31,14 +29,14 @@ func TestRotationBlock(t *testing.T) {
 			//     => [[1]][1] 19 10  1
 			//
 			islandP:  []int{0, 9, 99},
-			expected: []int{18, 9, 0},
+			expected: []int{18, 9, 750},
 		},
 		{
 			// [R] Rotation.Block(list(c(5, 40, 200), c(1), c(1)))
 			//     => [[1]][1] 75 40 7
 			//
 			islandP:  []int{4, 39, 199},
-			expected: []int{74, 39, 6},
+			expected: []int{49, 39, 30},
 		},
 	}
 

@@ -16,9 +16,7 @@ type testCasesExtensionBlock struct {
 }
 
 func TestMakeExtensionBlock(t *testing.T) {
-	SetInitData(
-		"./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv",
-		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json", "./data/svm_model.json")
+	SetInitData("./data")
 
 	testCases := []testCasesExtensionBlock{
 		{
@@ -31,7 +29,7 @@ func TestMakeExtensionBlock(t *testing.T) {
 			xtest:       []int{10, 20, 30},
 			zcoords:     [][]float64{{1.0, 3.0, 5.0}, {2.0, 4.0, 6.0}},
 			xtestAppend: LoadFromCsvFileList("./data/ExtensionBlock_01.csv"),
-			lx:          1176,
+			lx:          1236,
 		},
 	}
 

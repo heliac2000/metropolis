@@ -9,9 +9,7 @@ import (
 //
 //
 func TestPredictSvm(t *testing.T) {
-	SetInitData(
-		"./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv",
-		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json", "./data/svm_model.json")
+	SetInitData("./data")
 
 	//
 	// xx = Canonical.Order(ExtensionReductionBlock(Canonical.Order(Canonical.Gen()))[[1]])

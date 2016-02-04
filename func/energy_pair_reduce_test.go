@@ -14,7 +14,7 @@ type testCasesEnergyPairReduce struct {
 }
 
 func TestEnergyPairReduce(t *testing.T) {
-	SetInitData()
+	SetInitData("./data")
 
 	// NOTICE: R is 1-base index, golang is 0-base.
 	//   ch1 and ch2 are characters, 1-base in R but 0-base in Golang

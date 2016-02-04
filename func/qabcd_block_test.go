@@ -21,9 +21,7 @@ type testCasesQabcdBlock struct {
 }
 
 func TestQabcdBlock(t *testing.T) {
-	SetInitData(
-		"./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv",
-		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json", "./data/svm_model.json")
+	SetInitData("./data")
 
 	// NOTICE: R is 1-base index, golang is 0-base.
 	//   ccdb and ccbb are characters, 1-base in R but 0-base in Golang
@@ -61,7 +59,7 @@ func TestQabcdBlock(t *testing.T) {
 			// extb = extb[[1]]
 			//
 			// format(qabcd.Block(cab, cbb, ccb, cdb, 1, 1,  canon, reda, extb, lb), digits=22, trim=T)
-			// [1] "0.003888888888888888343415"
+			// [1] "0"
 			//
 			pcab:     []int{313, 361, 364, 408, 317, 264, 340},
 			ccab:     []int{6, 4, 4, 6, 6, 4, 5},
@@ -77,7 +75,7 @@ func TestQabcdBlock(t *testing.T) {
 			ocdb:     []float64{60},
 			i1:       0,
 			canon:    [][]int{{313, 361, 364, 408, 317, 264, 340}, {313, 263, 387}, {0}},
-			expected: 0.003888888888888888343415,
+			expected: 0.0,
 		},
 	}
 

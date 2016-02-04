@@ -15,6 +15,7 @@ log*
 output_data
 functions.test
 func/data
+func/data_2.0
 func/data_2.1
 util/data
 data

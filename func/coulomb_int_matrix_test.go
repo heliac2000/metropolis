@@ -17,7 +17,8 @@ type testCasesCoulombIntMatrix struct {
 }
 
 func TestCoulombIntMatrix(t *testing.T) {
-	SetInitData()
+	dataDir := "./data"
+	SetInitData(dataDir)
 
 	// NOTICE: R is 1-base index, golang is 0-base.
 	//   ch1 and ch2 are characters, 1-base in R but 0-base in Golang
@@ -29,7 +30,7 @@ func TestCoulombIntMatrix(t *testing.T) {
 	testCases := []testCasesCoulombIntMatrix{
 		{
 			k1: 31, k2: 63, ch1: 0, ch2: 0, o1: 2, o2: 1,
-			cm:   LoadFromCsvFile2Dim(path.Join(DATA_DIR, "CoulombIntMatrix_01.csv"), ','),
+			cm:   LoadFromCsvFile2Dim(path.Join(dataDir, "CoulombIntMatrix_01.csv"), ','),
 			flag: true,
 		},
 	}

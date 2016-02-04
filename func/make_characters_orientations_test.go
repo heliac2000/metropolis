@@ -15,9 +15,7 @@ type testCasesMakeCharactersOrientations struct {
 }
 
 func TestMakeCharactersOrientations(t *testing.T) {
-	SetInitData(
-		"./data/PrecursorUnitCell.csv", "./data/UnitCell2.csv", "./data/PrecursorUnitCellAxes.csv",
-		"./data/kernelregS_Rep_log.json", "./data/kernelregS_Att.json", "./data/svm_model.json")
+	SetInitData("./data")
 
 	testCases := []testCasesMakeCharactersOrientations{
 		{

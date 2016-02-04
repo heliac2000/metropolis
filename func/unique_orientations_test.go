@@ -15,7 +15,7 @@ type testCasesUniqueOrientations struct {
 }
 
 func TestUniqueOrientations(t *testing.T) {
-	SetInitData()
+	SetInitData("./data")
 
 	// NOTICE: R is 1-base index, golang is 0-base.
 	testCases := []testCasesUniqueOrientations{
