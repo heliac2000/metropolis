@@ -18,16 +18,17 @@ type testCasesLatticeGen struct {
 func TestLatticeGen(t *testing.T) {
 	testCases := []testCasesLatticeGen{
 		{
-			uc: LoadFromCsvFile2Dim("./data/UnitCell.csv", ' '),
+			uc: LoadFromCsvFile2Dim("./data/UnitCell.csv", ','),
 			lv: LoadFromCsvFile2Dim("./data/PrecursorUnitCellAxes.csv", ','),
-			//
-			// [R] write.table(Lattice, file="lattice_test.csv", sep=",", row.names=FALSE, col.names=FALSE)
-			lattice: LoadFromCsvFile2Dim("./test_data/lattice_test.csv", ','),
 			//
 			// NOTICE: R is 1-base index, golang is 0-base.
 			//
-			// [R] cc = LatticeGen(UnitCell, LatticeVectors)[[2]] - 1
-			//     write.table(cc, file="character_test.dat", row.names=FALSE, col.names=FALSE)
+			// [R]
+			// cc = LatticeGen(UnitCell, LatticeVectors)
+			// write.table(format(cc[[1]], digits=22, trim=T),
+			//             file="lattice_test.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
+			// write.table(cc[[2]]-1, file="character_test.dat", row.names=FALSE, col.names=FALSE, quote=F)
+			lattice:   LoadFromCsvFile2Dim("./test_data/lattice_test.csv", ','),
 			character: LoadFromCsvFileInt("./test_data/character_test.dat"),
 		},
 	}
@@ -35,7 +36,7 @@ func TestLatticeGen(t *testing.T) {
 	for _, l := range testCases {
 		lat, char := LatticeGen(l.uc, l.lv)
 		if len(lat) != len(l.lattice) {
-			t.Errorf("\ngot  %v, %v\nwant %v, %v", lat, char, l.lattice, l.character)
+			t.Errorf("\ngot  %v\nwant %v", lat, l.lattice)
 			return
 		}
 		for i := 0; i < len(lat); i++ {

@@ -22,14 +22,7 @@ func LatticeGen(unitCell, latticeVectors [][]float64) ([][]float64, []int) {
 
 	// Specify which unit cell point the lattice point corresponds to
 	character := make([]int, 0, (nlp+1)*Nrepeat*Nrepeat/4)
-	seq := func(n int) []int {
-		seq := make([]int, n)
-		for i := 0; i < n; i++ {
-			//seq[i] = i + 1
-			seq[i] = i
-		}
-		return seq
-	}(nlp)
+	seq := SeqInt(0, nlp-1, 1)
 	character = append(character, seq...)
 
 	avec, bvec := latticeVectors[0], latticeVectors[1]
