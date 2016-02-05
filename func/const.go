@@ -80,6 +80,7 @@ const (
 const (
 	// UnitCell 2
 	UnitCell2File = "UnitCell2.csv"
+
 	// Lattice Vectors
 	LatticeVectorsFile = "PrecursorUnitCellAxes.csv"
 	LatticeFile        = "Lattice.csv"
