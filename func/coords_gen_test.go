@@ -2,7 +2,6 @@ package functions_test
 
 import (
 	"math"
-	"path"
 	"testing"
 
 	. "../util"
@@ -16,8 +15,7 @@ type testCasesCoordsGen struct {
 }
 
 func TestCoordsGen(t *testing.T) {
-	dataDir := "./data"
-	SetInitData(dataDir)
+	SetInitData("./data")
 
 	// NOTICE: R is 1-base index, golang is 0-base.
 	//   ch1, ch2: 1-base in R but 0-base in Golang
@@ -29,7 +27,7 @@ func TestCoordsGen(t *testing.T) {
 	testCases := []testCasesCoordsGen{
 		{
 			k1: 313, k2: 363, ch1: 5, ch2: 5, o1: 0, o2: 0,
-			expected: LoadFromCsvFile2Dim(path.Join(dataDir, "CoordsGen_01.csv"), ','),
+			expected: LoadFromCsvFile2Dim("./test_data/CoordsGen_01.csv", ','),
 		},
 	}
 

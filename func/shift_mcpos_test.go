@@ -19,7 +19,7 @@ func TestShiftMCpos(t *testing.T) {
 			X: []float64{1.0, 2.0},
 			// [R] write.table(format(shiftMCpos(MoleculeCoords, c(1.0, 2.0)), digits=22, trim=T),
 			//       file="ShiftMCpos_01.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
-			expected: LoadFromCsvFile2Dim("./data/ShiftMCpos_01.csv", ','),
+			expected: LoadFromCsvFile2Dim("./test_data/ShiftMCpos_01.csv", ','),
 		},
 	}
 

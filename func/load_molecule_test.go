@@ -19,9 +19,9 @@ func TestLoadMoleculeCoordinates(t *testing.T) {
 	//  write.table(format(Br, digits=22, trim=T),
 	//                 file="Br.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
 	expected := MoleculeCoordinates{
-		C:  LoadFromCsvFile2Dim("./data/C.csv", ','),
-		H:  LoadFromCsvFile2Dim("./data/H.csv", ','),
-		Br: LoadFromCsvFile2Dim("./data/Br.csv", ','),
+		C:  LoadFromCsvFile2Dim("./test_data/C.csv", ','),
+		H:  LoadFromCsvFile2Dim("./test_data/H.csv", ','),
+		Br: LoadFromCsvFile2Dim("./test_data/Br.csv", ','),
 	}
 
 	if !reflect.DeepEqual(mc.C, expected.C) ||

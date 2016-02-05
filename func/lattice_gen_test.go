@@ -22,13 +22,13 @@ func TestLatticeGen(t *testing.T) {
 			lv: LoadFromCsvFile2Dim("./data/PrecursorUnitCellAxes.csv", ','),
 			//
 			// [R] write.table(Lattice, file="lattice_test.csv", sep=",", row.names=FALSE, col.names=FALSE)
-			lattice: LoadFromCsvFile2Dim("./data/lattice_test.csv", ','),
+			lattice: LoadFromCsvFile2Dim("./test_data/lattice_test.csv", ','),
 			//
 			// NOTICE: R is 1-base index, golang is 0-base.
 			//
 			// [R] cc = LatticeGen(UnitCell, LatticeVectors)[[2]] - 1
 			//     write.table(cc, file="character_test.dat", row.names=FALSE, col.names=FALSE)
-			character: LoadFromCsvFileInt("./data/character_test.dat"),
+			character: LoadFromCsvFileInt("./test_data/character_test.dat"),
 		},
 	}
 

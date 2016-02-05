@@ -17,7 +17,7 @@ type testReductionBlock struct {
 
 func TestReductionBlock(t *testing.T) {
 	SetInitData("./data")
-	out := LoadFromCsvFileList("./data/ReductionBlock_01.csv")
+	out := LoadFromCsvFileList("./test_data/ReductionBlock_01.csv")
 
 	testCases := []testReductionBlock{
 		{

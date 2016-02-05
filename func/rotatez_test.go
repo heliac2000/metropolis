@@ -19,7 +19,7 @@ func TestRotateZ(t *testing.T) {
 			theta: 0.25,
 			// [R] write.table(format(RotateZ(MoleculeCoords, 0.25), digits=22, trim=T),
 			//     file="RotateZ_01.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
-			expected: LoadFromCsvFile2Dim("./data/RotateZ_01.csv", ','),
+			expected: LoadFromCsvFile2Dim("./test_data/RotateZ_01.csv", ','),
 		},
 	}
 

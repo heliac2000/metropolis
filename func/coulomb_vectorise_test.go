@@ -2,7 +2,6 @@ package functions_test
 
 import (
 	"math"
-	"path"
 	"testing"
 
 	. "../util"
@@ -15,8 +14,7 @@ type testCasesCoulombVectorise struct {
 }
 
 func TestCoulombVectorise(t *testing.T) {
-	dataDir := "./data"
-	SetInitData(dataDir)
+	SetInitData("./data")
 
 	// NOTICE: R is 1-base index, golang is 0-base.
 	//   ch1 and ch2 are characters, 1-base in R but 0-base in Golang
@@ -28,7 +26,7 @@ func TestCoulombVectorise(t *testing.T) {
 	testCases := []testCasesCoulombVectorise{
 		{
 			cmTest:   func() [][]float64 { ret, _ := CoulombIntMatrix(500, 400, 0, 0, 90, 90); return ret }(),
-			expected: LoadFromCsvFile(path.Join(dataDir, "CoulombVectorise_01.csv"), ','),
+			expected: LoadFromCsvFile("./test_data/CoulombVectorise_01.csv", ','),
 		},
 	}
 

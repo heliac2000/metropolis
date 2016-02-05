@@ -28,7 +28,7 @@ func TestMakeExtensionBlock(t *testing.T) {
 			//
 			xtest:       []int{10, 20, 30},
 			zcoords:     [][]float64{{1.0, 3.0, 5.0}, {2.0, 4.0, 6.0}},
-			xtestAppend: LoadFromCsvFileList("./data/ExtensionBlock_01.csv"),
+			xtestAppend: LoadFromCsvFileList("./test_data/ExtensionBlock_01.csv"),
 			lx:          1236,
 		},
 	}

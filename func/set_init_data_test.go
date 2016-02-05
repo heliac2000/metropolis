@@ -1,7 +1,6 @@
 package functions_test
 
 import (
-	"path"
 	"reflect"
 	"testing"
 
@@ -14,9 +13,8 @@ import (
 //       file="Zcoulomb.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
 //
 func TestSetZcoulomb(t *testing.T) {
-	dir := "./data"
-	SetInitData(dir)
-	zcb := LoadFromCsvFile2Dim(path.Join(dir, "Zcoulomb.csv"), ',')
+	SetInitData("./data")
+	zcb := LoadFromCsvFile2Dim("test_data/Zcoulomb.csv", ',')
 
 	if !reflect.DeepEqual(Zcoulomb, zcb) {
 		t.Errorf("\ngot  %v\nwant %v", Zcoulomb, zcb)

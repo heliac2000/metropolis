@@ -25,7 +25,7 @@ func TestMakeCharactersOrientations(t *testing.T) {
 			//
 			zcoords:  [][]float64{{22, 33, 44}, {55, 66, 77}},
 			xadd:     []int{1, 2, 3},
-			expected: LoadFromCsvFile2DimInt("./data/makeCharactersOrientations_01.dat", ','),
+			expected: LoadFromCsvFile2DimInt("./test_data/makeCharactersOrientations_01.dat", ','),
 		},
 	}
 
