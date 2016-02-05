@@ -30,8 +30,8 @@ type InitData struct {
 //             sep=",", row.names=FALSE, col.names=FALSE, quote=F)
 //
 func SetInitData(dataDir string) {
-	unitCell2 := LoadFromCsvFile2Dim(path.Join(dataDir, "UnitCell2.csv"), ',')
-	LatticeVectors := LoadFromCsvFile2Dim(path.Join(dataDir, "PrecursorUnitCellAxes.csv"), ',')
+	unitCell2 := LoadFromCsvFile2Dim(path.Join(dataDir, UnitCell2File), ',')
+	latticeVectors := LoadFromCsvFile2Dim(path.Join(dataDir, LatticeVectorsFile), ',')
 
 	// Identify the colors
 	c := make([]int, len(unitCell2))
@@ -79,9 +79,9 @@ func SetInitData(dataDir string) {
 	//             file="Lattice.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
 	// write.table(t(as.matrix(Character-1)),
 	//             file="Character.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
-	//Lattice, character := LatticeGen(unitCell, LatticeVectors)
-	Lattice := LoadFromCsvFile2Dim(path.Join(dataDir, "Lattice.csv"), ',')
-	character := LoadFromCsvFileInt(path.Join(dataDir, "Character.csv"))
+	//Lattice, character := LatticeGen(unitCell, latticeVectors)
+	lattice := LoadFromCsvFile2Dim(path.Join(dataDir, LatticeFile), ',')
+	character := LoadFromCsvFileInt(path.Join(dataDir, CharacterFile))
 
 	// Make identical unit cell points?
 	// 1 <-> 11, 4 <-> 8
@@ -103,11 +103,11 @@ func SetInitData(dataDir string) {
 	nUC := len(whC)
 	unitCellCoords := Create2DimArrayFloat(nUC, 2)
 	for k := 0; k < nUC; k++ {
-		copy(unitCellCoords[k], Lattice[whC[k]])
+		copy(unitCellCoords[k], lattice[whC[k]])
 	}
 
 	Moves, Adj := Create2DimArrayFloat(4, 2), Create2DimArrayInt(nUC, nUC)
-	avec, bvec := LatticeVectors[0], LatticeVectors[1]
+	avec, bvec := latticeVectors[0], latticeVectors[1]
 	for j := 0; j < nUC; j++ {
 		for i := 0; i < 4; i++ {
 			copy(Moves[i], unitCellCoords[j])
@@ -177,7 +177,7 @@ func SetInitData(dataDir string) {
 		UnitCell2:              unitCell2,
 		OrientationsEnergies:   orientationsEnergies,
 		UnitCellCoords:         unitCellCoords,
-		AdjCuml:                LoadFromCsvFileList(path.Join(dataDir, "AdjCuml.csv")),
+		AdjCuml:                LoadFromCsvFileList(path.Join(dataDir, AdjCumlFile)),
 		Character:              character,
 		ChUnique:               chUnique,
 		CharactersOrientations: charactersOrientations,
@@ -196,17 +196,17 @@ func SetInitData(dataDir string) {
 	}
 
 	// Load KRLS objects
-	LoadDataFromJSONFile(&KernelRegsRepLog, path.Join(dataDir, "kernelregS_Rep_log.json"))
-	LoadDataFromJSONFile(&KernelRegsAtt, path.Join(dataDir, "kernelregS_Att.json"))
+	LoadDataFromJSONFile(&KernelRegsRepLog, path.Join(dataDir, KernelRegsRepLogFile))
+	LoadDataFromJSONFile(&KernelRegsAtt, path.Join(dataDir, KernelRegsAttFile))
 
 	// Load SVM objects
-	LoadDataFromJSONFile(&SvmModel, path.Join(dataDir, "svm_model.json"))
-	LoadDataFromJSONFile(&SvmModelOp, path.Join(dataDir, "svm_model_op.json"))
-	LoadDataFromJSONFile(&SvmModelNzp, path.Join(dataDir, "svm_model_nzp.json"))
-	LoadDataFromJSONFile(&SvmModelUsp, path.Join(dataDir, "svm_model_usp.json"))
+	LoadDataFromJSONFile(&SvmModel, path.Join(dataDir, SvmModelFile))
+	LoadDataFromJSONFile(&SvmModelOp, path.Join(dataDir, SvmModelOpFile))
+	LoadDataFromJSONFile(&SvmModelNzp, path.Join(dataDir, SvmModelNzpFile))
+	LoadDataFromJSONFile(&SvmModelUsp, path.Join(dataDir, SvmModelUspFile))
 
 	// Load PrComp objects
-	LoadDataFromJSONFile(&XeigPc, path.Join(dataDir, "xeigpc.json"))
+	LoadDataFromJSONFile(&XeigPc, path.Join(dataDir, XeigPcFile))
 }
 
 // Prepare the numerators of the Coulomb matrices

@@ -77,12 +77,36 @@ const (
 
 // Data files
 //
-
-// Coordinates of atoms in molecule
 const (
+	// UnitCell 2
+	UnitCell2File = "UnitCell2.csv"
+	// Lattice Vectors
+	LatticeVectorsFile = "PrecursorUnitCellAxes.csv"
+	LatticeFile        = "Lattice.csv"
+
+	// Character of unit cell
+	CharacterFile = "Character.csv"
+
+	// Sequence of power matrices
+	AdjCumlFile = "AdjCuml.csv"
+
+	// Coordinates of atoms in molecule
 	CCoords  = "CcoordsAVE.csv"
 	HCoords  = "HcoordsAVE.csv"
 	BrCoords = "BrcoordsAVE.csv"
+
+	// KRLS objects
+	KernelRegsRepLogFile = "KernelregSRepLog.json"
+	KernelRegsAttFile    = "KernelregSAtt.json"
+
+	// SVM objects
+	SvmModelFile    = "SvmModel.json"
+	SvmModelOpFile  = "SvmModelOp.json"
+	SvmModelNzpFile = "SvmModelNzp.json"
+	SvmModelUspFile = "SvmModelUsp.json"
+
+	// PrComp objects
+	XeigPcFile = "Xeigpc.json"
 )
 
 // Atom identities

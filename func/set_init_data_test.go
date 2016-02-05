@@ -14,7 +14,7 @@ import (
 //       file="Zcoulomb.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
 //
 func TestSetZcoulomb(t *testing.T) {
-	dir := "./data_2.1"
+	dir := "./data"
 	SetInitData(dir)
 	zcb := LoadFromCsvFile2Dim(path.Join(dir, "Zcoulomb.csv"), ',')
 
