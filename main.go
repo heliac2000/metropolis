@@ -6,9 +6,12 @@ import (
 	"log"
 	"os"
 	"path"
+	"strconv"
+	"strings"
 	"time"
 
 	. "./func"
+	. "./util"
 )
 
 func main() {
@@ -23,6 +26,8 @@ func main() {
 
 	// Start
 	log.Printf("N = %d\n", N)
+	log.Printf("TempS = %#v\n", TempS)
+	log.Printf("Nparallel = %d\n", Nparallel)
 	log.Printf("Start.")
 
 	start := time.Now()
@@ -51,6 +56,7 @@ Usage of %s:
 
 	// Parse
 	nPtr := flag.Int("N", 0, "Step number.")
+	tempPtr := flag.String("Temp", "100,500,35", "For parallel tempering.")
 	eoutPtr := flag.String("Eout", "Eout.dat", "Eout file.")
 	coutPtr := flag.String("Cout", "Cout.csv", "Cout file.")
 	dataDirPtr := flag.String("DataDir", "./data", "Input data directory.")
@@ -81,5 +87,17 @@ Usage of %s:
 		err = new(error)
 	}
 
+	parseTemp(*tempPtr)
+
 	return
+}
+
+func parseTemp(temp string) {
+	temps := make([]float64, 3)
+	for i, v := range strings.Split(temp, ",") {
+		temps[i], _ = strconv.ParseFloat(v, 64)
+	}
+
+	TempS = Seq(temps[0], temps[1], temps[2])
+	Nparallel = len(TempS)
 }

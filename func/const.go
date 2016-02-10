@@ -7,8 +7,6 @@ package functions
 import (
 	"math/rand"
 	"time"
-
-	. "../util"
 )
 
 const (
@@ -133,10 +131,10 @@ var (
 	//Temp float64 = 75
 
 	// For parallel tempering
-	TempS []float64 = Seq(100, 500, 35)
+	TempS []float64
 
 	// For parallel tempering
-	Nparallel int = len(TempS)
+	Nparallel int
 
 	// Genereate island from UC center(use 1227 for 100 x 100 lattice, use 313 for 50 x 50 lattice)
 	UCcenter int = 1227
