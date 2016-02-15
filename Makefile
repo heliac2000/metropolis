@@ -28,6 +28,9 @@ testrun t:
 N1e5:
 	@./$(TARGET) -N 100000 > log 2>&1 &
 
+N3e5:
+	@./$(TARGET) -N 300000 -Temp 200,300,10 > log 2>&1 &
+
 ## gccgo
 ##
 GCCGO_FLAGS = -O3 -fno-go-check-divide-zero -fno-go-check-divide-overflow -static-libgo
