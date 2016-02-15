@@ -4,8 +4,6 @@
 
 package functions
 
-import . "../util"
-
 // Canonical type
 //
 type Canonical struct {
@@ -23,11 +21,17 @@ func NewCanonical(pos, chr [][]int, ori [][]float64) Canonical {
 
 // Clone
 func (src Canonical) Dup() Canonical {
-	return Canonical{
-		pos: Copy2DimArrayInt(src.pos),
-		chr: Copy2DimArrayInt(src.chr),
-		ori: Copy2DimArrayFloat(src.ori),
+	r := len(src.pos)
+	pos, chr, ori := make([][]int, r), make([][]int, r), make([][]float64, r)
+	for i := 0; i < r; i++ {
+		c := len(src.pos[i])
+		pos[i], chr[i], ori[i] = make([]int, c), make([]int, c), make([]float64, c)
+		copy(pos[i], src.pos[i])
+		copy(chr[i], src.chr[i])
+		copy(ori[i], src.ori[i])
 	}
+
+	return Canonical{pos: pos, chr: chr, ori: ori}
 }
 
 // Return all items
