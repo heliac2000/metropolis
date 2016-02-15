@@ -74,7 +74,7 @@ func ExtensionReductionBlock(xtest, ctest [][]int, otest [][]float64) (
 		xReduce, cReduce, oReduce = ReductionBlock(xtest[sRed], ctest[sRed], otest[sRed])
 	}
 
-	xout, cout, oout := Copy2DimArrayInt(xtest), Copy2DimArrayInt(ctest), Copy2DimArrayFloat(otest)
+	xout, cout, oout := CopyArrayInt(xtest), CopyArrayInt(ctest), CopyArrayFloat(otest)
 
 	// Choose element from CExtend to replace Cout[[sExt]]
 	if chE1, chE2 := 0, 0; len(xExtend) == 1 {
@@ -102,4 +102,26 @@ func ExtensionReductionBlock(xtest, ctest [][]int, otest [][]float64) (
 	canonXout, canonCout, canonOout := CanonicalOrder(xout, cout, oout)
 
 	return canonXout, canonCout, canonOout, sRed, sExt
+}
+
+func CopyArrayInt(src [][]int) [][]int {
+	r := len(src)
+	dst := make([][]int, r)
+	for i := 0; i < r; i++ {
+		dst[i] = make([]int, len(src[i]))
+		copy(dst[i], src[i])
+	}
+
+	return dst
+}
+
+func CopyArrayFloat(src [][]float64) [][]float64 {
+	r := len(src)
+	dst := make([][]float64, r)
+	for i := 0; i < r; i++ {
+		dst[i] = make([]float64, len(src[i]))
+		copy(dst[i], src[i])
+	}
+
+	return dst
 }
