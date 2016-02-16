@@ -77,9 +77,7 @@ func ReactionRepresentation(prct, crct [][]int, orct [][]float64,
 	sort.Ints(labUnq)
 
 	l := len(labUnq)
-	pil := Create2DimArrayInt(l, len(ptot[0]))
-	cil := Create2DimArrayInt(l, len(ctot[0]))
-	oil := Create2DimArrayFloat(l, len(otot[0]))
+	pil, cil, oil := make([][]int, l), make([][]int, l), make([][]float64, l)
 	for i, k := range labUnq {
 		pil[i], cil[i], oil[i] = ptot[k], ctot[k], otot[k]
 	}
