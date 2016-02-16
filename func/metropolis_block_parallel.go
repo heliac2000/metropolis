@@ -101,7 +101,7 @@ func MetropolisBlockParallel(N int, eout, cout string) {
 					eoutP[schoose][k] = ay
 				} else {
 					// Incase of rejection
-					coutP[schoose][k] = cout[k-1]
+					coutP[schoose][k] = cout[k-1].Dup()
 					eoutP[schoose][k] = ax
 				}
 			} else {

@@ -7,6 +7,7 @@ package functions_test
 import (
 	"testing"
 
+	. "../util"
 	. "./"
 )
 
@@ -16,7 +17,9 @@ type testCasesMetoropolisBlockParallel struct {
 }
 
 func TestMetropolisBlockParallel(t *testing.T) {
-	SetInitData()
+	SetInitData("./data")
+	TempS = Seq(100, 500, 35)
+	Nparallel = len(TempS)
 
 	testCases := []testCasesMetoropolisBlockParallel{
 		{
@@ -26,7 +29,7 @@ func TestMetropolisBlockParallel(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		MetropolisBlockParallel(tc.N, "/dev/null", "/dev/null")
+		MetropolisBlockParallel(tc.N, "/dev/null", "Cout.csv")
 		t.Logf("\nN = %d\n", tc.N)
 		// t.Errorf("\ngot  %v\nwant %v", actual2, tc.expected)
 	}

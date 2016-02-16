@@ -16,20 +16,40 @@ import (
 func ReactionRepresentation(prct, crct [][]int, orct [][]float64,
 	ppdt, cpdt [][]int, opdt [][]float64) ([][]int, [][]int, [][]float64, []int, []int, []int) {
 
-	cPrct, cPpdt := Copy2DimArrayInt(prct), Copy2DimArrayInt(ppdt)
-	cCrct, cCpdt := Copy2DimArrayInt(crct), Copy2DimArrayInt(cpdt)
-	cOrct, cOpdt := Copy2DimArrayFloat(orct), Copy2DimArrayFloat(opdt)
+	cPrct, cPpdt := CopyArrayInt(prct), CopyArrayInt(ppdt)
+	cCrct, cCpdt := CopyArrayInt(crct), CopyArrayInt(cpdt)
+	cOrct, cOpdt := CopyArrayFloat(orct), CopyArrayFloat(opdt)
 
-	ptot := Create2DimArrayInt(len(prct)+len(ppdt), len(prct[0]))
-	ctot := Create2DimArrayInt(len(crct)+len(cpdt), len(crct[0]))
-	otot := Create2DimArrayFloat(len(orct)+len(opdt), len(orct[0]))
+	ptot := make([][]int, len(prct)+len(ppdt))
+	ctot := make([][]int, len(crct)+len(cpdt))
+	otot := make([][]float64, len(orct)+len(opdt))
 
-	copy(ptot, cPrct)
-	copy(ptot[len(cPrct):], cPpdt)
-	copy(ctot, cCrct)
-	copy(ctot[len(cCrct):], cCpdt)
-	copy(otot, cOrct)
-	copy(otot[len(cOrct):], cOpdt)
+	for i := 0; i < len(cPrct); i++ {
+		ptot[i] = make([]int, len(cPrct[i]))
+		copy(ptot[i], cPrct[i])
+	}
+	for i, l := 0, len(cPrct); i < len(cPpdt); i++ {
+		ptot[i+l] = make([]int, len(cPpdt[i]))
+		copy(ptot[i+l], cPpdt[i])
+	}
+
+	for i := 0; i < len(cCrct); i++ {
+		ctot[i] = make([]int, len(cCrct[i]))
+		copy(ctot[i], cCrct[i])
+	}
+	for i, l := 0, len(cCrct); i < len(cCpdt); i++ {
+		ctot[i+l] = make([]int, len(cCpdt[i]))
+		copy(ctot[i+l], cCpdt[i])
+	}
+
+	for i := 0; i < len(cOrct); i++ {
+		otot[i] = make([]float64, len(cOrct[i]))
+		copy(otot[i], cOrct[i])
+	}
+	for i, l := 0, len(cOrct); i < len(cOpdt); i++ {
+		otot[i+l] = make([]float64, len(cOpdt[i]))
+		copy(otot[i+l], cOpdt[i])
+	}
 
 	// Rapid check for isomorphism between islands
 
