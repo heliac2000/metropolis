@@ -13,23 +13,23 @@ import (
 // R's KRLS object
 //
 type Krls struct {
-	K               [][]float64
-	Coeffs          [][]float64
-	Looe            [][]float64
-	Fitted          [][]float64
-	X               [][]float64
-	Y               [][]float64
-	ColMeansX       []float64
-	ColSdX          []float64
-	ScaleX          [][]float64
-	ColMeansY       []float64
-	ColSdY          []float64
-	Sigma           float64
-	Lambda          [][]float64
-	R2              [][]float64
-	VcovC           [][]float64 `json:"vcov.c"`
-	VcovFitted      [][]float64 `json:"vcov.fitted"`
-	BinaryIndicator [][]bool
+	//K      [][]float64
+	Coeffs [][]float64
+	//Looe            [][]float64
+	//Fitted          [][]float64
+	X         [][]float64
+	Y         [][]float64
+	ColMeansX []float64
+	ColSdX    []float64
+	ScaleX    [][]float64
+	ColMeansY []float64
+	ColSdY    []float64
+	Sigma     float64
+	//Lambda          [][]float64
+	//R2              [][]float64
+	//VcovC           [][]float64 `json:"vcov.c"`
+	//VcovFitted      [][]float64 `json:"vcov.fitted"`
+	//BinaryIndicator [][]bool
 }
 
 // R's predict generic function
