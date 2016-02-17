@@ -103,25 +103,3 @@ func ExtensionReductionBlock(xtest, ctest [][]int, otest [][]float64) (
 
 	return canonXout, canonCout, canonOout, sRed, sExt
 }
-
-func CopyArrayInt(src [][]int) [][]int {
-	r := len(src)
-	dst := make([][]int, r)
-	for i := 0; i < r; i++ {
-		dst[i] = make([]int, len(src[i]))
-		copy(dst[i], src[i])
-	}
-
-	return dst
-}
-
-func CopyArrayFloat(src [][]float64) [][]float64 {
-	r := len(src)
-	dst := make([][]float64, r)
-	for i := 0; i < r; i++ {
-		dst[i] = make([]float64, len(src[i]))
-		copy(dst[i], src[i])
-	}
-
-	return dst
-}

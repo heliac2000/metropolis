@@ -82,6 +82,30 @@ func CopyVectorFloat(src []float64) []float64 {
 	return dst
 }
 
+// Copy array
+//
+func CopyArrayInt(src [][]int) [][]int {
+	r := len(src)
+	dst := make([][]int, r)
+	for i := 0; i < r; i++ {
+		dst[i] = make([]int, len(src[i]))
+		copy(dst[i], src[i])
+	}
+
+	return dst
+}
+
+func CopyArrayFloat(src [][]float64) [][]float64 {
+	r := len(src)
+	dst := make([][]float64, r)
+	for i := 0; i < r; i++ {
+		dst[i] = make([]float64, len(src[i]))
+		copy(dst[i], src[i])
+	}
+
+	return dst
+}
+
 // Create 2-dim array
 //
 // func Create2DimArray(dim interface{}, r, c int, cap ...int) bool {
