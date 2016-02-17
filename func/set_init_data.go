@@ -197,7 +197,18 @@ func SetInitData(dataDir string) {
 
 	// Load KRLS objects
 	LoadDataFromJSONFile(&KernelRegsRepLog, path.Join(dataDir, KernelRegsRepLogFile))
+	KernelRegsRepLog.ColMeansX = ColMeans(KernelRegsRepLog.X)
+	KernelRegsRepLog.ColMeansY = ColMeans(KernelRegsRepLog.Y)
+	KernelRegsRepLog.ColSdX = ColSd(KernelRegsRepLog.X)
+	KernelRegsRepLog.ColSdY = ColSd(KernelRegsRepLog.Y)
+	KernelRegsRepLog.ScaleX = Scale(KernelRegsRepLog.X, KernelRegsRepLog.ColMeansX, KernelRegsRepLog.ColSdX)
+
 	LoadDataFromJSONFile(&KernelRegsAtt, path.Join(dataDir, KernelRegsAttFile))
+	KernelRegsAtt.ColMeansX = ColMeans(KernelRegsAtt.X)
+	KernelRegsAtt.ColMeansY = ColMeans(KernelRegsAtt.Y)
+	KernelRegsAtt.ColSdX = ColSd(KernelRegsAtt.X)
+	KernelRegsAtt.ColSdY = ColSd(KernelRegsAtt.Y)
+	KernelRegsAtt.ScaleX = Scale(KernelRegsAtt.X, KernelRegsAtt.ColMeansX, KernelRegsAtt.ColSdX)
 
 	// Load SVM objects
 	LoadDataFromJSONFile(&SvmModel, path.Join(dataDir, SvmModelFile))

@@ -18,18 +18,18 @@ type testCasesMetoropolisBlockParallel struct {
 
 func TestMetropolisBlockParallel(t *testing.T) {
 	SetInitData("./data")
-	TempS = Seq(100, 500, 35)
+	TempS = Seq(200, 300, 10)
 	Nparallel = len(TempS)
 
 	testCases := []testCasesMetoropolisBlockParallel{
 		{
-			N:        100,
+			N:        1000,
 			expected: 0,
 		},
 	}
 
 	for _, tc := range testCases {
-		MetropolisBlockParallel(tc.N, "/dev/null", "Cout.csv")
+		MetropolisBlockParallel(tc.N, "Eout.dat", "Cout.csv")
 		t.Logf("\nN = %d\n", tc.N)
 		// t.Errorf("\ngot  %v\nwant %v", actual2, tc.expected)
 	}

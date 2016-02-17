@@ -19,6 +19,11 @@ type Krls struct {
 	Fitted          [][]float64
 	X               [][]float64
 	Y               [][]float64
+	ColMeansX       []float64
+	ColSdX          []float64
+	ScaleX          [][]float64
+	ColMeansY       []float64
+	ColSdY          []float64
 	Sigma           float64
 	Lambda          [][]float64
 	R2              [][]float64
@@ -35,19 +40,15 @@ func (kls *Krls) Predict(newd [][]float64) float64 {
 		log.Fatalln("PredictKrls: ncol(newdata) differs from ncol(krls.X).")
 	}
 
-	// scale
-	xMeans, xSd := ColMeans(kls.X), ColSd(kls.X)
-	x := Scale(kls.X, xMeans, xSd)
-
 	// scale test data by means and sd of training data
-	newData := Scale(newd, xMeans, xSd)
+	newData := Scale(newd, kls.ColMeansX, kls.ColSdX)
 
 	// predict based on new kernel matrix
 	// kernel distances for test points (simply recompute all pairwise
 	// distances here because dist() is so fast)
-	nn, l := len(newData), len(x)
+	nn, l := len(newData), len(kls.ScaleX)
 	bind := make([][]float64, 0, nn+l)
-	bind = append(append(bind, newData...), x...)
+	bind = append(append(bind, newData...), kls.ScaleX...)
 
 	// [R] gausskernel(rbind(newdata,X),sigma=object$sigma)[1:nn , (nn+1):(nn+nrow(X))]
 	newDataK := GaussKernel(bind, kls.Sigma)
@@ -72,5 +73,5 @@ func (kls *Krls) Predict(newd [][]float64) float64 {
 	}
 
 	// bring back to original scale
-	return MatrixMultiplyFloat(mm, kls.Coeffs)[0][0]*ColSd(kls.Y)[0] + ColMeans(kls.Y)[0]
+	return MatrixMultiplyFloat(mm, kls.Coeffs)[0][0]*kls.ColSdY[0] + kls.ColMeansY[0]
 }
