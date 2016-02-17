@@ -23,14 +23,16 @@ func EnergyIslandPCA(pos, chr []int, ori []float64) float64 {
 		}
 	}
 
-	eneInt := 0.0
-	if len(pos) > 1 {
-		for k := 0; k < len(pos)-1; k++ { // Interaction energy
-			for j := k + 1; j < len(pos); j++ {
-				eneInt += EnergyPairReduce(pos[k], pos[j], chr[k], chr[j], ori[k], ori[j])
-			}
+	if len(pos) <= 1 {
+		return ene
+	}
+
+	// Interaction energy
+	for k := 0; k < len(pos)-1; k++ {
+		for j := k + 1; j < len(pos); j++ {
+			ene += EnergyPairReduce(pos[k], pos[j], chr[k], chr[j], ori[k], ori[j])
 		}
 	}
 
-	return ene + eneInt
+	return ene
 }
