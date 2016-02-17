@@ -39,15 +39,14 @@ func EnergyPairReduce(k1, k2, c1, c2 int, o1, o2 float64) float64 {
 		}
 	}
 
-	eAdd := 0.0
 	switch typ {
 	case "unstable":
-		eAdd = Eunstable
+		return Eunstable
 	case "attractive":
-		eAdd = KernelRegsAtt.Predict(cmVecRed)
+		return KernelRegsAtt.Predict(cmVecRed)
 	case "repulsive":
-		eAdd = math.Exp(KernelRegsRepLog.Predict(cmVecRed))
+		return math.Exp(KernelRegsRepLog.Predict(cmVecRed))
 	}
 
-	return eAdd
+	return 0.0
 }
