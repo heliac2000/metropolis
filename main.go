@@ -55,7 +55,7 @@ Usage of %s:
 	}
 
 	// Parse
-	nPtr := flag.Int("N", 0, "Step number.")
+	nPtr := flag.Float64("N", 0, "Step number.")
 	tempPtr := flag.String("Temp", "200,300,10", "For parallel tempering.")
 	eoutPtr := flag.String("Eout", "Eout.dat", "Eout file.")
 	coutPtr := flag.String("Cout", "Cout.csv", "Cout file.")
@@ -78,7 +78,7 @@ Usage of %s:
 		return
 	}
 
-	n, eout, cout, dataDir = *nPtr, *eoutPtr, *coutPtr, *dataDirPtr
+	n, eout, cout, dataDir = int(*nPtr), *eoutPtr, *coutPtr, *dataDirPtr
 
 	if n < 2 {
 		fmt.Fprintf(os.Stderr,
