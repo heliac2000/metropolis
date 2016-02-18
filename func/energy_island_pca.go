@@ -4,7 +4,12 @@
 
 package functions
 
-import "math"
+import (
+	"crypto/md5"
+	"encoding/binary"
+	"fmt"
+	"math"
+)
 
 // Calculate energy of an island (Island[[1]] = positions, Island[[2]]
 // = characters, Island[[2]] = orientations). Only use this if PCA_REP
@@ -30,9 +35,45 @@ func EnergyIslandPCA(pos, chr []int, ori []float64) float64 {
 	// Interaction energy
 	for k := 0; k < len(pos)-1; k++ {
 		for j := k + 1; j < len(pos); j++ {
-			ene += EnergyPairReduce(pos[k], pos[j], chr[k], chr[j], ori[k], ori[j])
+			h := getHash(pos[k], pos[j], chr[k], chr[j], ori[k], ori[j])
+			v, ok := 0.0, false
+			if v, ok = energyPairReduceMap[h]; !ok {
+				v = EnergyPairReduce(pos[k], pos[j], chr[k], chr[j], ori[k], ori[j])
+				energyPairReduceMap[h] = v
+			}
+			ene += v
 		}
 	}
 
 	return ene
 }
+
+var energyPairReduceMap map[string]float64 = make(map[string]float64)
+
+func getHash(pos1, pos2, chr1, chr2 int, ori1, ori2 float64) string {
+	b := make([]byte, 48)
+	binary.LittleEndian.PutUint64(b[0:], uint64(pos1))
+	binary.LittleEndian.PutUint64(b[8:], uint64(pos2))
+	binary.LittleEndian.PutUint64(b[16:], uint64(chr1))
+	binary.LittleEndian.PutUint64(b[24:], uint64(chr2))
+	binary.LittleEndian.PutUint64(b[32:], math.Float64bits(ori1))
+	binary.LittleEndian.PutUint64(b[40:], math.Float64bits(ori2))
+
+	return fmt.Sprintf("%x", md5.Sum(b))
+}
+
+// func getHash(pos, chr []int, ori []float64) string {
+// 	b := make([]byte, (len(pos)+len(chr)+len(ori))*8)
+//
+// 	for i, v := range pos {
+// 		binary.LittleEndian.PutUint64(b[(i*8):], uint64(v))
+// 	}
+// 	for i, v := range chr {
+// 		binary.LittleEndian.PutUint64(b[((i+len(pos))*8):], uint64(v))
+// 	}
+// 	for i, v := range ori {
+// 		binary.LittleEndian.PutUint64(b[((i+len(pos)+len(chr))*8):], math.Float64bits(v))
+// 	}
+//
+// 	return fmt.Sprintf("%x", md5.Sum(b))
+// }
