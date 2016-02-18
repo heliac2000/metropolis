@@ -56,7 +56,7 @@ Usage of %s:
 
 	// Parse
 	nPtr := flag.Int("N", 0, "Step number.")
-	tempPtr := flag.String("Temp", "100,500,35", "For parallel tempering.")
+	tempPtr := flag.String("Temp", "200,300,10", "For parallel tempering.")
 	eoutPtr := flag.String("Eout", "Eout.dat", "Eout file.")
 	coutPtr := flag.String("Cout", "Cout.csv", "Cout file.")
 	dataDirPtr := flag.String("DataDir", "./data", "Input data directory.")
