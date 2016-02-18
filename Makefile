@@ -26,16 +26,12 @@ testrun t:
 	@./$(TARGET) -N 10000 > log 2>&1 &
 
 ##
-##  -Temp 200,300,10
+## Execution tags
 ##
-N3e5:
-	@./$(TARGET) -N 300000 > log 2>&1 &
-
-N1e5:
-	@./$(TARGET) -N 100000 > log 2>&1 &
-
-N1e4:
-	@./$(TARGET) -N 10000 > log 2>&1 &
+## Temparature sequence: 10K increments from 200K to 300K
+##
+N3e5 N1e5 N1e4:
+	@./$(TARGET) -N $(subst N,,$@) > $(TARGET)_$@.log 2>&1 &
 
 ## gccgo
 ##
