@@ -25,11 +25,17 @@ $(TARGET) b build: $(SRCS)
 testrun t:
 	@./$(TARGET) -N 10000 > log 2>&1 &
 
+##
+##  -Temp 200,300,10
+##
+N3e5:
+	@./$(TARGET) -N 300000 > log 2>&1 &
+
 N1e5:
 	@./$(TARGET) -N 100000 > log 2>&1 &
 
-N3e5:
-	@./$(TARGET) -N 300000 -Temp 200,300,10 > log 2>&1 &
+N1e4:
+	@./$(TARGET) -N 10000 > log 2>&1 &
 
 ## gccgo
 ##
