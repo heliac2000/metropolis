@@ -5,6 +5,8 @@
 package functions
 
 import (
+	"sync"
+
 	. "../util"
 )
 
@@ -20,27 +22,35 @@ func MakeCharactersOrientations(zcoords [][]float64, xadd []int) [][]int {
 		addO[i][0] = xadd[i%len(xadd)]
 	}
 
-	keep := make([]int, 0, l)
+	var wg sync.WaitGroup
+	wg.Add(l)
+	keep := make([]int, l)
 	for k := 0; k < l; k++ {
-		distKnnx, _ := GetKnnx(zcoords,
-			CoordsIsland(addO[k][0:1], addO[k][1:2], []float64{float64(addO[k][2])}), 1)
+		go func(k int) {
+			defer wg.Done()
+			distKnnx, _ := GetKnnx(zcoords,
+				CoordsIsland(addO[k][0:1], addO[k][1:2], []float64{float64(addO[k][2])}), 1)
 
-		min := MinFloat(distKnnx[0]...)
-		if len(distKnnx) > 1 {
-			for i := 1; i < len(distKnnx); i++ {
-				if m := MinFloat(distKnnx[i]...); m < min {
-					min = m
+			min := MinFloat(distKnnx[0]...)
+			if len(distKnnx) > 1 {
+				for i := 1; i < len(distKnnx); i++ {
+					if m := MinFloat(distKnnx[i]...); m < min {
+						min = m
+					}
 				}
 			}
-		}
-		if min > Mcut {
-			keep = append(keep, k)
-		}
+			if min > Mcut {
+				keep[k] = 1
+			}
+		}(k)
 	}
+	wg.Wait()
 
-	addOK := make([][]int, 0, len(keep))
-	for _, k := range keep {
-		addOK = append(addOK, addO[k])
+	addOK := make([][]int, 0, l)
+	for i, k := range keep {
+		if k == 1 {
+			addOK = append(addOK, addO[i])
+		}
 	}
 
 	return addOK
