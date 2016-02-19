@@ -48,16 +48,20 @@ func EnergyIslandPCA(pos, chr []int, ori []float64) float64 {
 	return ene
 }
 
+//
+// Memorize
+//
 var energyPairReduceMap map[string]float64 = make(map[string]float64)
 
 func getHash(pos1, pos2, chr1, chr2 int, ori1, ori2 float64) string {
 	b := make([]byte, 48)
-	binary.LittleEndian.PutUint64(b[0:], uint64(pos1))
-	binary.LittleEndian.PutUint64(b[8:], uint64(pos2))
-	binary.LittleEndian.PutUint64(b[16:], uint64(chr1))
-	binary.LittleEndian.PutUint64(b[24:], uint64(chr2))
-	binary.LittleEndian.PutUint64(b[32:], math.Float64bits(ori1))
-	binary.LittleEndian.PutUint64(b[40:], math.Float64bits(ori2))
+
+	for i, v := range []int{pos1, pos2, chr1, chr2} {
+		binary.LittleEndian.PutUint64(b[(i*8):], uint64(v))
+	}
+	for i, v := range []float64{ori1, ori2} {
+		binary.LittleEndian.PutUint64(b[((i+4)*8):], math.Float64bits(v))
+	}
 
 	return fmt.Sprintf("%x", md5.Sum(b))
 }
