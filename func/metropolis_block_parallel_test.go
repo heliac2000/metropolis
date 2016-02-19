@@ -16,11 +16,13 @@ type testCasesMetoropolisBlockParallel struct {
 	expected int
 }
 
-func TestMetropolisBlockParallel(t *testing.T) {
+func init() {
 	SetInitData("./data")
 	TempS = Seq(200, 300, 10)
 	Nparallel = len(TempS)
+}
 
+func TestMetropolisBlockParallel(t *testing.T) {
 	testCases := []testCasesMetoropolisBlockParallel{
 		{
 			N:        1000,
