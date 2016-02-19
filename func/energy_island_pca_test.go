@@ -12,9 +12,11 @@ type testCasesEnegyIslandPCA struct {
 	eInt     float64
 }
 
-func TestEnergyIslandPCA(t *testing.T) {
+func init() {
 	SetInitData("./data")
+}
 
+func TestEnergyIslandPCA(t *testing.T) {
 	// NOTICE: R is 1-base index, golang is 0-base.
 	//   chr is characters, 1-base in R but 0-base in Golang
 	//
@@ -57,5 +59,5 @@ func TestEnergyIslandPCA(t *testing.T) {
 }
 
 // Local Variables:
-// compile-command: (concat "go test -v " (file-name-nondirectory buffer-file-name))
+// compile-command: (concat "go test -v -gcflags='-B' " (file-name-nondirectory buffer-file-name))
 // End:
