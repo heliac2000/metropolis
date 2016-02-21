@@ -24,7 +24,7 @@ func MakeCharactersOrientations(zcoords [][]float64, xadd []int) [][]int {
 
 	var wg sync.WaitGroup
 	wg.Add(l)
-	keep := make([]int, l)
+	keep := make([]bool, l)
 	for k := 0; k < l; k++ {
 		go func(k int) {
 			defer wg.Done()
@@ -40,7 +40,7 @@ func MakeCharactersOrientations(zcoords [][]float64, xadd []int) [][]int {
 				}
 			}
 			if min > Mcut {
-				keep[k] = 1
+				keep[k] = true
 			}
 		}(k)
 	}
@@ -48,7 +48,7 @@ func MakeCharactersOrientations(zcoords [][]float64, xadd []int) [][]int {
 
 	addOK := make([][]int, 0, l)
 	for i, k := range keep {
-		if k == 1 {
+		if k {
 			addOK = append(addOK, addO[i])
 		}
 	}
