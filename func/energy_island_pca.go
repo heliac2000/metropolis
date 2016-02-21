@@ -35,7 +35,7 @@ func EnergyIslandPCA(pos, chr []int, ori []float64) float64 {
 	// Interaction energy
 	for k := 0; k < len(pos)-1; k++ {
 		for j := k + 1; j < len(pos); j++ {
-			h := getHash(pos[k], pos[j], chr[k], chr[j], ori[k], ori[j])
+			h := getHashEnergyPair(pos[k], pos[j], chr[k], chr[j], ori[k], ori[j])
 			v, ok := 0.0, false
 			if v, ok = energyPairReduceMap[h]; !ok {
 				v = EnergyPairReduce(pos[k], pos[j], chr[k], chr[j], ori[k], ori[j])
@@ -53,7 +53,7 @@ func EnergyIslandPCA(pos, chr []int, ori []float64) float64 {
 //
 var energyPairReduceMap map[string]float64 = make(map[string]float64)
 
-func getHash(pos1, pos2, chr1, chr2 int, ori1, ori2 float64) string {
+func getHashEnergyPair(pos1, pos2, chr1, chr2 int, ori1, ori2 float64) string {
 	b := make([]byte, 48)
 
 	for i, v := range []int{pos1, pos2, chr1, chr2} {
