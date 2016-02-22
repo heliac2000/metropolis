@@ -108,6 +108,8 @@ func SetInitData(dataDir string) {
 
 	// Make a sequence of power matrices
 	//
+	// [R] writeListData(AdjCuml, "AdjCuml.csv")
+	//
 	// Moves, Adj := Create2DimArrayFloat(4, 2), Create2DimArrayInt(nUC, nUC)
 	// avec, bvec := latticeVectors[0], latticeVectors[1]
 	// for j := 0; j < nUC; j++ {
