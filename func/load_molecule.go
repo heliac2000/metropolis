@@ -5,7 +5,6 @@
 package functions
 
 import (
-	"fmt"
 	"path"
 
 	. "../util"
@@ -26,7 +25,6 @@ func LoadMoleculeCoordinates(dataDir, cCarts, hCarts, brCarts string) *MoleculeC
 
 	// Numbers of atoms in order of appearence in Coordinates
 	Natoms = []int{len(C) * 2, len(H) * 2, len(Br) * 2}
-	fmt.Println(Natoms)
 
 	return &MoleculeCoordinates{C, H, Br, all}
 }
