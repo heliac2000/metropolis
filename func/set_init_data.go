@@ -31,7 +31,7 @@ type InitData struct {
 //
 func SetInitData(dataDir string) {
 	unitCell2 := LoadFromCsvFile2Dim(path.Join(dataDir, UnitCell2File), ',')
-	latticeVectors := LoadFromCsvFile2Dim(path.Join(dataDir, LatticeVectorsFile), ',')
+	//latticeVectors := LoadFromCsvFile2Dim(path.Join(dataDir, LatticeVectorsFile), ',')
 
 	// Identify the colors
 	c := make([]int, len(unitCell2))
@@ -106,33 +106,34 @@ func SetInitData(dataDir string) {
 		copy(unitCellCoords[k], lattice[whC[k]])
 	}
 
-	Moves, Adj := Create2DimArrayFloat(4, 2), Create2DimArrayInt(nUC, nUC)
-	avec, bvec := latticeVectors[0], latticeVectors[1]
-	for j := 0; j < nUC; j++ {
-		for i := 0; i < 4; i++ {
-			copy(Moves[i], unitCellCoords[j])
-		}
-		Moves[0][0] += avec[0]
-		Moves[1][0] -= avec[0]
-		Moves[2][0] += bvec[0]
-		Moves[2][1] += bvec[1]
-		Moves[3][0] -= bvec[0]
-		Moves[3][1] -= bvec[1]
-
-		_, surrj := GetKnnx(unitCellCoords, Moves, 1)
-		surr := make([]int, len(surrj))
-		for i := 0; i < len(surrj); i++ {
-			surr[i] = surrj[i][0]
-		}
-		surr = Unique(surr)
-
-		for i := 0; i < len(surr); i++ {
-			Adj[j][surr[i]] = 1
-		}
-		Adj[j][j] = 0
-	}
-
 	// Make a sequence of power matrices
+	//
+	// Moves, Adj := Create2DimArrayFloat(4, 2), Create2DimArrayInt(nUC, nUC)
+	// avec, bvec := latticeVectors[0], latticeVectors[1]
+	// for j := 0; j < nUC; j++ {
+	// 	for i := 0; i < 4; i++ {
+	// 		copy(Moves[i], unitCellCoords[j])
+	// 	}
+	// 	Moves[0][0] += avec[0]
+	// 	Moves[1][0] -= avec[0]
+	// 	Moves[2][0] += bvec[0]
+	// 	Moves[2][1] += bvec[1]
+	// 	Moves[3][0] -= bvec[0]
+	// 	Moves[3][1] -= bvec[1]
+	//
+	// 	_, surrj := GetKnnx(unitCellCoords, Moves, 1)
+	// 	surr := make([]int, len(surrj))
+	// 	for i := 0; i < len(surrj); i++ {
+	// 		surr[i] = surrj[i][0]
+	// 	}
+	// 	surr = Unique(surr)
+	//
+	// 	for i := 0; i < len(surr); i++ {
+	// 		Adj[j][surr[i]] = 1
+	// 	}
+	// 	Adj[j][j] = 0
+	// }
+	//
 	// adjSEQ := make([][][]int, Npower)
 	// adjSEQ[0] = Adj
 	// for k := 1; k < Npower; k++ {
