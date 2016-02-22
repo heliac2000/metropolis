@@ -81,7 +81,7 @@ func CoulombIntMatrix(k1, k2, ch1, ch2 int, o1, o2 float64) ([][]float64, bool) 
 	}
 
 	coords := CoordsGen(k1, k2, ch1, ch2, o1, o2)
-	dist12, _ := GetKnnx(coords[:46], coords[46:], 1)
+	dist12, _ := GetKnnx(coords[:len(m1)], coords[len(m1):], 1)
 
 	return cm, (MinFloat(Transpose(dist12)[0]...) > McomCUT)
 }
