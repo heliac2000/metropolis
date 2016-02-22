@@ -140,7 +140,7 @@ var (
 	UCcenter int = 1227
 
 	// Numbers of atoms in order of appearence in Coordinates
-	Natoms []int = []int{56, 32, 4}
+	Natoms []int
 
 	// Assign the atomic numbers
 	AtomNumber []float64 = []float64{6.0, 1.0, 35.0}
