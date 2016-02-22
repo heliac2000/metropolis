@@ -90,9 +90,9 @@ const (
 	AdjCumlFile = "AdjCuml.csv"
 
 	// Coordinates of atoms in molecule
-	CCoords  = "CcoordsAVE.csv"
-	HCoords  = "HcoordsAVE.csv"
-	BrCoords = "BrcoordsAVE.csv"
+	CCoords  = "Molecule_01.csv" // Typically, Carbon
+	HCoords  = "Molecule_02.csv" // Typically, Hydrogen
+	BrCoords = "Molecule_03.csv" // Typically, Bromine
 
 	// KRLS objects
 	KernelRegsRepLogFile = "KernelregSRepLog.json"
