@@ -133,21 +133,27 @@ func SetInitData(dataDir string) {
 	}
 
 	// Make a sequence of power matrices
-	// AdjSEQ := make([][][]int, Npower)
-	// AdjSEQ[0] = Adj
+	// adjSEQ := make([][][]int, Npower)
+	// adjSEQ[0] = Adj
 	// for k := 1; k < Npower; k++ {
 	// 	// Generate the power matrices
-	// 	AdjSEQ[k] = MatrixMultiply(AdjSEQ[k-1], Adj)
+	// 	adjSEQ[k] = MatrixMultiply(adjSEQ[k-1], Adj)
 	// }
 	//
 	// adjCuml := make([][][]int, Npower)
-	// Copy2DimArray(&adjCuml[0], AdjSEQ[0])
+	// adjCuml[0] = Copy2DimArrayInt(adjSEQ[0])
+	// var wg sync.WaitGroup
+	// wg.Add(Npower - 1)
 	// for k := 1; k < Npower; k++ {
-	// 	Copy2DimArray(&adjCuml[k], AdjSEQ[0])
-	// 	for j := 1; j <= k; j++ {
-	// 		MatrixAdd(adjCuml[k], AdjSEQ[j])
-	// 	}
+	// 	go func(k int) {
+	// 		adjCuml[k] = Copy2DimArrayInt(adjSEQ[0])
+	// 		for j := 1; j <= k; j++ {
+	// 			MatrixAdd(adjCuml[k], adjSEQ[j])
+	// 		}
+	// 		wg.Done()
+	// 	}(k)
 	// }
+	// wg.Wait()
 
 	// Generate all combinations of characters and corresponding
 	// orientations. First space is empty - it gets filled in
