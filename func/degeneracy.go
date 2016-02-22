@@ -4,11 +4,23 @@
 
 package functions
 
-import . "../util"
+import (
+	"crypto/md5"
+	"encoding/binary"
+	"fmt"
+	"math"
+
+	. "../util"
+)
 
 // Compute the degeneracy factor (from equation 63, page 284 of notes)
 //
 func Degeneracy(pos, chr [][]int, ori [][]float64) float64 {
+	h := getHashDegeneracy(pos, chr, ori)
+	if v, ok := DegeneracyMap[h]; ok {
+		return v
+	}
+
 	// Determine the number of non-zero islands in Ctest. Important for
 	// Ctest to be ordered.
 	clength := 0
@@ -50,5 +62,28 @@ func Degeneracy(pos, chr [][]int, ori [][]float64) float64 {
 	}
 
 	// Degeneracy factor
-	return Factorial(clength) * ApproXnCr(Nuc*Nuc, clength) * degF
+	v := Factorial(clength) * ApproXnCr(Nuc*Nuc, clength) * degF
+	DegeneracyMap[h] = v
+	return v
+}
+
+//
+// Memorize
+//
+var DegeneracyMap map[string]float64 = make(map[string]float64)
+
+func getHashDegeneracy(pos, chr [][]int, ori [][]float64) string {
+	h := make([]byte, 0, 3*8*(len(pos)*len(pos[0])))
+	for i := 0; i < len(pos); i++ {
+		l := len(pos[i])
+		p, c, o := make([]byte, l*8), make([]byte, l*8), make([]byte, l*8)
+		for j := 0; j < l; j++ {
+			binary.LittleEndian.PutUint64(p[(j*8):], uint64(pos[i][j]))
+			binary.LittleEndian.PutUint64(c[(j*8):], uint64(chr[i][j]))
+			binary.LittleEndian.PutUint64(o[(j*8):], math.Float64bits(ori[i][j]))
+		}
+		h = append(append(append(h, p...), c...), o...)
+	}
+
+	return fmt.Sprintf("%x", md5.Sum(h))
 }
