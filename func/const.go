@@ -66,9 +66,6 @@ const (
 	// Energy for unstable region
 	Eunstable float64 = 10
 
-	// Number of principal components to use in the force field
-	Npcs int = 7
-
 	// Detection limit for angles
 	Detect float64 = 0.01
 )
@@ -153,6 +150,9 @@ var (
 
 	// Svm object
 	SvmModel, SvmModelOp, SvmModelNzp, SvmModelUsp Svm
+
+	// Number of principal components to use in the force field
+	Npcs int
 
 	// PrComp object
 	XeigPc PrComp

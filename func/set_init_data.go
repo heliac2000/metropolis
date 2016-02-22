@@ -225,6 +225,9 @@ func SetInitData(dataDir string) {
 	LoadDataFromJSONFile(&SvmModelNzp, path.Join(dataDir, SvmModelNzpFile))
 	LoadDataFromJSONFile(&SvmModelUsp, path.Join(dataDir, SvmModelUspFile))
 
+	// Number of principal components to use in the force field
+	Npcs = len(SvmModelOp.Sv[0])
+
 	// Load PrComp objects
 	LoadDataFromJSONFile(&XeigPc, path.Join(dataDir, XeigPcFile))
 }
