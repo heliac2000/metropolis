@@ -7,6 +7,7 @@ SHELL = /bin/bash
 SRCS = main.go
 TARGET = metropolis_V2
 GCFLAGS = -gcflags='-B'
+LDFLAGS = -ldflags='-s'
 RELEASE_DIR = ../Release_V1
 
 test:
@@ -20,7 +21,7 @@ release rel:
 	@git archive --worktree-attributes --format=tar HEAD | tar -C "$(RELEASE_DIR)" -xf -
 
 $(TARGET) b build: $(SRCS)
-	@go build $(GCFLAGS) -o $(TARGET) .
+	@go build $(GCFLAGS) $(LDFLAGS) -o $(TARGET) .
 
 testrun t:
 	@./$(TARGET) -N 10000 > log 2>&1 &
