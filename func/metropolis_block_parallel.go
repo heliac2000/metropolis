@@ -26,10 +26,14 @@ func MetropolisBlockParallel(N int, eout, cout string) {
 	// random seed
 	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
 
-	// Truncate files
+	// Truncate and open files
 	fn := getFuncName()
 	truncateFile(cout, fn)
 	truncateFile(eout, fn)
+	fpCout, fpEout := openFiles(cout, eout)
+	coutWriter := csv.NewWriter(fpCout)
+	defer fpCout.Close()
+	defer fpEout.Close()
 
 	tick := 1000
 	if N < tick {
@@ -165,8 +169,8 @@ func MetropolisBlockParallel(N int, eout, cout string) {
 
 		// Save data
 		for i := 0; i < Nparallel; i++ {
-			appendArrayToFile(eoutP[i], eout)
-			appendListWithCSV(coutP[i], cout)
+			appendArrayToFile(eoutP[i], fpEout)
+			appendListWithCSV(coutP[i], coutWriter)
 		}
 
 		// Reset
@@ -215,26 +219,27 @@ func truncateFile(f, fn string) {
 
 // Save data
 //
-func appendArrayToFile(arr []float64, eout string) {
-	file, err := os.OpenFile(eout, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
+func openFiles(cout, eout string) (*os.File, *os.File) {
+	fpCout, err := os.OpenFile(cout, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
 	if err != nil {
 		log.Fatalf("[%s] %s", getFuncName(), err.Error())
 	}
 
-	defer file.Close()
+	fpEout, err := os.OpenFile(eout, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
+	if err != nil {
+		log.Fatalf("[%s] %s", getFuncName(), err.Error())
+	}
+
+	return fpCout, fpEout
+}
+
+func appendArrayToFile(arr []float64, fpEout *os.File) {
 	for _, v := range arr {
-		fmt.Fprintf(file, "%.22f\n", v)
+		fmt.Fprintf(fpEout, "%.22f\n", v)
 	}
 }
 
-func appendListWithCSV(can []Canonical, cout string) {
-	file, err := os.OpenFile(cout, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
-	if err != nil {
-		log.Fatalf("[%s] %s", getFuncName(), err.Error())
-	}
-
-	defer file.Close()
-	writer := csv.NewWriter(file)
+func appendListWithCSV(can []Canonical, writer *csv.Writer) {
 	for i := 0; i < len(can); i++ {
 		r := len(can[i].pos)
 		pos, chr, ori := make([]string, r), make([]string, r), make([]string, r)
