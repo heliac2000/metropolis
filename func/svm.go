@@ -4,10 +4,7 @@
 
 package functions
 
-import (
-	"log"
-	"math"
-)
+import "math"
 
 import . "../util"
 
@@ -48,9 +45,9 @@ type Svm struct {
 //
 func (svm *Svm) Predict(newd [][]float64) string {
 
-	if svm.TotNsv < 1 {
-		log.Fatalln("Model is empty!")
-	}
+	// if svm.TotNsv < 1 {
+	// 	log.Fatalln("Model is empty!")
+	// }
 
 	rowNs := make([]int, len(newd))
 	for i := 0; i < len(newd); i++ {
@@ -78,9 +75,9 @@ func (svm *Svm) Predict(newd [][]float64) string {
 		newd = Scale(newData, svm.XScale.ScaledCenter, svm.XScale.ScaledScale)
 	}
 
-	if len(svm.Sv[0]) != len(newd[0]) {
-		log.Fatalln("Test data does not match model !")
-	}
+	// if len(svm.Sv[0]) != len(newd[0]) {
+	// 	log.Fatalln("Test data does not match model !")
+	// }
 
 	// R is 1-base, Golang is 0-base
 	return svm.Levels[svm.SvmPredict(newd)[0]-1]

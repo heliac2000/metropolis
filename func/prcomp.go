@@ -4,8 +4,6 @@
 
 package functions
 
-import "log"
-
 import . "../util"
 
 // R's prcomp object
@@ -21,9 +19,9 @@ type PrComp struct {
 // R's predict generic function
 //
 func (prc *PrComp) Predict(newData [][]float64) [][]float64 {
-	if len(newData[0]) != len(prc.Rotation) {
-		log.Fatalln("'newdata' does not have the correct number of columns.")
-	}
+	// if len(newData[0]) != len(prc.Rotation) {
+	// 	log.Fatalln("'newdata' does not have the correct number of columns.")
+	// }
 
 	var sc [][]float64
 	if !prc.Scale {

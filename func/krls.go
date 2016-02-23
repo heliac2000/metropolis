@@ -4,11 +4,7 @@
 
 package functions
 
-import (
-	"log"
-
-	. "../util"
-)
+import . "../util"
 
 // R's KRLS object
 //
@@ -36,9 +32,9 @@ type Krls struct {
 //
 func (kls *Krls) Predict(newd [][]float64) float64 {
 	// dimension check
-	if len(kls.X[0]) != len(newd[0]) {
-		log.Fatalln("PredictKrls: ncol(newdata) differs from ncol(krls.X).")
-	}
+	// if len(kls.X[0]) != len(newd[0]) {
+	// 	log.Fatalln("PredictKrls: ncol(newdata) differs from ncol(krls.X).")
+	// }
 
 	// scale test data by means and sd of training data
 	newData := Scale(newd, kls.ColMeansX, kls.ColSdX)
@@ -68,9 +64,9 @@ func (kls *Krls) Predict(newd [][]float64) float64 {
 	}
 
 	// predict fitted
-	if len(mm[0]) != len(kls.Coeffs) {
-		log.Fatalln("PredictKrls: ncol(newdataK) differs from ncol(krls.coeffs).")
-	}
+	// if len(mm[0]) != len(kls.Coeffs) {
+	// 	log.Fatalln("PredictKrls: ncol(newdataK) differs from ncol(krls.coeffs).")
+	// }
 
 	// bring back to original scale
 	return MatrixMultiplyFloat(mm, kls.Coeffs)[0][0]*kls.ColSdY[0] + kls.ColMeansY[0]
