@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"path"
+	"regexp"
 
 	. "../util"
 )
@@ -20,11 +21,19 @@ type MoleculeCoordinates struct {
 func LoadMoleculeCoordinates(dataDir string, molecules ...string) *MoleculeCoordinates {
 	l := len(molecules)
 	entity := make([]string, l)
+	AtomNumber = make([]float64, l)
+	r := regexp.MustCompile(`^(.+)coords.*\.csv$`)
 	for i, v := range molecules {
 		sym := path.Join(dataDir, v)
 		if f, err := os.Readlink(sym); err != nil {
-			log.Fatalf("%s is not a symbolic link file.", f)
+			log.Fatalf("%s is not a symbolic link file.", sym)
 		} else {
+			atom := string(r.FindSubmatch([]byte(f))[1])
+			an, ok := AtomicNumbers[atom]
+			if !ok {
+				log.Fatalf("Illegal atom %s.", atom)
+			}
+			AtomNumber[i] = an
 			entity[i] = path.Join(dataDir, f)
 		}
 	}

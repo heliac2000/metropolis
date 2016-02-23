@@ -140,7 +140,7 @@ var (
 	Natoms []int
 
 	// Assign the atomic numbers
-	AtomNumber []float64 = []float64{6.0, 1.0, 35.0}
+	AtomNumber []float64
 
 	// The numerators of the Coulomb matrices
 	Zcoulomb [][]float64
