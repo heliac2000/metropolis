@@ -1,7 +1,7 @@
 package functions_test
 
 import (
-	"reflect"
+	"math"
 	"testing"
 
 	. "../util"
@@ -16,8 +16,13 @@ func TestSetZcoulomb(t *testing.T) {
 	SetInitData("./data")
 	zcb := LoadFromCsvFile2Dim("test_data/Zcoulomb.csv", ',')
 
-	if !reflect.DeepEqual(Zcoulomb, zcb) {
-		t.Errorf("\ngot  %v\nwant %v", Zcoulomb, zcb)
+	for i := 0; i < len(zcb); i++ {
+		for j := 0; j < len(zcb[i]); j++ {
+			if math.Abs(zcb[i][j]-Zcoulomb[i][j]) > 1.0E-12 {
+				t.Errorf("got  %.22f\nwant %.22f", zcb[i][j], Zcoulomb[i][j])
+				return
+			}
+		}
 	}
 }
 
