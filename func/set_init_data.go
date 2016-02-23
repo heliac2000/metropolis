@@ -220,7 +220,6 @@ func SetInitData(dataDir string) {
 	KernelRegsAtt.ScaleX = Scale(KernelRegsAtt.X, KernelRegsAtt.ColMeansX, KernelRegsAtt.ColSdX)
 
 	// Load SVM objects
-	LoadDataFromJSONFile(&SvmModel, path.Join(dataDir, SvmModelFile))
 	LoadDataFromJSONFile(&SvmModelOp, path.Join(dataDir, SvmModelOpFile))
 	LoadDataFromJSONFile(&SvmModelNzp, path.Join(dataDir, SvmModelNzpFile))
 	LoadDataFromJSONFile(&SvmModelUsp, path.Join(dataDir, SvmModelUspFile))

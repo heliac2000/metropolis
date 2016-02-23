@@ -96,7 +96,6 @@ const (
 	KernelRegsAttFile    = "KernelregSAtt.json"
 
 	// SVM objects
-	SvmModelFile    = "SvmModel.json"
 	SvmModelOpFile  = "SvmModelOp.json"
 	SvmModelNzpFile = "SvmModelNzp.json"
 	SvmModelUspFile = "SvmModelUsp.json"
