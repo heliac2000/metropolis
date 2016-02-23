@@ -5,6 +5,8 @@
 package functions
 
 import (
+	"log"
+	"os"
 	"path"
 
 	. "../util"
@@ -15,16 +17,32 @@ type MoleculeCoordinates struct {
 	All      [][]float64
 }
 
-func LoadMoleculeCoordinates(dataDir, cCarts, hCarts, brCarts string) *MoleculeCoordinates {
-	C := LoadFromCsvFile2Dim(path.Join(dataDir, cCarts), ' ')
-	H := LoadFromCsvFile2Dim(path.Join(dataDir, hCarts), ' ')
-	Br := LoadFromCsvFile2Dim(path.Join(dataDir, brCarts), ' ')
+func LoadMoleculeCoordinates(dataDir string, molecules ...string) *MoleculeCoordinates {
+	l := len(molecules)
+	entity := make([]string, l)
+	for i, v := range molecules {
+		sym := path.Join(dataDir, v)
+		if f, err := os.Readlink(sym); err != nil {
+			log.Fatalf("%s is not a symbolic link file.", f)
+		} else {
+			entity[i] = path.Join(dataDir, f)
+		}
+	}
 
-	all := make([][]float64, 0, len(C)+len(H)+len(Br))
-	all = append(append(append(all, C...), H...), Br...)
+	m, lm := make([][][]float64, l), 0
+	Natoms = make([]int, l) // Numbers of atoms in order of appearence in Coordinates
+	for i, e := range entity {
+		m[i] = LoadFromCsvFile2Dim(e, ' ')
+		mlen := len(m[i])
+		Natoms[i] = 2 * mlen
+		lm += mlen
+	}
 
-	// Numbers of atoms in order of appearence in Coordinates
-	Natoms = []int{len(C) * 2, len(H) * 2, len(Br) * 2}
+	// Concatenate all molecules data
+	all := make([][]float64, 0, lm)
+	for _, v := range m {
+		all = append(all, v...)
+	}
 
-	return &MoleculeCoordinates{C, H, Br, all}
+	return &MoleculeCoordinates{m[0], m[1], m[2], all}
 }

@@ -23,7 +23,7 @@ func TestRotateZ(t *testing.T) {
 		},
 	}
 
-	mc := LoadMoleculeCoordinates("./data", "CcoordsAVE.csv", "HcoordsAVE.csv", "BrcoordsAVE.csv")
+	mc := LoadMoleculeCoordinates("./data", "Molecule_01.csv", "Molecule_02.csv", "Molecule_03.csv")
 	for _, tc := range testCases {
 		actual := RotateZ(mc.All, tc.theta)
 		if len(actual) != len(tc.expected) {
