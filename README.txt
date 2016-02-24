@@ -5,9 +5,9 @@ IslandYosou Version 2.0
 1. 開発・実行環境
 
   [CPU] Intel(R) Core(TM) i7-5960X CPU/3.0GHz
-   [OS] Linux version 4.4.0
+   [OS] Linux version 4.4.0/64 bit 
   [Distribution] Ubuntu 16.04
-  [golang] go version devel +5609a48(version 1.6 相当)
+  [golang] go version 1.6
 
 2. プログラムの使用方法
 
@@ -156,7 +156,7 @@ IslandYosou Version 2.0
 
 - Xeigpc.json
 
-  prcomp objects.
+  Prcomp objects.
 
   R 上で以下を実行して生成する。
 
