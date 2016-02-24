@@ -33,7 +33,7 @@ const (
 
 	// Number of cuts of the lattice vectors to use to identify lattice
 	// points in the lattice planes
-	Nstep int = 1e5
+	//Nstep int = 1e5
 
 	// Number of molecules to consider
 	Nmolec int = 10
@@ -47,7 +47,7 @@ const (
 	Npower int = 5
 
 	// How much unit cell radius to exclude about each occupied point
-	Nexclude int = 3
+	//Nexclude int = 3
 
 	// Parameters for repulsive part of interaction
 
