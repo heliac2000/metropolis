@@ -46,6 +46,9 @@ const (
 	// How far to extend the occupied cells when computing extension set
 	Npower int = 5
 
+	// Genereate island from UC center(use 1227 for 100 x 100 lattice, use 313 for 50 x 50 lattice)
+	UCcenter int = 1227
+
 	// How much unit cell radius to exclude about each occupied point
 	//Nexclude int = 3
 
@@ -131,9 +134,6 @@ var (
 
 	// For parallel tempering
 	Nparallel int
-
-	// Genereate island from UC center(use 1227 for 100 x 100 lattice, use 313 for 50 x 50 lattice)
-	UCcenter int = 1227
 
 	// Numbers of atoms in order of appearence in Coordinates
 	Natoms []int
