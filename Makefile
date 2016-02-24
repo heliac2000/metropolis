@@ -31,7 +31,7 @@ testrun t:
 ##
 ## Temparature sequence: 10K increments from 200K to 300K
 ##
-N3e5 N1e5 N1e4:
+N6e5 N3e5 N1e5 N1e4:
 	@./$(TARGET) -N $(subst N,,$@) > $(TARGET)_$@.log 2>&1 &
 
 ## gccgo
