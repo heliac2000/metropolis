@@ -39,11 +39,11 @@ IslandYosou Version 2.0
   [ステップ数] 100000(1e5)
         [温度] 100 K から  35 K 刻みで 500K まで
 
-    $ ./metropolis_V2 -N 100000 -T100,500,35 | tee log 2>&1
+    $ ./metropolis_V2 -N 100000 -T100,500,35 2>&1 | tee log
 
   ステップ数には指数表記を使う事も可能。
 
-    $ ./metropolis_V2 -N 1e5 -T100,500,35 | tee log 2>&1
+    $ ./metropolis_V2 -N 1e5 -T100,500,35 2>&1 | tee log
 
 3. 入出力データ
 
@@ -187,7 +187,7 @@ IslandYosou Version 2.0
 
 - ログファイル
 
-  metropolis_V2 プログラムは処理の経過を標準出力(stdout)に出力する。
+  metropolis_V2 プログラムは処理の経過を標準エラー出力(stderr)に出力する。
 
   [出力例]
   2016/02/19 14:50:46 N = 300000
