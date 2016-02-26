@@ -16,7 +16,7 @@ import (
 
 func main() {
 	// Parse command line options
-	N, eout, cout, dataDir, err := parseOption()
+	N, eout, cout, dataDir, initCanon, err := parseOption()
 	if err != nil {
 		os.Exit(2)
 	}
@@ -31,7 +31,7 @@ func main() {
 	log.Printf("Start.")
 
 	start := time.Now()
-	MetropolisBlockParallel(N, eout, cout)
+	MetropolisBlockParallel(N, eout, cout, initCanon)
 	end := time.Now()
 
 	// End
@@ -42,7 +42,7 @@ func main() {
 
 // Parse option switchs
 //
-func parseOption() (n int, eout, cout, dataDir string, err *error) {
+func parseOption() (n int, eout, cout, dataDir, initCanon string, err *error) {
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, `
 Usage of %s:
@@ -60,6 +60,7 @@ Usage of %s:
 	eoutPtr := flag.String("Eout", "Eout.dat", "Eout file.")
 	coutPtr := flag.String("Cout", "Cout.csv", "Cout file.")
 	dataDirPtr := flag.String("DataDir", "./data", "Input data directory.")
+	initCanonPtr := flag.String("InitCanon", "", "Initial canonical data.")
 	flag.Parse()
 
 	// `-N': required option
@@ -78,7 +79,7 @@ Usage of %s:
 		return
 	}
 
-	n, eout, cout, dataDir = int(*nPtr), *eoutPtr, *coutPtr, *dataDirPtr
+	n, eout, cout, dataDir, initCanon = int(*nPtr), *eoutPtr, *coutPtr, *dataDirPtr, *initCanonPtr
 
 	if n < 2 {
 		fmt.Fprintf(os.Stderr,

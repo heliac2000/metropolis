@@ -22,7 +22,7 @@ import (
 // Do Metropolis-Hastings sampling with 1-step shifts (slow, uses
 // exact PF; uses parallel tempering)
 //
-func MetropolisBlockParallel(N int, eout, cout string) {
+func MetropolisBlockParallel(N int, eout, cout, initCanon string) {
 	// random seed
 	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
 
@@ -40,11 +40,20 @@ func MetropolisBlockParallel(N int, eout, cout string) {
 		tick = N
 	}
 
+	var initCanonSlice []Canonical
+	if len(initCanon) > 0 {
+		initCanonSlice = LoadCanonicalFromJSON(initCanon)
+	} else {
+		initCanonSlice = make([]Canonical, Nparallel)
+		for i := 0; i < Nparallel; i++ {
+			initCanonSlice[i] = NewCanonical(CanonicalOrder(CanonicalGen()))
+		}
+	}
 	coutP, eoutP := make([][]Canonical, Nparallel), make([][]float64, Nparallel)
 	for k := 0; k < Nparallel; k++ {
 		coutP[k] = make([]Canonical, tick)
 		eoutP[k] = make([]float64, tick)
-		coutP[k][0] = NewCanonical(CanonicalOrder(CanonicalGen()))
+		coutP[k][0] = initCanonSlice[k]
 		eoutP[k][0] = EnergyCanonical(coutP[k][0].Explode())
 	}
 

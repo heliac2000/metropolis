@@ -31,7 +31,7 @@ func TestMetropolisBlockParallel(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		MetropolisBlockParallel(tc.N, "Eout.dat", "Cout.csv")
+		MetropolisBlockParallel(tc.N, "Eout.dat", "Cout.csv", "/home/takahashi/IslandYosou_V2_cont/initCanon.json")
 		t.Logf("\nN = %d\n", tc.N)
 		// t.Errorf("\ngot  %v\nwant %v", actual2, tc.expected)
 	}

@@ -63,5 +63,13 @@ func LoadCanonicalFromJSON(file string) []Canonical {
 		log.Fatalln(err)
 	}
 
+	for _, v := range c {
+		for i := 0; i < len(v.Chr)-1; i++ {
+			for j := 0; j < len(v.Chr[i]); j++ {
+				v.Chr[i][j]--
+			}
+		}
+	}
+
 	return c
 }
