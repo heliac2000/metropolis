@@ -134,18 +134,6 @@ func MetropolisBlockParallel(N int, eout, cout, initCanon string) {
 				temp2 := TempS[s2]
 				// Get the new states
 				c1, c2 := coutP[s1][k-1], coutP[s2][k-1]
-				// Get the lengths
-				l1, l2 := 0, 0
-				for h := 0; h < len(c1.Pos); h++ {
-					if len(c1.Pos[h]) > 1 || c1.Pos[h][0] != 0 {
-						l1++
-					}
-				}
-				for h := 0; h < len(c2.Pos); h++ {
-					if len(c2.Pos[h]) > 1 || c2.Pos[h][0] != 0 {
-						l2++
-					}
-				}
 
 				// Energy of state 1 with temperature 1
 				// Energy of state 2 with temperature 2
