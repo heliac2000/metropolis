@@ -72,21 +72,21 @@ func MetropolisBlockParallel(N int, eout, cout string) {
 
 				pos, chr, ori, _, _ := ExtensionReductionBlock(cout[k-1].Explode())
 				coutTemp, _ := CanonicalImplode(CanonicalOrder(pos, chr, ori))
-				qC1C2 := ExtensionReductionProbabilityReaction(cout[k-1].pos, cout[k-1].chr, cout[k-1].ori, coutTemp.pos, coutTemp.chr, coutTemp.ori)
-				qC2C1 := ExtensionReductionProbabilityReaction(coutTemp.pos, coutTemp.chr, coutTemp.ori, cout[k-1].pos, cout[k-1].chr, cout[k-1].ori)
+				qC1C2 := ExtensionReductionProbabilityReaction(cout[k-1].Pos, cout[k-1].Chr, cout[k-1].Ori, coutTemp.Pos, coutTemp.Chr, coutTemp.Ori)
+				qC2C1 := ExtensionReductionProbabilityReaction(coutTemp.Pos, coutTemp.Chr, coutTemp.Ori, cout[k-1].Pos, cout[k-1].Chr, cout[k-1].Ori)
 
 				ax, ay := eout[k-1], EnergyCanonical(coutTemp.Explode())
 
 				lctemp := 0
-				for r := 0; r < len(coutTemp.pos); r++ {
-					if len(coutTemp.pos[r]) > 1 || coutTemp.pos[r][0] != 0 {
+				for r := 0; r < len(coutTemp.Pos); r++ {
+					if len(coutTemp.Pos[r]) > 1 || coutTemp.Pos[r][0] != 0 {
 						lctemp++
 					}
 				}
 
 				lcprev := 0
-				for r := 0; r < len(cout[k-1].pos); r++ {
-					if len(cout[k-1].pos[r]) > 1 || cout[k-1].pos[r][0] != 0 {
+				for r := 0; r < len(cout[k-1].Pos); r++ {
+					if len(cout[k-1].Pos[r]) > 1 || cout[k-1].Pos[r][0] != 0 {
 						lcprev++
 					}
 				}
@@ -127,13 +127,13 @@ func MetropolisBlockParallel(N int, eout, cout string) {
 				c1, c2 := coutP[s1][k-1], coutP[s2][k-1]
 				// Get the lengths
 				l1, l2 := 0, 0
-				for h := 0; h < len(c1.pos); h++ {
-					if len(c1.pos[h]) > 1 || c1.pos[h][0] != 0 {
+				for h := 0; h < len(c1.Pos); h++ {
+					if len(c1.Pos[h]) > 1 || c1.Pos[h][0] != 0 {
 						l1++
 					}
 				}
-				for h := 0; h < len(c2.pos); h++ {
-					if len(c2.pos[h]) > 1 || c2.pos[h][0] != 0 {
+				for h := 0; h < len(c2.Pos); h++ {
+					if len(c2.Pos[h]) > 1 || c2.Pos[h][0] != 0 {
 						l2++
 					}
 				}
@@ -241,15 +241,15 @@ func appendArrayToFile(arr []float64, fpEout *os.File) {
 
 func appendListWithCSV(can []Canonical, writer *csv.Writer) {
 	for i := 0; i < len(can); i++ {
-		r := len(can[i].pos)
+		r := len(can[i].Pos)
 		pos, chr, ori := make([]string, r), make([]string, r), make([]string, r)
 		for j := 0; j < r; j++ {
-			c := len(can[i].pos[j])
+			c := len(can[i].Pos[j])
 			strp, strc, stro := make([]string, c), make([]string, c), make([]string, c)
 			for k := 0; k < c; k++ {
-				strp[k] = strconv.Itoa(can[i].pos[j][k])
-				strc[k] = strconv.Itoa(can[i].chr[j][k] + 1)
-				stro[k] = fmt.Sprintf("%.22f", can[i].ori[j][k])
+				strp[k] = strconv.Itoa(can[i].Pos[j][k])
+				strc[k] = strconv.Itoa(can[i].Chr[j][k] + 1)
+				stro[k] = fmt.Sprintf("%.22f", can[i].Ori[j][k])
 			}
 			pos[j] = strings.Join(strp, ":")
 			chr[j] = strings.Join(strc, ":")
