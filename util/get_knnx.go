@@ -258,11 +258,9 @@ func annPlaneSplit(pa [][]float64, pidx []int, n, d int, cv float64) (int, int) 
 	l, r := 0, n-1
 
 	for {
-		for l < n && pa[pidx[l]][d] < cv {
-			l++
+		for ; l < n && pa[pidx[l]][d] < cv; l++ {
 		}
-		for r >= 0 && pa[pidx[r]][d] >= cv {
-			r--
+		for ; r >= 0 && pa[pidx[r]][d] >= cv; r-- {
 		}
 		if l > r {
 			break
@@ -273,11 +271,9 @@ func annPlaneSplit(pa [][]float64, pidx []int, n, d int, cv float64) (int, int) 
 
 	br1, r := l, n-1
 	for {
-		for l < n && pa[pidx[l]][d] <= cv {
-			l++
+		for ; l < n && pa[pidx[l]][d] <= cv; l++ {
 		}
-		for r >= br1 && pa[pidx[r]][d] > cv {
-			r--
+		for ; r >= br1 && pa[pidx[r]][d] > cv; r-- {
 		}
 		if l > r {
 			break
