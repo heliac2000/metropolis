@@ -4,6 +4,12 @@
 
 package functions
 
+import (
+	"encoding/json"
+	"log"
+	"os"
+)
+
 // Canonical type
 //
 type Canonical struct {
@@ -42,4 +48,20 @@ func (c Canonical) Explode() ([][]int, [][]int, [][]float64) {
 // Pack to canonical object
 func CanonicalImplode(pos, chr [][]int, ori [][]float64, args ...interface{}) (Canonical, []interface{}) {
 	return Canonical{Pos: pos, Chr: chr, Ori: ori}, args
+}
+
+// Load canonical data from JSON file
+func LoadCanonicalFromJSON(file string) []Canonical {
+	jsonFile, err := os.Open(file)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	dec := json.NewDecoder(jsonFile)
+	var c []Canonical
+	if err := dec.Decode(&c); err != nil {
+		log.Fatalln(err)
+	}
+
+	return c
 }
