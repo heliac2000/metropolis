@@ -21,3 +21,4 @@ util/data
 data
 .RData
 .Rhistory
+*.json
