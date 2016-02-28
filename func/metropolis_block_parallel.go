@@ -67,8 +67,7 @@ func MetropolisBlockParallel(N int, eoutFile, coutFile, initCanon string) {
 			if randFloat64(rnd) < 0.5 {
 				// Do an ordinary extension of a uniformly chosen element
 				schoose := rnd.Intn(Nparallel)
-				cout := coutP[schoose][k-1]
-				eout := CopyVectorFloat(eoutP[schoose])
+				cout, eout := coutP[schoose][k-1], CopyVectorFloat(eoutP[schoose])
 				for h := 0; h < Nparallel; h++ {
 					if h != schoose {
 						coutP[h][k] = coutP[h][k-1].Dup()
