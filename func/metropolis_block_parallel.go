@@ -82,20 +82,6 @@ func MetropolisBlockParallel(N int, eoutFile, coutFile, initCanon string) {
 
 				ax, ay := eout[k-1], EnergyCanonical(coutTemp.Explode())
 
-				lctemp := 0
-				for r := 0; r < len(coutTemp.Pos); r++ {
-					if len(coutTemp.Pos[r]) > 1 || coutTemp.Pos[r][0] != 0 {
-						lctemp++
-					}
-				}
-
-				lcprev := 0
-				for r := 0; r < len(cout.Pos); r++ {
-					if len(cout.Pos[r]) > 1 || cout.Pos[r][0] != 0 {
-						lcprev++
-					}
-				}
-
 				// New invisible islands approximations
 				pix := Degeneracy(cout.Explode())
 				piy := Degeneracy(coutTemp.Explode())
