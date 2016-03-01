@@ -67,7 +67,6 @@ func MetropolisBlockParallel(N int, eoutFile, coutFile, initCanon string) {
 			if randFloat64(rnd) < 0.5 {
 				// Do an ordinary extension of a uniformly chosen element
 				schoose := rnd.Intn(Nparallel)
-				cout, eout := coutP[schoose][k-1], CopyVectorFloat(eoutP[schoose])
 				for h := 0; h < Nparallel; h++ {
 					if h != schoose {
 						coutP[h][k] = coutP[h][k-1].Dup()
@@ -75,12 +74,13 @@ func MetropolisBlockParallel(N int, eoutFile, coutFile, initCanon string) {
 					}
 				}
 
+				cout := coutP[schoose][k-1]
 				pos, chr, ori, _, _ := ExtensionReductionBlock(cout.Explode())
 				coutTemp, _ := CanonicalImplode(CanonicalOrder(pos, chr, ori))
 				qC1C2 := ExtensionReductionProbabilityReaction(cout.Pos, cout.Chr, cout.Ori, coutTemp.Pos, coutTemp.Chr, coutTemp.Ori)
 				qC2C1 := ExtensionReductionProbabilityReaction(coutTemp.Pos, coutTemp.Chr, coutTemp.Ori, cout.Pos, cout.Chr, cout.Ori)
 
-				ax, ay := eout[k-1], EnergyCanonical(coutTemp.Explode())
+				ax, ay := eoutP[schoose][k-1], EnergyCanonical(coutTemp.Explode())
 
 				// New invisible islands approximations
 				pix := Degeneracy(cout.Explode())
