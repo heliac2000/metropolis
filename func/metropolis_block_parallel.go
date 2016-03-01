@@ -74,7 +74,7 @@ func MetropolisBlockParallel(N int, eoutFile, coutFile, initCanon string) {
 					}
 				}
 
-				cout := coutP[schoose][k-1]
+				cout := coutP[schoose][k-1].Dup()
 				pos, chr, ori, _, _ := ExtensionReductionBlock(cout.Explode())
 				coutTemp, _ := CanonicalImplode(CanonicalOrder(pos, chr, ori))
 				qC1C2 := ExtensionReductionProbabilityReaction(cout.Pos, cout.Chr, cout.Ori, coutTemp.Pos, coutTemp.Chr, coutTemp.Ori)
@@ -96,7 +96,7 @@ func MetropolisBlockParallel(N int, eoutFile, coutFile, initCanon string) {
 					eoutP[schoose][k] = ay
 				} else {
 					// Incase of rejection
-					coutP[schoose][k] = cout.Dup()
+					coutP[schoose][k] = cout
 					eoutP[schoose][k] = ax
 				}
 			} else {
@@ -115,7 +115,7 @@ func MetropolisBlockParallel(N int, eoutFile, coutFile, initCanon string) {
 
 				temp2 := TempS[s2]
 				// Get the new states
-				c1, c2 := coutP[s1][k-1], coutP[s2][k-1]
+				c1, c2 := coutP[s1][k-1].Dup(), coutP[s2][k-1].Dup()
 
 				// Energy of state 1 with temperature 1
 				// Energy of state 2 with temperature 2
@@ -140,7 +140,7 @@ func MetropolisBlockParallel(N int, eoutFile, coutFile, initCanon string) {
 				}
 
 				if randFloat64(rnd) < alpha {
-					coutP[s1][k], coutP[s2][k] = c2.Dup(), c1.Dup()
+					coutP[s1][k], coutP[s2][k] = c2, c1
 					eoutP[s1][k], eoutP[s2][k] = e21, e12
 				}
 			}
