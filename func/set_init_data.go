@@ -197,8 +197,10 @@ func SetInitData(dataDir string) {
 
 	// Generate the list VARS of indices for the interacting Coulomb matrix
 	if PcaRep {
-		for k := 0; k < len(Inp.MoleculeCoordinates.All); k++ {
-			for j := 0; j < len(Inp.MoleculeCoordinates.All); j++ {
+		l := len(Inp.MoleculeCoordinates.All)
+		Vars = make([][]int, 0, l*l)
+		for k := 0; k < l; k++ {
+			for j := 0; j < l; j++ {
 				Vars = append(Vars, []int{k, j})
 			}
 		}
