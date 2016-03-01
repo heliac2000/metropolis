@@ -12,7 +12,7 @@ import (
 const (
 	// Number of unit cells projections along a-axis # For degeneracy
 	// calculation
-	Nuc int = 50
+	Nuc int = 25
 
 	// Boltzmann ant in eV K-1
 	KB float64 = 1.38e-23 / 1.60e-19
