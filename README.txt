@@ -132,9 +132,9 @@ IslandYosou Version 2.0
   R 上で以下を実行して生成する。
 
   write(toJSON(unclass(kernelregS_Rep_log),
-        auto_unbox=TRUE, digits=I(22), pretty=TRUE), "KernelregSAtt.json")
-  write(toJSON(unclass(kernelregS_Att),
         auto_unbox=TRUE, digits=I(22), pretty=TRUE), "KernelregSRepLog.json")
+  write(toJSON(unclass(kernelregS_Att),
+        auto_unbox=TRUE, digits=I(22), pretty=TRUE), "KernelregSAtt.json")
 
 - SvmModelNzp.json
   SvmModelOp.json
