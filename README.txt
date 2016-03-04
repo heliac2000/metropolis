@@ -83,6 +83,11 @@ IslandYosou Version 2.0
 
   シンボリックリンクのファイル名は Molecule_0[1-3].csv とする。
 
+    $ cd data
+    $ ln -s CcoordsAVE.csv Molecule_01.csv
+    $ ln -s HcoordsAVE.csv Molecule_02.csv
+    $ ln -s BrcoordsAVE.csv Molecule_03.csv
+
 - PrecursorUnitCellAxes.csv
   
   Lattice Vectors.
