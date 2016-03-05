@@ -1,6 +1,6 @@
-IslandYosou Version 2.0
+metropolis version 2.0
 
-2016/3/1
+2016/3/5
 
 1. 開発・実行環境
 
