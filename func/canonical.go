@@ -56,6 +56,7 @@ func LoadCanonicalFromJSON(file string) []Canonical {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	defer jsonFile.Close()
 
 	dec := json.NewDecoder(jsonFile)
 	var c []Canonical
