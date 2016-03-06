@@ -135,6 +135,9 @@ var (
 	// For parallel tempering
 	Nparallel int
 
+	// Atoms
+	Atoms []string
+
 	// Numbers of atoms in order of appearence in Coordinates
 	Natoms []int
 

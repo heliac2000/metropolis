@@ -5,6 +5,7 @@
 package functions
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"path"
@@ -14,32 +15,42 @@ import (
 )
 
 type MoleculeCoordinates struct {
-	C, H, Br [][]float64
-	All      [][]float64
+	Mol [][][]float64
+	All [][]float64
 }
 
-func LoadMoleculeCoordinates(dataDir string, molecules ...string) *MoleculeCoordinates {
-	l := len(molecules)
-	entity := make([]string, l)
-	AtomNumber = make([]float64, l)
+func LoadMoleculeCoordinates(dataDir string) *MoleculeCoordinates {
+	entity := make([]string, 0)
+	Atoms, AtomNumber = make([]string, 0), make([]float64, 0)
 	r := regexp.MustCompile(`^(.+)coords.*\.csv$`)
-	for i, v := range molecules {
-		sym := path.Join(dataDir, v)
-		if f, err := os.Readlink(sym); err != nil {
-			log.Fatalf("%s is not a symbolic link file.", sym)
+	nMol := 1
+	for {
+		molFile := path.Join(dataDir, fmt.Sprintf("Molecule_%02d.csv", nMol))
+		if _, err := os.Stat(molFile); err != nil {
+			nMol--
+			break
+		}
+		if f, err := os.Readlink(molFile); err != nil {
+			log.Fatalf("%s is not a symbolic link file.", molFile)
 		} else {
 			atom := string(r.FindSubmatch([]byte(f))[1])
 			an, ok := AtomicNumbers[atom]
 			if !ok {
 				log.Fatalf("Illegal atom %s.", atom)
 			}
-			AtomNumber[i] = an
-			entity[i] = path.Join(dataDir, f)
+			Atoms = append(Atoms, atom)
+			AtomNumber = append(AtomNumber, an)
+			entity = append(entity, path.Join(dataDir, f))
 		}
+		nMol++
 	}
 
-	m, lm := make([][][]float64, l), 0
-	Natoms = make([]int, l) // Numbers of atoms in order of appearence in Coordinates
+	if nMol < 2 {
+		log.Fatalln("Number of Molecule must be greater than 1.")
+	}
+
+	m, lm := make([][][]float64, nMol), 0
+	Natoms = make([]int, nMol) // Numbers of atoms in order of appearence in Coordinates
 	for i, e := range entity {
 		m[i] = LoadFromCsvFile2Dim(e, ' ')
 		mlen := len(m[i])
@@ -53,5 +64,5 @@ func LoadMoleculeCoordinates(dataDir string, molecules ...string) *MoleculeCoord
 		all = append(all, v...)
 	}
 
-	return &MoleculeCoordinates{m[0], m[1], m[2], all}
+	return &MoleculeCoordinates{m, all}
 }

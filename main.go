@@ -25,8 +25,9 @@ func main() {
 	SetInitData(dataDir)
 
 	// Start
+	log.Printf("Atoms = %v\n", Atoms)
 	log.Printf("N = %d\n", N)
-	log.Printf("TempS = %#v\n", TempS)
+	log.Printf("TempS = %v\n", TempS)
 	log.Printf("Nparallel = %d\n", Nparallel)
 	log.Printf("Start.")
 

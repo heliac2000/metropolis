@@ -9,7 +9,7 @@ import (
 )
 
 func TestLoadMoleculeCoordinates(t *testing.T) {
-	mc := LoadMoleculeCoordinates("./data", "Molecule_01.csv", "Molecule_02.csv", "Molecule_03.csv")
+	mc := LoadMoleculeCoordinates("./data")
 
 	// [R]
 	//  write.table(format(C, digits=22, trim=T),
@@ -19,14 +19,16 @@ func TestLoadMoleculeCoordinates(t *testing.T) {
 	//  write.table(format(Br, digits=22, trim=T),
 	//                 file="Br.csv", sep=",", row.names=FALSE, col.names=FALSE, quote=F)
 	expected := MoleculeCoordinates{
-		C:  LoadFromCsvFile2Dim("./test_data/C.csv", ','),
-		H:  LoadFromCsvFile2Dim("./test_data/H.csv", ','),
-		Br: LoadFromCsvFile2Dim("./test_data/Br.csv", ','),
+		Mol: [][][]float64{
+			LoadFromCsvFile2Dim("./test_data/C.csv", ','),
+			LoadFromCsvFile2Dim("./test_data/H.csv", ','),
+			LoadFromCsvFile2Dim("./test_data/Br.csv", ','),
+		},
 	}
 
-	if !reflect.DeepEqual(mc.C, expected.C) ||
-		!reflect.DeepEqual(mc.H, expected.H) ||
-		!reflect.DeepEqual(mc.Br, expected.Br) {
+	if !reflect.DeepEqual(mc.Mol[0], expected.Mol[0]) ||
+		!reflect.DeepEqual(mc.Mol[1], expected.Mol[1]) ||
+		!reflect.DeepEqual(mc.Mol[2], expected.Mol[2]) {
 		t.Errorf("\ngot  %v\nwant %v", *mc, expected)
 		return
 	}

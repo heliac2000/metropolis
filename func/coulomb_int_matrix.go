@@ -47,17 +47,12 @@ func CoulombIntMatrix(k1, k2, ch1, ch2 int, o1, o2 float64) ([][]float64, bool) 
 	l := len(m1) * 2 // l = (lc + lh + lbr) * 2
 	coordinates := Create2DimArrayFloat(l, 3)
 
-	lc := len(Inp.MoleculeCoordinates.C)
-	copy(coordinates, m1[:lc])
-	copy(coordinates[lc:], m2[:lc])
-
-	lh := len(Inp.MoleculeCoordinates.H)
-	copy(coordinates[(2*lc):], m1[lc:(lc+lh)])
-	copy(coordinates[(2*lc+lh):], m2[lc:(lc+lh)])
-
-	lbr := len(Inp.MoleculeCoordinates.Br)
-	copy(coordinates[(2*(lc+lh)):], m1[(lc+lh):])
-	copy(coordinates[(2*(lc+lh)+lbr):], m2[(lc+lh):])
+	for i, l := 0, 0; i < len(Inp.MoleculeCoordinates.Mol); i++ {
+		mlen := len(Inp.MoleculeCoordinates.Mol[i])
+		copy(coordinates[(2*l):], m1[l:(l+mlen)])
+		copy(coordinates[((2*l)+mlen):], m2[l:(l+mlen)])
+		l += mlen
+	}
 
 	// Convert coordinate matrix into a Coulomb matrix
 	distIJ := Dist(coordinates, Mcut)
@@ -72,12 +67,20 @@ func CoulombIntMatrix(k1, k2, ch1, ch2 int, o1, o2 float64) ([][]float64, bool) 
 
 	// Molecule 1 atoms, Molecule 2 atoms
 	cm := Create2DimArrayFloat(len(m1), len(m1))
-	region := append(SeqInt(0, lc-1, 1),
-		append(SeqInt(2*lc, 2*lc+lh-1, 1), SeqInt(2*(lc+lh), 2*(lc+lh)+lbr-1, 1)...)...)
+	region, l := make([]int, 0, 2*len(m1)), 0
+	for _, v := range Inp.MoleculeCoordinates.Mol {
+		mlen := len(v)
+		region = append(region, SeqInt(2*l, 2*l+mlen-1, 1)...)
+		l += mlen
+	}
+
 	for i, idx := range region {
-		copy(cm[i][0:], minFast[idx][lc:(2*lc)])
-		copy(cm[i][lc:], minFast[idx][(2*lc+lh):(2*(lc+lh))])
-		copy(cm[i][(lc+lh):], minFast[idx][(2*(lc+lh)+lbr):])
+		l := 0
+		for _, v := range Inp.MoleculeCoordinates.Mol {
+			mlen := len(v)
+			copy(cm[i][l:], minFast[idx][(2*l+mlen):(2*(l+mlen))])
+			l += mlen
+		}
 	}
 
 	coords := CoordsGen(k1, k2, ch1, ch2, o1, o2)

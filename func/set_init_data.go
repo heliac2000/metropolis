@@ -190,7 +190,7 @@ func SetInitData(dataDir string) {
 		Character:              character,
 		ChUnique:               chUnique,
 		CharactersOrientations: charactersOrientations,
-		MoleculeCoordinates:    LoadMoleculeCoordinates(dataDir, CCoords, HCoords, BrCoords),
+		MoleculeCoordinates:    LoadMoleculeCoordinates(dataDir),
 	}
 
 	SetZcoulomb()
