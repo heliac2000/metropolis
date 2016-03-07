@@ -34,6 +34,9 @@ testrun t:
 N6e5 N3e5 N1e5 N1e4:
 	@./$(TARGET) -N $(subst N,,$@) > $(TARGET)_$@.log 2>&1 &
 
+NH2_test CH3_test:
+	@./$(TARGET) -N 1e4 -DataDir data_$(subst _test,,$@) > $(TARGET)_$@.log 2>&1 &
+
 ## gccgo
 ##
 GCCGO_FLAGS = -O3 -fno-go-check-divide-zero -fno-go-check-divide-overflow -static-libgo
