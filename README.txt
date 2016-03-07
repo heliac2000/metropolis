@@ -45,6 +45,10 @@ metropolis version 2.0
 
     $ ./metropolis_V2 -N 1e5 -T100,500,35 2>&1 | tee log
 
+  入力データが CH3_data に置かれている場合。
+
+    $ ./metropolis_V2 -N 1e5 -DataDir CH3_data -T100,500,35 2>&1 | tee log
+
 3. 入出力データ
 
 3.1 入力データ
