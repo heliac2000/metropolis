@@ -88,6 +88,12 @@ metropolis version 2.0
     $ ln -s HcoordsAVE.csv Molecule_02.csv
     $ ln -s BrcoordsAVE.csv Molecule_03.csv
 
+  CH3 の様な 2 分子の場合、シンボリックリンクファイルは 2 個になる。
+
+    $ cd data
+    $ ln -s CcoordsAVE.csv Molecule_01.csv
+    $ ln -s HcoordsAVE.csv Molecule_02.csv
+
 - PrecursorUnitCellAxes.csv
   
   Lattice Vectors.
