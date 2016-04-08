@@ -10,7 +10,7 @@ import . "../util"
 
 // R's SVM object
 //
-type XScaleObjct struct {
+type XScaleObject struct {
 	ScaledCenter []float64 `json:"scaled:center"`
 	ScaledScale  []float64 `json:"scaled:scale"`
 }
@@ -26,7 +26,7 @@ type Svm struct {
 	Epsilon        float64
 	Sparse         bool
 	Scaled         []bool
-	XScale         XScaleObjct `json:"x.scale"`
+	XScale         XScaleObject `json:"x.scale"`
 	NClasses       int
 	Levels         []string
 	TotNsv         int `json:"tot.nsv"`
